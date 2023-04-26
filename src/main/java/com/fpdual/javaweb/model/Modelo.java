@@ -1,4 +1,4 @@
 package com.fpdual.javaweb.model;
 
-public class modelo {
+public class Modelo {
 }
