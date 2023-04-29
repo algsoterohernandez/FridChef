@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 
 @Data
-@Builder
+
 public class UserDao {
     private int id;
     private String name, surname1, surname2, email, password;
