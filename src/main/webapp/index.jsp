@@ -1,5 +1,5 @@
 <%@ page language="java" %>
-<%@ page import = "com.fpdual.javaweb.persistence.manager.dao.Ingredient"%>
+<%@ page import="com.fpdual.javaweb.persistence.dao.Ingredient" %>
 <%@ page import="java.util.List" %>
 <% List<Ingredient> ingredients = (List<Ingredient>) request.getAttribute("IngredientList"); %>
 
@@ -11,32 +11,16 @@
 <h1>FridChef! </h1>
 
 <form action="" method="post" target="_blank">
-    <p>En mi nevera tengo...
+    <p>En mi nevera tengo...</p>
+    <label for="ingrediente1">Ingrediente 1:</label>
+    <input list="ingrediente1" id="ingrediente-1" name="frutas">
+    <datalist id="ingrediente1">
+        <% for (Ingredient ingredient : ingredients) { %>
+        <option value="<%= ingredient.getId()%>" label="<%= ingredient.getName()%>"></option>
+                <% } %>
+    </datalist>
 
-    </p>
-    <select name="IngredientList">
-        <option value="">--Seleccione un ingrediente--</option>
-        <% for (Ingredient ingredient : ingredients) { %>
-        <option value="<%= ingredient.getName() %>"><%= ingredient.getName() %>
-        </option>
-        <%}%>
-    </select>
-    <select name="IngredientList">
-        <option value="">--Seleccione un ingrediente--</option>
-        <% for (Ingredient ingredient : ingredients) { %>
-        <option value="<%= ingredient.getName() %>"><%= ingredient.getName() %>
-        </option>
-        <%}%>
-    </select>
-    <select name="IngredientList">
-        <option value="">--Seleccione un ingrediente--</option>
-        <% for (Ingredient ingredient : ingredients) { %>
-        <option value="<%= ingredient.getName() %>"><%= ingredient.getName() %>
-        </option>
-        <%}%>
-    </select>
-    <input type="submit" value="Añadir mas ingredientes">
-    <input type="submit" value="Buscar Recetas">
+    <input type="submit" value="Añadir">
 </form>
 
 </body>

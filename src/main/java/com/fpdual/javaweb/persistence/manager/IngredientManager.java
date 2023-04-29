@@ -1,6 +1,7 @@
-package com.fpdual.javaweb.persistence.manager.dao;
+package com.fpdual.javaweb.persistence.manager;
 
 import com.fpdual.javaweb.persistence.connector.MySQLConnector;
+import com.fpdual.javaweb.persistence.dao.Ingredient;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

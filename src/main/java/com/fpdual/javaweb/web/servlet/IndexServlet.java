@@ -1,7 +1,7 @@
-package com.fpdual.javaweb.servlet;
+package com.fpdual.javaweb.web.servlet;
 
-import com.fpdual.javaweb.persistence.manager.dao.Ingredient;
-import com.fpdual.javaweb.persistence.manager.dao.IngredientManager;
+import com.fpdual.javaweb.persistence.dao.Ingredient;
+import com.fpdual.javaweb.persistence.manager.IngredientManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("")
-public class Index extends HttpServlet {
+public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
