@@ -1,4 +1,4 @@
-package com.fpdual.javaweb.persistence.manager.dao;
+package com.fpdual.javaweb.persistence.dao;
 
 public class Allergen {
     private int id;

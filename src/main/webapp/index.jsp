@@ -1,5 +1,5 @@
 <%@ page language="java" %>
-<%@ page import = "com.fpdual.javaweb.persistence.manager.dao.Ingredient"%>
+<%@ page import = "com.fpdual.javaweb.persistence.dao.Ingredient"%>
 <%@ page import="java.util.List" %>
 <% List<Ingredient> ingredients = (List<Ingredient>) request.getAttribute("IngredientList"); %>
 

@@ -1,4 +1,4 @@
-package com.fpdual.javaweb.persistence.manager.dao;
+package com.fpdual.javaweb.persistence.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
