@@ -12,19 +12,18 @@ import java.sql.SQLException;
 
 public class UserService {
 
-    private MySQLConnector connector;
-    private UserManager userManager;
+    private final MySQLConnector connector;
+    private final UserManager userManager;
 
     public UserService(MySQLConnector connector, UserManager userManager) {
         this.connector = connector;
         this.userManager = userManager;
     }
 
-    public UserDto registerUser(UserDto userDto) throws SQLException, UserAlreadyExistsException{
-        Connection con = null;
+    public UserDto registerUser(UserDto userDto) throws SQLException{
 
-        try {
-            con = connector.getMySQLConnection();
+        try (Connection con = connector.getMySQLConnection()) {
+
             UserDao userDao = this.userManager.insertUser(con, mapToDao(userDto));
             userDto = mapToDto(userDao);
 
@@ -33,17 +32,14 @@ public class UserService {
             userDto.setAlreadyExists(true);
 
         } catch (ClassNotFoundException cnfe) {
-            System.out.println(cnfe);
+            System.out.println(cnfe.getMessage());
 
-        } catch (SQLException sqle) {
-            System.out.println(sqle);
-
-        } finally {
-            if (con != null) {
-                con.close();
-            }
-            return  userDto;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+
+        return userDto;
+
     }
 
     public UserDao mapToDao(UserDto userDto) {
@@ -69,6 +65,7 @@ public class UserService {
         userDto.setSurname2(userDao.getSurname2());
         userDto.setEmail(userDao.getEmail());
         userDto.setPassword(userDao.getPassword());
+        userDto.encryptPassword();
 
         return userDto;
     }
