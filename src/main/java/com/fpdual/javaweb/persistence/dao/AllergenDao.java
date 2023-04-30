@@ -1,6 +1,6 @@
 package com.fpdual.javaweb.persistence.dao;
 
-public class Allergen {
+public class AllergenDao {
     private int id;
     private String name;
 }
