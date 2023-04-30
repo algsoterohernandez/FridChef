@@ -1,6 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
-import com.fpdual.javaweb.persistence.dao.Ingredient;
+import com.fpdual.javaweb.persistence.dao.IngredientDao;
 import com.fpdual.javaweb.persistence.manager.IngredientManager;
 
 import javax.servlet.RequestDispatcher;
@@ -21,7 +21,7 @@ public class IndexServlet extends HttpServlet {
 
         try {
 
-            List<Ingredient> ingredients = new IngredientManager().findAll();
+            List<IngredientDao> ingredients = new IngredientManager().findAll();
             req.setAttribute("IngredientList", ingredients);
 
         } catch (SQLException e) {

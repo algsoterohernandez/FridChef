@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Ingredient {
+public class IngredientDao {
     private int id;
     private String name;
-    private List<Allergen> allergens;
+    private List<AllergenDao> allergens;
 
 
-    public Ingredient(ResultSet result) {
+    public IngredientDao(ResultSet result) {
         try {
             this.id = result.getInt("id");
             this.name = result.getString("name");
@@ -29,7 +29,7 @@ public class Ingredient {
         return name;
     }
 
-    public List<Allergen> getAllergens() {
+    public List<AllergenDao> getAllergens() {
         return allergens;
     }
 }
