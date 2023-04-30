@@ -19,7 +19,7 @@ public class RegisterFormServlet extends HttpServlet {
     private UserService userService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         userService = new UserService(new MySQLConnector(), new UserManager());
     }
 
@@ -37,19 +37,21 @@ public class RegisterFormServlet extends HttpServlet {
             UserDto user = getUserFromRequest(req);
 
             UserDto createdUser = userService.registerUser(user);
-            if(createdUser == null|| createdUser.getId()==0)
+            if(createdUser == null || createdUser.getId()==0 )
             {
                 req.setAttribute("error","No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
             }
             else if (createdUser.isAlreadyExists())
             {
                 req.setAttribute("error","El usuario ya existe en nuestro sistema.");
-            }else{
+            }
+            else
+            {
                 req.setAttribute("success",true);
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             req.setAttribute("error","No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
         }
         req.getRequestDispatcher("/register/registerForm.jsp").forward(req, resp);
