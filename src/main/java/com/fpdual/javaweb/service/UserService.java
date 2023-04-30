@@ -1,5 +1,6 @@
 package com.fpdual.javaweb.service;
 
+import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.persistence.connector.MySQLConnector;
 import com.fpdual.javaweb.persistence.dao.UserDao;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
@@ -19,13 +20,17 @@ public class UserService {
         this.userManager = userManager;
     }
 
-    public UserDto registerUser(UserDto userDto) throws SQLException, ClassNotFoundException {
+    public UserDto registerUser(UserDto userDto) throws SQLException, UserAlreadyExistsException{
         Connection con = null;
 
         try {
             con = connector.getMySQLConnection();
             UserDao userDao = this.userManager.insertUser(con, mapToDao(userDto));
-            return mapToDto(userDao);
+            userDto = mapToDto(userDao);
+
+
+        } catch (UserAlreadyExistsException e) {
+            userDto.setAlreadyExists(true);
 
         } catch (ClassNotFoundException cnfe) {
             System.out.println(cnfe);
@@ -37,8 +42,8 @@ public class UserService {
             if (con != null) {
                 con.close();
             }
+            return  userDto;
         }
-        return null;
     }
 
     public UserDao mapToDao(UserDto userDto) {

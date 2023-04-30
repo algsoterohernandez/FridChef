@@ -1,5 +1,6 @@
 package com.fpdual.javaweb.persistence.manager;
 
+import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.persistence.dao.UserDao;
 
 import java.sql.*;
@@ -8,28 +9,33 @@ import java.util.List;
 
 public class UserManager {
 
-    public UserDao insertUser(Connection con, UserDao user){
+    public UserDao insertUser(Connection con, UserDao user) throws UserAlreadyExistsException{
         try (PreparedStatement stm = con.prepareStatement("INSERT INTO user (name, surname1, surname2, email, password, " +
-                "create_time) VALUES (?,?,?,?,?,?)")) {
+                "create_time) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
 
             stm.setString(1, user.getName());
             stm.setString(2, user.getSurname1());
             stm.setString(3, user.getSurname2());
             stm.setString(4, user.getEmail());
             stm.setString(5, user.getPassword());
-            stm.setDate(6,user.getCreateTime());
+            stm.setDate(6, user.getCreateTime());
 
-            //Si el execute me da problemas puede que tenga que modificar el metodo a void
-            ResultSet result = stm.executeQuery();
 
-            UserDao dbuser = new UserDao(result);
+            stm.executeUpdate();
+            ResultSet result = stm.getGeneratedKeys();
+            result.next();
+            int pk = result.getInt(1);
+            user.setId(pk);
 
-            return dbuser;
+            return user;
 
+        } catch (SQLIntegrityConstraintViolationException sqlicve) {
+            throw new UserAlreadyExistsException("El ususario se ha registrado con anterioridad.");
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
     public List<UserDao> findAll(Connection con) {
