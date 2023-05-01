@@ -8,7 +8,6 @@ import com.fpdual.javaweb.persistence.manager.UserManager;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.SQLException;
 
 public class UserService {
 
@@ -20,7 +19,7 @@ public class UserService {
         this.userManager = userManager;
     }
 
-    public UserDto registerUser(UserDto userDto) throws SQLException{
+    public UserDto registerUser(UserDto userDto){
 
         try (Connection con = connector.getMySQLConnection()) {
 
@@ -31,14 +30,26 @@ public class UserService {
         } catch (UserAlreadyExistsException e) {
             userDto.setAlreadyExists(true);
 
-        } catch (ClassNotFoundException cnfe) {
-            System.out.println(cnfe.getMessage());
-
-        } catch (Exception e) {
+        }  catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         return userDto;
+
+    }
+
+    public boolean unregisterUser(String email) {
+        boolean deleted = false;
+
+        try (Connection con = connector.getMySQLConnection()) {
+
+            deleted = this.userManager.deleteUser(con, email);
+
+        }  catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return deleted;
 
     }
 
