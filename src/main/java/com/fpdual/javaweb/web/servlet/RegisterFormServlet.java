@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "RegisterFormServlet", urlPatterns = {"/servlet-register-form"})
+@WebServlet(name = "RegisterFormServlet", urlPatterns = {"/register-form"})
 public class RegisterFormServlet extends HttpServlet {
     private UserService userService;
 

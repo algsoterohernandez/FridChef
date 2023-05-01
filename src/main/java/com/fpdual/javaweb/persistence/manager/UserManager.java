@@ -32,10 +32,29 @@ public class UserManager {
         } catch (SQLIntegrityConstraintViolationException sqlicve) {
             throw new UserAlreadyExistsException("El ususario se ha registrado con anterioridad.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
 
+    }
+
+    public boolean deleteUser(Connection con, String email){
+        boolean deleted = false;
+
+        try (PreparedStatement stm = con.prepareStatement("DELETE FROM user WHERE EMAIL = ?")) {
+
+
+            stm.setString(1, email);
+
+            int rowsDeleted = stm.executeUpdate();
+
+            deleted = rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return deleted;
     }
 
     public List<UserDao> findAll(Connection con) {
