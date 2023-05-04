@@ -5,7 +5,11 @@ import com.fpdual.javaweb.persistence.connector.MySQLConnector;
 import com.fpdual.javaweb.persistence.dao.UserDao;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import com.fpdual.javaweb.persistence.manager.UserManager;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.Date;
 
@@ -13,13 +17,21 @@ public class UserService {
 
     private final MySQLConnector connector;
     private final UserManager userManager;
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private MessageDigest md5;
 
     public UserService(MySQLConnector connector, UserManager userManager) {
         this.connector = connector;
         this.userManager = userManager;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-    public UserDto registerUser(UserDto userDto){
+    public UserDto registerUser(UserDto userDto) {
 
         try (Connection con = connector.getMySQLConnection()) {
 
@@ -30,7 +42,7 @@ public class UserService {
         } catch (UserAlreadyExistsException e) {
             userDto.setAlreadyExists(true);
 
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -45,13 +57,31 @@ public class UserService {
 
             deleted = this.userManager.deleteUser(con, email);
 
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         return deleted;
 
     }
+
+    public UserDto findUser(String email, String password) {
+        UserDto userDto = null;
+
+        try (Connection con = connector.getMySQLConnection()) {
+
+            UserDao userDao = this.userManager.findByEmailPassword(con, email, password);
+            userDto = mapToDto(userDao);
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return userDto;
+
+    }
+
 
     public UserDao mapToDao(UserDto userDto) {
         UserDao userDao = new UserDao();
@@ -76,9 +106,18 @@ public class UserService {
         userDto.setSurname2(userDao.getSurname2());
         userDto.setEmail(userDao.getEmail());
         userDto.setPassword(userDao.getPassword());
-        userDto.encryptPassword();
 
         return userDto;
+    }
+
+    public String encryptPassword(String password) {
+        md5.update(password.getBytes());
+        byte[] digest = md5.digest();
+        StringBuffer sb = new StringBuffer();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+        return sb.toString();
     }
 
 }

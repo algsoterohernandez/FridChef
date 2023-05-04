@@ -64,9 +64,8 @@ public class RegisterFormServlet extends HttpServlet {
         userDto.setSurname1(req.getParameter("surname1"));
         userDto.setSurname2(req.getParameter("surname2"));
         userDto.setEmail(req.getParameter("email"));
-        userDto.setPassword(req.getParameter("password"));
+        userDto.setPassword(userService.encryptPassword(req.getParameter("password")));
 
-        userDto.encryptPassword();
 
         return userDto;
     }

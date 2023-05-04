@@ -71,14 +71,14 @@ public class UserManager {
             return users;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
     }
 
     public UserDao findById(Connection con, int id) {
 
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM City WHERE ID = ?")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE ID = ?")) {
 
             stm.setInt(1, id);
             ResultSet result = stm.executeQuery();
@@ -97,5 +97,26 @@ public class UserManager {
         }
     }
 
+    public UserDao findByEmailPassword(Connection con, String email, String password) {
+
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE email = ? and password = ?;")) {
+
+            stm.setString(1, email);
+            stm.setString(2, password);
+            ResultSet result = stm.executeQuery();
+            result.beforeFirst();
+
+            UserDao user = null;
+            while (result.next()) {
+                user = new UserDao(result);
+            }
+
+            return user;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
 }
