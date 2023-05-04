@@ -3,6 +3,7 @@ package com.fpdual.javaweb.web.servlet;
 import com.fpdual.javaweb.persistence.connector.MySQLConnector;
 import com.fpdual.javaweb.persistence.manager.UserManager;
 import com.fpdual.javaweb.service.UserService;
+import com.fpdual.javaweb.web.servlet.dto.UserDto;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,25 +20,26 @@ public class UnregisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
-            /* Estas lineas junto con la String email se tendran que reajustar en el login
-            Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
-            if(usuario!=null){
-                resp.sendRedirect("/AplicativoWeb/comun/homePage.jsp");*/
+            if (user != null) {
 
-            String email = req.getParameter("email");
-            boolean deleted = userService.unregisterUser(email);
-            if(deleted){
-                resp.sendRedirect("/login/login.jsp");
-            }/*else{
-                Pending
-            }*/
+                boolean deleted = userService.unregisterUser(user.getEmail());
+                if (deleted) {
+                    resp.sendRedirect("/FridChef/home");
+                }else{
+                   // Pending ventana alert
+                }
+            }
+            else{
+                //El usuario no esta logueado
+            }
 
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
-}
