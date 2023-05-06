@@ -1,5 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
+import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.persistence.connector.MySQLConnector;
 import com.fpdual.javaweb.persistence.manager.UserManager;
 import com.fpdual.javaweb.service.UserService;
@@ -20,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-        userService = new UserService(new MySQLConnector(), new UserManager());
+        userService = new UserService(new FridChefApiClient());
     }
 
     @Override
