@@ -53,6 +53,12 @@
             <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Dependencia para los Jakarta WebApi -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
