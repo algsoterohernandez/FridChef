@@ -1,6 +1,5 @@
 package com.fpdual.javaweb.persistence.dao;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Date;
