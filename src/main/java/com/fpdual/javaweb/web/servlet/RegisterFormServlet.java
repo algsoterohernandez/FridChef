@@ -2,8 +2,6 @@ package com.fpdual.javaweb.web.servlet;
 
 
 import com.fpdual.javaweb.client.FridChefApiClient;
-import com.fpdual.javaweb.persistence.connector.MySQLConnector;
-import com.fpdual.javaweb.persistence.manager.UserManager;
 import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
@@ -39,22 +37,18 @@ public class RegisterFormServlet extends HttpServlet {
             UserDto user = getUserFromRequest(req);
 
             UserDto createdUser = userService.registerUser(user);
-            if(createdUser == null || createdUser.getId()==0 )
-            {
-                req.setAttribute("error","No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
-            }
-            else if (createdUser.isAlreadyExists())
-            {
-                req.setAttribute("error","El usuario ya existe en nuestro sistema.");
-            }
-            else
-            {
-                req.setAttribute("success",true);
+
+            if (createdUser != null && createdUser.isAlreadyExists()) {
+                req.setAttribute("error", "El usuario ya existe en nuestro sistema.");
+            } else if (createdUser == null || createdUser.getId() == 0) {
+                req.setAttribute("error", "No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
+            } else {
+                req.setAttribute("success", true);
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            req.setAttribute("error","No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
+            req.setAttribute("error", "No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
         }
         req.getRequestDispatcher("/register/registerForm.jsp").forward(req, resp);
     }
