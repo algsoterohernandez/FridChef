@@ -7,11 +7,14 @@
 
 <html>
 <head>
-    <title>Hola Mundo!</title>
+    <meta charset="UTF-8">
+    <title>FridChef</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="js/buscador.js" defer></script>
 </head>
 <body>
-<h1>FridChef! </h1>
+<h1>FridChef</h1>
 
 <p>En mi nevera tengo...</p>
 
