@@ -11,7 +11,11 @@ import java.sql.SQLException;
 
 public class UserDao {
     private int id;
-    private String name, surname1, surname2, email, password;
+    private String name;
+    private String surname1;
+    private String surname2;
+    private String email;
+    private String password;
     private Date createTime;
 
     public UserDao() {

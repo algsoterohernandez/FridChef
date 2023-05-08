@@ -1,7 +1,6 @@
 package com.fpdual.javaweb.persistence.dao;
 
-public class RoleDao {
-
+public class CategoryDao {
     private int id;
-    private String description;
+    private String name;
 }
