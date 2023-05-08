@@ -1,8 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
-import com.fpdual.javaweb.persistence.connector.MySQLConnector;
-import com.fpdual.javaweb.persistence.manager.UserManager;
 import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.annotation.WebServlet;

@@ -1,8 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
-import com.fpdual.javaweb.persistence.connector.MySQLConnector;
-import com.fpdual.javaweb.persistence.manager.UserManager;
 import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
@@ -32,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDto searchUser = null;
+        UserDto searchUser;
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");

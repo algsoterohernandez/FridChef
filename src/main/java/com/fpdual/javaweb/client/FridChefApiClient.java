@@ -1,5 +1,7 @@
 package com.fpdual.javaweb.client;
 
+import com.fpdual.javaweb.exceptions.ExternalErrorException;
+import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -14,10 +16,10 @@ public class FridChefApiClient {
 
     public FridChefApiClient() {
         Client client = ClientBuilder.newClient();
-        this.webTarget = client.target("http://localhost:8080/FridChefWebService/webapi");
+        this.webTarget = client.target("http://localhost:8081/FridChefWebService/webapi");
     }
 
-    public UserDto createUser(UserDto userDto) {
+    public UserDto createUser(UserDto userDto) throws UserAlreadyExistsException, ExternalErrorException {
 
         UserDto rs = null;
         Response response = webTarget.path("user/create")
@@ -27,9 +29,9 @@ public class FridChefApiClient {
         if (response.getStatus() == 200) {
             rs = response.readEntity(UserDto.class);
         } else if (response.getStatus() == 304) {
-            var a = 3;
+            throw new UserAlreadyExistsException("El usuario ya existe en el sistema.");
         } else {
-            var b = 3;
+            throw new ExternalErrorException("Ha ocurrido un error");
         }
         return rs;
     }
@@ -44,14 +46,15 @@ public class FridChefApiClient {
 
         if (response.getStatus() == 200) {
             deleted = response.readEntity(boolean.class);
+
         } else if (response.getStatus() == 500) {
             deleted = false;
         }
         return deleted;
     }
 
-    public UserDto findUser(String email, String password) {
-        UserDto rs = null;
+    public UserDto findUser(String email, String password) throws ExternalErrorException {
+        UserDto rs;
         UserDto rq = new UserDto();
         rq.setEmail(email);
         rq.setPassword(password);
@@ -65,7 +68,7 @@ public class FridChefApiClient {
         } else if (response.getStatus() == 204) {
             rs = null;
         } else {
-            var b = 3;
+            throw new ExternalErrorException("Ha ocurrido un error");
         }
         return rs;
     }
