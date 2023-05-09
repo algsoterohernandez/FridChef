@@ -14,7 +14,9 @@ optionInput.addEventListener('keydown', (event) => {
         addOption(event);
     }
 });
-searchButton.addEventListener('click', search);
+
+searchButton.addEventListener('click', search)
+
 
 function addOption(event) {
     event.preventDefault();
@@ -29,6 +31,7 @@ function addOption(event) {
 
         // Comprobar si el ingrediente ya está agregado
         if (addedOptions.includes(optionValue)) {
+            optionInput.value = '';
             return;
         }
 

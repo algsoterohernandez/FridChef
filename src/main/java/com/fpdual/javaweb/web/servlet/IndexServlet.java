@@ -1,7 +1,7 @@
 package com.fpdual.javaweb.web.servlet;
 
-import com.fpdual.javaweb.persistence.dao.IngredientDao;
-import com.fpdual.javaweb.persistence.manager.IngredientManager;
+import com.fpdual.javaweb.service.IngredientService;
+import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,25 +11,23 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "IndexServlet", urlPatterns = {"/home", ""})
 public class IndexServlet extends HttpServlet {
 
+    private IngredientService ingredientService;
+
+    @Override
+    public void init() {
+        ingredientService = new IngredientService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        try {
-
-            List<IngredientDao> ingredients = new IngredientManager().findAll();
-            req.setAttribute("IngredientList", ingredients);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        List<IngredientDto> ingredients =  ingredientService.findAllIngredients();
+        req.setAttribute("IngredientList", ingredients);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
         dispatcher.forward(req, resp);

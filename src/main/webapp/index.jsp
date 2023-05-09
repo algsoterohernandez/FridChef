@@ -1,9 +1,8 @@
 <%@ page language="java" %>
 
-<%@ page import="com.fpdual.javaweb.persistence.dao.IngredientDao" %>
-
 <%@ page import="java.util.List" %>
-<% List<IngredientDao> ingredients = (List<IngredientDao>) request.getAttribute("IngredientList"); %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
+<% List<IngredientDto> ingredients = (List< IngredientDto>) request.getAttribute("IngredientList"); %>
 
 <html>
 <head>
@@ -27,7 +26,7 @@
  <label for="add-ingredient">Ingrediente:</label>
     <input list="ingrediente1" id="add-ingredient" name="ingredientes">
     <datalist id="ingrediente1">
-        <% for (IngredientDao ingredient : ingredients) { %>
+        <% for (IngredientDto ingredient : ingredients) { %>
         <option value="<%= ingredient.getName()%>"></option>
         <% } %>
     </datalist>
