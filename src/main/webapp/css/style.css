@@ -1,98 +1,175 @@
-header {
-    background-color: #3D9970;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-/* Estilos para el cuerpo de la página */
+/* Estilos generales */
+
 body {
+    background-color: cornflowerblue;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
 }
 
-/* Estilos para el encabezado */
 h1 {
+    font-size: 36px;
+    margin: 0;
+    padding: 1rem;
     text-align: center;
-    font-size: 2.5rem;
-    color: #3f51b5;
-    margin: 1rem 0;
 }
 
-/* Estilos para los párrafos */
 p {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 0.5rem 0;
+    margin: 0;
+    padding: 1rem;
 }
 
-/* Estilos para los formularios */
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
+
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1rem;
+}
+/*Menu*/
+header {
+    margin-top: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #fff;
-    padding: 2rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+
 }
 
-/* Estilos para las etiquetas de los campos */
-label {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 1rem 0 0.5rem 0;
+nav {
+    display: flex;
+    justify-content: center;
 }
 
-/* Estilos para los campos de entrada */
-input {
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 0.2rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
 }
 
-/* Estilos para los botones */
-button {
-    padding: 0.5rem 1rem;
-    margin: 1rem 0;
-    font-size: 1.2rem;
-    background-color: #3f51b5;
-    color: #fff;
-    border: none;
-    border-radius: 0.2rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+
+li {
+    margin: 0 1rem;
 }
 
-/* Estilos para los botones al pasar el ratón */
-button:hover {
-    background-color: #303f9f;
+a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+    transition: background-color 0.2s ease-in-out;
 }
 
-/* Estilos para el contenedor de ingredientes */
+a:hover {
+    background-color: #eee;
+}
+/*logo*/
+
+/* Estilos del buscador */
+
 #ingredients-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: 1rem 0;
 }
 
-/* Estilos para cada ingrediente */
-.ingredient {
-    padding: 0.5rem;
+.ingredient-item {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
     margin: 0.5rem;
-    font-size: 1.2rem;
-    background-color: #f5f5f5;
-    color: #555;
-    border-radius: 0.2rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
 }
+
+.ingredient-item span {
+    margin-right: 0.5rem;
+}
+
+.ingredient-item button {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.ingredient-item button:focus {
+    outline: none;
+}
+
+#add-ingredient-button,
+#search-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+#add-ingredient-button:hover,
+#search-button:hover {
+    opacity: 0.8;
+}
+
+#add-ingredient-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#add-ingredient,
+#search-input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+#search-input {
+    width: 100%;
+}
+
+#ingredients-label {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+#search-label {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+#delete-icon {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    color: #ff0000;
+    cursor: pointer;
+}
+
+#delete-icon:hover {
+    opacity: 0.8;
+}
+
+/* Estilos específicos para el formulario de la página */
+
+
+#add-ingredient-button {
+    display: inline-block;
+}
+
+#delete-icon {
+    display: inline-block;
+}
+
+
 .login {
     width: 300px;
     margin: 0 auto;

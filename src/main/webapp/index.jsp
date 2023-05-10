@@ -13,6 +13,18 @@
     <script src="js/buscador.js" defer></script>
 </head>
 <body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Recetas</a></li>
+            <li><a href="#">recetas favoritas</a></li>
+            <li><a href="#">Agregar recetas</a></li>
+            <li><a href="#">login</a></li>
+        </ul>
+    </nav>
+</header>
+
 <h1>FridChef</h1>
 
 <p>En mi nevera tengo...</p>
