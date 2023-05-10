@@ -17,12 +17,11 @@
 
 <p>En mi nevera tengo...</p>
 
-<form action="" method="post" target="_blank">
-</form>
+
 
 <p></p>
 
-<form>
+
  <label for="add-ingredient">Ingrediente:</label>
     <input list="ingrediente1" id="add-ingredient" name="ingredientes">
     <datalist id="ingrediente1">
@@ -36,6 +35,9 @@
     <div id="ingredients-container"></div>
 
     <button type="button" id="search-button">Buscar</button>
+
+<form action="search" method="post" >
 </form>
+
 </body>
 </html>

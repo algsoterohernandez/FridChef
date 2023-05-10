@@ -3,6 +3,8 @@ package com.fpdual.javaweb.client;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
+import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
+import com.fpdual.javaweb.web.servlet.dto.RecipeFilterDto;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -90,5 +92,26 @@ public class FridChefApiClient {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return rs;
+    }
+
+    public List<RecipeDto> findByIngredients(List<String> ingredientsList) throws ExternalErrorException {
+        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
+        recipeFilterDto.setIngredients(ingredientsList);
+        List<RecipeDto> recipeDtoList = null;
+
+        Response response = webTarget.path("recipes/findbyingredients")
+                .request(MediaType.APPLICATION_JSON)
+                .post(entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() == 200) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
+        } else if (response.getStatus() == 204) {
+            recipeDtoList = null;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return recipeDtoList;
+
     }
 }
