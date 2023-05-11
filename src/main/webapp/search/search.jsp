@@ -1,16 +1,35 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Asun
-  Date: 10/05/2023
-  Time: 16:32
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
+<%
+    List<RecipeDto> recipesList = (List< RecipeDto>) request.getAttribute("recipes"); %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Lista de recetas</title>
 </head>
 <body>
-<h1>Algo ha salido mal</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Dificultad</th>
+        <th>Tiempo de preparación</th>
+
+<%--        <th>Image</th>--%>
+    </tr>
+    </thead>
+    <tbody>
+    <% for (RecipeDto recipe : recipesList) { %>
+    <tr>
+        <td><%= recipe.getName() %></td>
+        <td><%= recipe.getDescription() %></td>
+        <td><%= recipe.getDifficulty() %></td>
+        <td><%= recipe.getTime() %> <%= recipe.getUnit_time() %></td>
+
+<%--        <td><img src="data:image/jpeg;base64,<%= recipe.getImage() %>" /></td>--%>
+    </tr>
+    <% } %>
+    </tbody>
+</table>
 </body>
 </html>

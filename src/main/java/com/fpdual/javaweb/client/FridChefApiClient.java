@@ -106,8 +106,6 @@ public class FridChefApiClient {
         if (response.getStatus() == 200) {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
             });
-        } else if (response.getStatus() == 204) {
-            recipeDtoList = null;
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }

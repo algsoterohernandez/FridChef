@@ -15,7 +15,6 @@ import java.util.List;
 
 @WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
 public class SearchServlet extends HttpServlet {
-
     private IngredientService ingredientService;
 
     @Override
@@ -49,5 +48,4 @@ public class SearchServlet extends HttpServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
         dispatcher.forward(req, resp);
     }
-
 }
