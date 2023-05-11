@@ -69,8 +69,17 @@ function search() {
         alert('Se necesitan al menos 3 opciones para realizar la búsqueda.');
         return;
     }
-    const searchInput = document.getElementById('search-input');
-    const searchValue = searchInput.value.trim();
-    // Realizar la búsqueda con las opciones seleccionadas
-    console.log('Búsqueda con opciones:', options, 'y valor de búsqueda:', searchValue);
+
+    for (let i = 0; i < addedOptions.length; i++) {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', 'ingredientes[]'); // nombre del parámetro que se enviará
+        input.setAttribute('value', addedOptions[i]);
+
+        form.appendChild(input);
+    }
+    // Enviar el formulario
+    form.submit();
+
+
 }
