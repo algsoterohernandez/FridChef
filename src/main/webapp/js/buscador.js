@@ -5,7 +5,7 @@ const optionInput = document.getElementById('add-ingredient');
 const addOptionButton = document.getElementById('add-ingredient-button');
 const optionsContainer = document.getElementById('ingredients-container');
 const searchButton = document.getElementById('search-button');
-const form = document.querySelector('form');
+const form = document.getElementById('form');
 const addedOptions = [];
 
 addOptionButton.addEventListener('click', addOption);
@@ -45,7 +45,7 @@ function addOption(event) {
         // Agregar un botón para eliminar la opción
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
-        const buttonText = document.createTextNode('Eliminar');
+        const buttonText = document.createTextNode('X');
         deleteButton.appendChild(buttonText);
         option.appendChild(deleteButton);
 
