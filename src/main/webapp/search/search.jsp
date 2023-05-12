@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="css/pruebaasun.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="js/buscador.js" defer></script>
 </head>
