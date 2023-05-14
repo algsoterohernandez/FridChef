@@ -41,7 +41,7 @@ public class UserServiceTest {
     public void testUserServiceConstructor() {
 
         UserService userService = new UserService(apiClient);
-        assertTrue(userService != null);
+        assertNotNull(userService);
 
     }
 
@@ -55,7 +55,8 @@ public class UserServiceTest {
         UserDto userDtoRs = userService.registerUser(exampleUserDto);
 
         //Asserts
-        assertTrue(userDtoRs != null && userDtoRs.getName().equals("example"));
+        assertNotNull(userDtoRs);
+        assertTrue(userDtoRs.getName().equals("example"));
 
     }
 
@@ -69,7 +70,8 @@ public class UserServiceTest {
         UserDto userDtoRs = userService.registerUser(exampleUserDto);
 
         //Asserts
-        assertTrue(userDtoRs != null && userDtoRs.isAlreadyExists());
+        assertNotNull(userDtoRs);
+        assertTrue(userDtoRs.isAlreadyExists());
 
     }
 
@@ -137,7 +139,8 @@ public class UserServiceTest {
         UserDto userDtoRs = userService.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
 
         //Asserts
-        assertTrue(userDtoRs != null && userDtoRs.getEmail().equals("example@a.com") &&
+        assertNotNull(userDtoRs);
+        assertTrue(userDtoRs.getEmail().equals("example@a.com") &&
                 userDtoRs.getPassword().equals("example"));
 
     }
@@ -164,7 +167,8 @@ public class UserServiceTest {
         String rs = userService.encryptPassword("example123");
 
         //Asserts
-        assertTrue(rs != null && rs.equals("7df065c23f49f57077f9113611d6d877"));
+        assertNotNull(rs);
+        assertTrue(rs.equals("7df065c23f49f57077f9113611d6d877"));
 
     }
 

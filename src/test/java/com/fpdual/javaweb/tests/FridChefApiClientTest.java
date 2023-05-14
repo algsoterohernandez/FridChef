@@ -12,8 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -49,7 +48,7 @@ public class FridChefApiClientTest {
         UserDto userDtoRs = fridChefApiClient.createUser(exampleUserDto);
 
         //Asserts
-        assertTrue( userDtoRs != null);
+        assertNotNull(userDtoRs);
 
 
     }
@@ -64,7 +63,7 @@ public class FridChefApiClientTest {
         UserDto userDtoRs = fridChefApiClient.createUser(exampleUserDto);
 
         //Asserts
-        assertTrue( userDtoRs != null);
+        assertNotNull(userDtoRs);
     }
 
     @Test
@@ -89,7 +88,7 @@ public class FridChefApiClientTest {
         boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
 
         //Asserts
-        assertTrue( deleted);
+        assertTrue(deleted);
     }
 
     @Test
@@ -102,7 +101,7 @@ public class FridChefApiClientTest {
         boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
 
         //Asserts
-        assertTrue( !deleted);
+        assertTrue(!deleted);
 
     }
 
@@ -116,8 +115,8 @@ public class FridChefApiClientTest {
         UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
 
         //Asserts
-        assertTrue( userDtoRs != null &&
-                userDtoRs.getEmail().equals("example@a.com") && userDtoRs.getPassword().equals("example"));
+        assertNotNull(userDtoRs);
+        assertTrue(userDtoRs.getEmail().equals("example@a.com") && userDtoRs.getPassword().equals("example"));
 
     }
 
@@ -131,7 +130,7 @@ public class FridChefApiClientTest {
         UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
 
         //Asserts
-        assertTrue( userDtoRs==null);
+        assertNotNull(userDtoRs);
 
 
     }
