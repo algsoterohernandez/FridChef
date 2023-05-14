@@ -26,7 +26,7 @@ public class UserService {
         }
     }
 
-    public UserDto registerUser(UserDto userDto) {
+    public UserDto registerUser(UserDto userDto) throws ExternalErrorException {
 
         try {
             userDto = apiClient.createUser(userDto);
@@ -38,30 +38,29 @@ public class UserService {
 
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw eee;
         }
 
         return userDto;
 
     }
 
-    public boolean unregisterUser(String email) {
-        boolean deleted = false;
+    public boolean unregisterUser(String email) throws Exception{
+        boolean deleted;
 
         try {
             deleted = apiClient.deleteUser(email);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            throw e;
         }
 
         return deleted;
 
     }
 
-    public UserDto findUser(String email, String password) {
+    public UserDto findUser(String email, String password) throws Exception{
         UserDto userDto = null;
 
         try {
@@ -69,9 +68,7 @@ public class UserService {
 
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw eee;
         }
 
         return userDto;
