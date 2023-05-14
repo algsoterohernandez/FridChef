@@ -28,13 +28,10 @@ public class UnregisterServlet extends HttpServlet {
 
                 boolean deleted = userService.unregisterUser(user.getEmail());
                 if (deleted) {
-                    resp.sendRedirect("/FridChef/home");
+                    resp.sendRedirect("/FridChef/home?userDeleted=true");
                 }else{
                    // Pending ventana alert
                 }
-            }
-            else{
-                //El usuario no esta logueado
             }
 
             }catch(Exception e){

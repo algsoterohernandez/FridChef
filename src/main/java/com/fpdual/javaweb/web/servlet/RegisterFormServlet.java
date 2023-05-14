@@ -33,6 +33,7 @@ public class RegisterFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        boolean succeeded = false;
         try {
             UserDto user = getUserFromRequest(req);
 
@@ -43,14 +44,18 @@ public class RegisterFormServlet extends HttpServlet {
             } else if (createdUser == null || createdUser.getId() == 0) {
                 req.setAttribute("error", "No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
             } else {
-                req.setAttribute("success", true);
+                resp.sendRedirect("/FridChef/home?userRegistered=true");
+                succeeded = true;
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
             req.setAttribute("error", "No se ha podido crear el usuario. Vuelva a intentarlo más tarde.");
         }
-        req.getRequestDispatcher("/register/registerForm.jsp").forward(req, resp);
+
+        if(!succeeded){
+            req.getRequestDispatcher("/register/registerForm.jsp").forward(req, resp);
+        }
     }
 
     private UserDto getUserFromRequest(HttpServletRequest req) {
