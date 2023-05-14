@@ -5,6 +5,7 @@ import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
@@ -21,13 +22,15 @@ public class FridChefApiClient {
         Client client = ClientBuilder.newClient();
         this.webTarget = client.target("http://localhost:8081/FridChefWebService/webapi");
     }
+    public FridChefApiClient(WebTarget webTarget){
+        this.webTarget = webTarget;
+    }
 
     public UserDto createUser(UserDto userDto) throws UserAlreadyExistsException, ExternalErrorException {
 
         UserDto rs = null;
-        Response response = webTarget.path("user/create")
-                .request(MediaType.APPLICATION_JSON)
-                .post(entity(userDto, MediaType.APPLICATION_JSON));
+        Invocation.Builder builder = webTarget.path("user/create").request(MediaType.APPLICATION_JSON);
+        Response response = builder.post(entity(userDto, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == 200) {
             rs = response.readEntity(UserDto.class);
@@ -39,7 +42,7 @@ public class FridChefApiClient {
         return rs;
     }
 
-    public boolean deleteUser(String email) {
+    public boolean deleteUser(String email) throws Exception{
         boolean deleted = false;
 
         String path = "user/delete/".concat(email);
@@ -68,6 +71,7 @@ public class FridChefApiClient {
 
         if (response.getStatus() == 200) {
             rs = response.readEntity(UserDto.class);
+
         } else if (response.getStatus() == 204) {
             rs = null;
         } else {
