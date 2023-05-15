@@ -22,6 +22,7 @@ div.content {
     width: 80%;
     font-family: Ubuntu;
     font-size: 14px;
+    box-shadow: 5px 5px 15px  15px gray;
 }
 
 div.header {
@@ -50,7 +51,7 @@ div.menu a:link {
 }
 
 div.menu a:hover {
-    color: khaki;
+    color: #3b89f1;
     background: #ffffff;
 }
 
@@ -279,17 +280,21 @@ div.search {
 div.ingredients-container {
     border: 1px solid #000;
     background-color: #fff;
-    width: 30%;
-    height: 15%;
+    width: 40%;
+    height: 10%;
 }
 div.recipes-list {
+    background-color: #8cafee;
     border: 1px solid #000;
     width: 40%;
+    box-shadow: 5px 5px 15px #193669;
 }
 
 div.recipe-suggestions {
+    background-color: #8cafee;
     border: 1px solid #000;
     width: 40%;
+    box-shadow: 5px 5px 15px #193669;
 }
 
 div.allergen-list {

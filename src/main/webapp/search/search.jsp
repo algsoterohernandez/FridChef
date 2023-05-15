@@ -76,26 +76,28 @@
                 <button type="submit">Filtrar</button>
             </form>
         </div>
+
+        <% } %>
+        <% if (recipeSuggestions.isEmpty()) { %>
+        <p>No se han encontrado recetas sugeridas</p>
+        <% } else { %>
+        <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
+
         <div class="recipe-suggestions">
-            <% } %>
-            <% if (recipeSuggestions.isEmpty()) { %>
-            <p>No se han encontrado recetas sugeridas</p>
-            <% } else { %>
-            <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
-            <div class="recipe">
-                <h3><%= recipeSuggestion.getName() %>
-                </h3>
-                <p><span>Descripción:</span> <%= recipeSuggestion.getDescription() %>
-                </p>
-                <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %>
-                </p>
-                <p>
-                    <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnit_time() %>
-                </p>
-            </div>
-            <% } %>
-            <% } %>
+            <h3><%= recipeSuggestion.getName() %>
+            </h3>
+            <p><span>Descripción:</span> <%= recipeSuggestion.getDescription() %>
+            </p>
+            <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %>
+            </p>
+            <p>
+                <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnit_time() %>
+            </p>
         </div>
+        <p></p>
+        <% } %>
+        <% } %>
+
         <%@ include file="../footer/footer.jsp" %>
     </div>
 </div>
