@@ -72,7 +72,7 @@ function search() {
 
     for (let i = 0; i < addedOptions.length; i++) {
         const input = document.createElement('input');
-        input.setAttribute('type', 'text');
+        input.setAttribute('type', 'hidden');
         input.setAttribute('name', 'ingredientes[]'); // nombre del parámetro que se enviará
         input.setAttribute('value', addedOptions[i]);
 

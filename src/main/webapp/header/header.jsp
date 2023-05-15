@@ -4,7 +4,8 @@
     Object userRegistered = request.getAttribute("userRegistered");
 %>
 <div class="header">
-
+    <p>FridChefLogo Aquí</p>
+</div>
     <div class="menu">
         <a href="/FridChef">Inicio</a>
         <a href="#">Recetas</a>
@@ -21,6 +22,3 @@
     <% if (userRegistered != null) { %>
         <script> alert("Bienvenido a fridchef"); </script>
     <% } %>
-
-
-</div>

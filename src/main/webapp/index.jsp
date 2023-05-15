@@ -1,5 +1,5 @@
 <%@ page language="java" %>
-
+<%@ page pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
 <% List<IngredientDto> ingredients = (List<IngredientDto>) request.getAttribute("IngredientList"); %>

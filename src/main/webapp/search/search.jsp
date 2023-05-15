@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.AllergenDto" %>
@@ -20,16 +21,7 @@
 </head>
 <body>
 <div class="content">
-    <div class="cabecera">
-
-    </div>
-    <div class="menu">
-        <a href="/FridChef">Inicio</a>
-        <a href="#">Recetas</a>
-        <a href="#">recetas favoritas</a>
-        <a href="#">Agregar recetas</a>
-        <a href="/FridChef/login">login</a>
-    </div>
+    <%@ include file="../header/header.jsp" %>
     <div class="contprincipal">
         <div class="buscador">
             <h2>En mi nevera tengo...</h2>
@@ -55,7 +47,7 @@
         <p>No se han encontrado recetas con estos ingredientes</p>
         <% } else { %>
         <% for (RecipeDto recipe : recipesList) { %>
-        <div class="recipe">
+        <div class="recipes-list">
             <h3><%= recipe.getName() %>
             </h3>
             <p><span>Descripción:</span> <%= recipe.getDescription() %>
@@ -70,61 +62,42 @@
         <% if (recipesList.isEmpty()) { %>
         <p>Prueba con otros ingredientes!</p>
         <% } else { %>
-        <div class="suggestions">
-            <p>Con algunos ingredientes más, podrías cocinar todo esto!</p>
+
+        <p>Con algunos ingredientes más, podrías cocinar todo esto!</p>
+        <div class="allergen-list">
             <form action="procesar_opcion" method="post">
-                <label for="opciones">Selecciona una opción:</label>
+                <label for="opciones">Filtra tus recetas por alérgenos:</label>
                 <select id="opciones" name="opciones">
                     <% for (AllergenDto allergenDto : allergenDtoList) { %>
-                    <option value="<% allergenDto.getId();%>"><% allergenDto.getId();%></option>
+                    <option value="<%= allergenDto.getId()%>"><%= allergenDto.getName()%>
+                    </option>
                     <% } %>
                 </select>
                 <button type="submit">Filtrar</button>
             </form>
         </div>
-        <% } %>
-        <% if (recipeSuggestions.isEmpty()) { %>
-        <p>No se han encontrado recetas sugeridas</p>
-        <% } else { %>
-        <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
-        <div class="recipe">
-            <h3><%= recipeSuggestion.getName() %>
-            </h3>
-            <p><span>Descripción:</span> <%= recipeSuggestion.getDescription() %>
-            </p>
-            <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %>
-            </p>
-            <p><span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnit_time() %>
-            </p>
+        <div class="recipe-suggestions">
+            <% } %>
+            <% if (recipeSuggestions.isEmpty()) { %>
+            <p>No se han encontrado recetas sugeridas</p>
+            <% } else { %>
+            <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
+            <div class="recipe">
+                <h3><%= recipeSuggestion.getName() %>
+                </h3>
+                <p><span>Descripción:</span> <%= recipeSuggestion.getDescription() %>
+                </p>
+                <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %>
+                </p>
+                <p>
+                    <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnit_time() %>
+                </p>
+            </div>
+            <% } %>
+            <% } %>
         </div>
-        <% } %>
-        <% } %>
-        </div>
-
+        <%@ include file="../footer/footer.jsp" %>
     </div>
-    <%-- fin contenedor principal--%>
-</div>
-
-<div class="pie">
-    <table class="table-pie">
-        <tr>
-            <td>
-                <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            </td>
-            <td>
-                <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-square-twitter"></i></a>
-            </td>
-            <td>
-                <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                ¡Síguenos!
-            </td>
-        </tr>
-    </table>
-</div>
 </div>
 </body>
 </html>
