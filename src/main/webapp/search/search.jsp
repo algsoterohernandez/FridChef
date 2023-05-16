@@ -3,8 +3,7 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.AllergenDto" %>
-<%
-    List<RecipeDto> recipesList = (List<RecipeDto>) request.getAttribute("recipes");%>
+<% List<RecipeDto> recipesList = (List<RecipeDto>) request.getAttribute("recipes");%>
 <% List<IngredientDto> ingredients = (List<IngredientDto>) request.getAttribute("IngredientList"); %>
 <% List<AllergenDto> allergenDtoList = (List<AllergenDto>) request.getAttribute("AllergenDtoList"); %>
 <% List<RecipeDto> recipeSuggestions = (List<RecipeDto>) request.getAttribute("recipeSuggestions"); %>
@@ -48,8 +47,10 @@
         <% } else { %>
         <% for (RecipeDto recipe : recipesList) { %>
         <div class="recipes-list">
-            <h3><%= recipe.getName() %>
-            </h3>
+            <h3><%= recipe.getName() %></h3>
+            <% for (IngredientDto ingredient : recipe.getIngredients()) { %>
+            <span><%=ingredient.getName()%></span>
+            <% } %>
             <p><span>Descripción:</span> <%= recipe.getDescription() %>
             </p>
             <p><span>Dificultad:</span> <%= recipe.getDifficulty() %>

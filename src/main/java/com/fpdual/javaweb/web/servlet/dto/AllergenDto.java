@@ -9,6 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
+@Data
 public class AllergenDto {
     private int id;
     private String name;

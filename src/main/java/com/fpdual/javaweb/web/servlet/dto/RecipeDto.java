@@ -4,14 +4,16 @@ import lombok.*;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Builder
-
+@Data
 public class RecipeDto {
     private int id;
     private String name;
@@ -22,15 +24,5 @@ public class RecipeDto {
     private int id_category;
     private Date create_time;
     private Blob image;
-
-    public RecipeDto() {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.difficulty = difficulty;
-        this.time = time;
-        this.unit_time = unit_time;
-        this.id_category = id_category;
-        this.create_time = create_time;
-    }
+    private List<IngredientDto> ingredients;
 }
