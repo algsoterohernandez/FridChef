@@ -60,10 +60,6 @@
         </div>
         <% } %>
         <% } %>
-        <% if (recipesList.isEmpty()) { %>
-        <p>Prueba con otros ingredientes!</p>
-        <% } else { %>
-
         <p>Con algunos ingredientes más, podrías cocinar todo esto!</p>
         <div class="allergen-list">
             <form action="procesar_opcion" method="post">
@@ -77,8 +73,6 @@
                 <button type="submit">Filtrar</button>
             </form>
         </div>
-
-        <% } %>
         <% if (recipeSuggestions.isEmpty()) { %>
         <p>No se han encontrado recetas sugeridas</p>
         <% } else { %>
