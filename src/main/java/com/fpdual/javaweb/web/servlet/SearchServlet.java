@@ -1,5 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
+import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.AllergenService;
 import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
@@ -29,7 +30,7 @@ public class SearchServlet extends HttpServlet {
     public void init() {
         ingredientService = new IngredientService();
         allergenService = new AllergenService();
-        recipeService = new RecipeService();
+        recipeService = new RecipeService(new FridChefApiClient());
     }
 
     @Override
