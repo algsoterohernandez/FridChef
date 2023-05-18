@@ -18,17 +18,13 @@ public class RecipeDto {
     private int id;
     private String name;
     private String description;
-
-    private int timeH;
-
-    private int timeM;
     private int difficulty;
+    private int time;
+    private String unit_time;
     private int id_category;
     private Date create_time;
-
-    private boolean status;
-
+    private Blob image;
     private List<IngredientDto> ingredients;
-
     private List<IngredientRecipeDto> ingredientsRecipe;
+
 }

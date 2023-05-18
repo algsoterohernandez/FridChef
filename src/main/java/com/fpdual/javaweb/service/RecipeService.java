@@ -26,6 +26,4 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
-
-
 }
