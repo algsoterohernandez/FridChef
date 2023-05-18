@@ -2,6 +2,7 @@ package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.UserService;
+import com.fpdual.javaweb.util.Utils;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,10 +17,12 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
     private UserService userService;
+    private Utils utils;
 
     @Override
     public void init() {
         userService = new UserService(new FridChefApiClient());
+        utils = new Utils();
     }
 
     @Override
@@ -34,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-            searchUser = userService.findUser(email, userService.encryptPassword(password));
+            searchUser = userService.findUser(email, utils.encryptPassword(password));
 
             if (searchUser == null || searchUser.getEmail() == null) {
                 req.setAttribute("error", "Email o contraseña incorrecto.");
@@ -55,5 +58,4 @@ public class LoginServlet extends HttpServlet {
         }
 
     }
-
 }
