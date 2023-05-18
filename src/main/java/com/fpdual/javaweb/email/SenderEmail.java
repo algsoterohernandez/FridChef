@@ -23,25 +23,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Sender {
+@Setter
+@Getter
 
-    @Setter
-    @Getter
+public class SenderEmail {
+
+
     Properties mailProp = new Properties();
 
-    @Setter
-    @Getter
     Properties credentialProp = new Properties();
 
     /**
      * Build the sender class loading the properties from mail and credentials files.
      */
-    public Sender() {
+    public SenderEmail() {
+
         try {
-            // Loads all the properties of file "mail.properties".
+
             mailProp.load(getClass().getClassLoader().getResourceAsStream("mail.properties"));
             credentialProp.load(getClass().getClassLoader().getResourceAsStream("credentials.properties"));
+
         } catch (IOException e) {
+
             e.printStackTrace();
         }
     }
@@ -54,9 +57,12 @@ public class Sender {
      * @param content email content in html format
      * @return a {@link boolean} indicating if the email was sent or not.
      */
-    public boolean send(String from, String to, String subject, String content) {
+    public boolean sendEmail(String from, String to, String subject, String content) {
+
         // Get the Session object.// and pass username and password
         Session session = createSession();
+
+        boolean sent = false;
 
         try {
             // Create a default MimeMessage object.
@@ -75,14 +81,20 @@ public class Sender {
             message.setContent(content,"text/html" );
 
             System.out.println("sending...");
+
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
-            return true;
+
+            sent = true;
+
         } catch (MessagingException mex) {
+
             mex.printStackTrace();
-            return false;
+
         }
+
+        return sent;
 
     }
 
@@ -95,9 +107,13 @@ public class Sender {
      * @param content path where the temp file is located
      * @return a {@link boolean} indicating if the email was sent or not.
      */
-    public boolean send(String from, String to, String subject, String text, String content) throws FileNotFoundException, IOException {
+    public boolean sendEmail(String from, String to, String subject, String text, String content) throws FileNotFoundException, IOException {
         // Get the Session object.// and pass username and password
+
         Session session = createSession();
+
+        boolean sent = false;
+
         try {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
@@ -145,12 +161,14 @@ public class Sender {
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
-            return true;
+            sent = true;
+
         } catch (MessagingException mex) {
             mex.printStackTrace();
-            return false;
+
         }
 
+        return sent;
     }
 
     private Session createSession() {
