@@ -1,5 +1,8 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.CategoryDto" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.ItemDto" %><%--
   Created by IntelliJ IDEA.
   User: alba.lima.garcia
   Date: 5/17/2023
@@ -8,10 +11,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<CategoryDto> categories = (ArrayList<CategoryDto>) request.getAttribute("categories");%>
+<% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
+<% ArrayList<ItemDto> units = (ArrayList<ItemDto>) request.getAttribute("units");%>
 
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Agregar recetas FridChef</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
+  <script src="js/add-form.js" defer></script>
 </head>
 <body>
 <div class="content">
@@ -20,32 +30,34 @@
   <div class = "main-form">
     <h1>¡Crea tu receta ahora!</h1>
     <form action="/FridChef/addRecipe-form" method="POST">
-      <input class="form">
       <div class="form-input">
         <label for="title">Titulo:</label>
         <input type="text" id= "title" name="title" minlength="2" maxlength="50" required/>
       </div>
       <div class="form-input">
-        <label for="description">Descripción: </label>
+        <label for="description">Elaboración: </label>
         <input type="text" id= "description" name="description" minlength="2" maxlength="500" required/>
       </div>
-      <div>
-        <label for="time_h">duración:</label>
-        <input type="number" id="time_h" name="time_h" min="0" max="24" />h
-        <input type="number" id="time_m" name="time_m" min="0" max="60" />min
+      <div class="form-input">
+        <label for="time">duración:</label>
+        <input type="number" id="time" name="time" min="0"/>
+        <select id="unit_time" name="unit_time">
+          <option value="h">h</option>
+          <option value="min">min</option>
+        </select>
       </div>
       <div class="form-input">
-        <label>Dificultad:</label>
-        <input type="radio" id="very easy" name="difficulty" value="very easy">
-        <label for="very easy">1</label>
-        <input type="radio" id="easy" name="difficulty" value="easy">
-        <label for="easy">2</label>
-        <input type="radio" id="medium" name="difficulty" value="medium">
-        <label for="very easy">3</label>
-        <input type="radio" id="hard" name="difficulty" value="hard">
-        <label for="easy">4</label>
-        <input type="radio" id="very hard" name="difficulty" value="very hard">
-        <label for="very easy">5</label>
+        <label>Dificultad:</label><br>
+        <input type="radio" id="1" name="1" value="1">
+        <label for="1">Muy fácil</label><br>
+        <input type="radio" id="2" name="difficulty" value="2">
+        <label for="2">Fácil</label><br>
+        <input type="radio" id="3" name="difficulty" value="3">
+        <label for="3">Normal</label><br>
+        <input type="radio" id="4" name="difficulty" value="4">
+        <label for="4">Dificil</label><br>
+        <input type="radio" id="5" name="difficulty" value="5">
+        <label for="5">Muy dificil</label>
       </div>
       <div>
         <select id="category" name="categoria">
@@ -54,13 +66,29 @@
           <% } %>
         </select>
       </div>
+      <div>
+        <label>A continuación agregue los ingredientes utilizados en esta receta: </label><br>
 
-      <div class="form-input">
-        <label for="surname2">Segundo apellido: </label>
-        <input type="text" id= "surname2" name="surname2" minlength="2" maxlength="50"/>
+        <select id="ingredient" name="ingredient">
+          <% for (IngredientDto ingredient : ingredients) { %>
+          <option value="<%=ingredient.getId() %>"><%= ingredient.getName()%></option>
+          <% } %>
+        </select>
+
+        <input type="text" id="quantity" name="quantity" placeholder="Indique la cantidad aquí">
+
+        <select id="unit" name="unit">
+          <% for (ItemDto unit : units) { %>
+            <option value="<%=unit.getId() %>"><%= unit.getName() %></option>
+          <% } %>
+        </select>
+        <button id="add-ingredient">Agregar</button><br>
+        <div class="ingredients-container" id="ingredients-container"></div>
       </div>
-
-  </div>
+      <div class="buttons">
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Borrar">
+      </div>
   </form>
 </div>
 <%@ include file="../footer/footer.jsp" %>

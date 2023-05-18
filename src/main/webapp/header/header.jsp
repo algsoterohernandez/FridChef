@@ -10,7 +10,7 @@
         <a href="/FridChef">Inicio</a>
         <a href="#">Recetas</a>
         <a href="#">Recetas favoritas</a>
-        <a href="#">Agregar recetas</a>
+        <a href="/FridChef/add-recipes">Agregar recetas</a>
         <a href="/FridChef/login">Login</a>
         <a href="/FridChef/register-form">Regístrate</a>
     </div>

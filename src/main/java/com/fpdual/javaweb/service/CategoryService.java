@@ -14,7 +14,7 @@ public class CategoryService {
         this.apiClient = apiClient;
     }
 
-    public List<CategoryDto> getCategories() {
+    public List<CategoryDto> findAllCategories() {
         ArrayList<CategoryDto> categories = new ArrayList<>();
         categories.add(new CategoryDto(1, "Arroz"));
         categories.add(new CategoryDto(2, "Pescados"));
