@@ -28,8 +28,8 @@ public class SearchServlet extends HttpServlet {
 
     @Override
     public void init() {
-        ingredientService = new IngredientService();
-        allergenService = new AllergenService();
+        ingredientService = new IngredientService(new FridChefApiClient());
+        allergenService = new AllergenService(new FridChefApiClient());
         recipeService = new RecipeService(new FridChefApiClient());
     }
 
@@ -50,9 +50,7 @@ public class SearchServlet extends HttpServlet {
                 recipes = ingredientService.findByIngredients(listaIngredientes);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            req.setAttribute("error", "Ha ocurrido un error");
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/recipenotfound.jsp").forward(req, resp);
         }
 
         req.setAttribute("recipes", recipes);
@@ -61,7 +59,7 @@ public class SearchServlet extends HttpServlet {
         List<IngredientDto> ingredients =  ingredientService.findAllIngredients();
         req.setAttribute("IngredientList", ingredients);
 
-        List<AllergenDto> allergenDtoList =  allergenService.finAllAllergens();
+        List<AllergenDto> allergenDtoList =  allergenService.findAllAllergens();
         req.setAttribute("AllergenDtoList", allergenDtoList);
 
 

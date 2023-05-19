@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: a.carmona.garrido
-  Date: 5/17/2023
-  Time: 1:48 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page pageEncoding="UTF-8" %>
+
+<html lang="es">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>FridChef</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
+    <script src="js/buscador.js" defer></script>
 </head>
 <body>
-<h1>No se encontraron recetas</h1>
+<%@ include file="../header/header.jsp" %>
+<div class="content">
+    <div class="recipe-error"></div>
+    <h1>Se ha producido un error</h1>
+</div>
+<%@ include file="../footer/footer.jsp" %>
 </body>
 </html>
