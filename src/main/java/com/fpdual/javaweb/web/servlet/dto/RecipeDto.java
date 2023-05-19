@@ -25,6 +25,7 @@ public class RecipeDto {
     private Date createTime;
     private Blob image;
     private List<IngredientDto> ingredients;
+    private String status;
     private List<IngredientRecipeDto> ingredientsRecipe;
 
 }
