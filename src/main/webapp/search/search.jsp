@@ -57,7 +57,7 @@
                     <% } %>
                     <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
                     <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
-                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnit_time() %></p>
+                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                 </div>
             <% } %>
         <% } %>
@@ -92,7 +92,7 @@
 
                     <p><%= recipeSuggestion.getDescription() %></p>
 
-                    <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> · <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnit_time() %></p>
+                    <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> · <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %></p>
 
                     <h3>Alergenos:</h3>
                     <% for(AllergenDto allergen : recipeAllergens) {%>

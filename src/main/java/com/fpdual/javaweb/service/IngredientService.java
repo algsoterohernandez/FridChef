@@ -11,8 +11,8 @@ public class IngredientService {
 
     private final FridChefApiClient fridChefApiClient;
 
-    public IngredientService() {
-        this.fridChefApiClient = new FridChefApiClient();
+    public IngredientService(FridChefApiClient fridChefApiClient) {
+        this.fridChefApiClient = fridChefApiClient;
     }
 
     public List<IngredientDto> findAllIngredients () {
