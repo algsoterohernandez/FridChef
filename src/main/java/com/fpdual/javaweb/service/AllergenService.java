@@ -11,11 +11,11 @@ public class AllergenService {
 
     private final FridChefApiClient fridChefApiClient;
 
-    public AllergenService() {
-        this.fridChefApiClient = new FridChefApiClient();
+    public AllergenService(FridChefApiClient fridChefApiClient) {
+        this.fridChefApiClient = fridChefApiClient;
     }
 
-    public List<AllergenDto> finAllAllergens () {
+    public List<AllergenDto> findAllAllergens () {
         List<AllergenDto> allergenDtoList = null;
         try {
             allergenDtoList = fridChefApiClient.findAllAllergens();

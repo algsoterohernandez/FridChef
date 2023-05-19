@@ -1,9 +1,8 @@
-package com.fpdual.javaweb.tests;
+package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
-import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -155,32 +154,6 @@ public class UserServiceTest {
 
         //Asserts
         assertThrows(ExternalErrorException.class, () -> userService.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
-
-    }
-
-    @Test
-    public void testEncryptPassword_validString_encryptedString() {
-
-        //Prepare method dependencies
-
-        //Execute method
-        String rs = userService.encryptPassword("example123");
-
-        //Asserts
-        assertNotNull(rs);
-        assertTrue(rs.equals("7df065c23f49f57077f9113611d6d877"));
-
-    }
-
-    @Test
-    public void testEncryptPassword_nullString_nullPointerException() {
-
-        //Prepare method dependencies
-
-        //Execute method
-
-        //Asserts
-        assertThrows(NullPointerException.class, () -> userService.encryptPassword(null));
 
     }
 

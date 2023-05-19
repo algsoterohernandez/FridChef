@@ -1,5 +1,6 @@
 package com.fpdual.javaweb.web.servlet;
 
+import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import jakarta.servlet.RequestDispatcher;
@@ -20,7 +21,7 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     public void init() {
-        ingredientService = new IngredientService();
+        ingredientService = new IngredientService(new FridChefApiClient());
     }
 
     @Override

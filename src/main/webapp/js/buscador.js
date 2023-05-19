@@ -9,6 +9,7 @@ const form = document.getElementById('form');
 const addedOptions = [];
 
 addOptionButton.addEventListener('click', addOption);
+
 optionInput.addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
         addOption(event);
@@ -83,3 +84,4 @@ function search() {
 
 
 }
+
