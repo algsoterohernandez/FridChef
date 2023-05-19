@@ -1,6 +1,6 @@
 package com.fpdual.javaweb.client;
 
-import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
@@ -10,16 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import java.lang.annotation.Annotation;
-import java.net.URI;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 import static jakarta.ws.rs.client.Entity.entity;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,7 +53,7 @@ public class FridChefApiClientTest {
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
         when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
-        when(response.getStatus()).thenReturn(200);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
         when(response.readEntity(UserDto.class)).thenReturn(exampleUserDto);
 
         //Execute method
@@ -72,36 +65,30 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testCreaterUser_validUserDto_userAlreadyExistsException() throws ExternalErrorException, UserAlreadyExistsException {
-        //String errorMessage = "El usuario ya existe en el sistema.";
+    public void testCreaterUser_validUserDto_userAlreadyExistsException() {
 
-        /*//Prepare method dependencies
+        //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
         when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
-        when(response.getStatus()).thenReturn(304);
-        when(mock(UserAlreadyExistsException.class).getMessage()).thenReturn(errorMessage);
+        when(response.getStatus()).thenReturn(HttpStatus.NOT_MODIFIED.getStatusCode());
 
-        //Execute method
-        UserDto userDtoRs = fridChefApiClient.createUser(exampleUserDto);
 
         //Asserts
-        assertNotNull(userDtoRs);
-        assertTrue(userDtoRs.isAlreadyExists());*/
+        assertThrows(UserAlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
     }
 
-    @Test///////////////////////////////////
-    public void testCreaterUser_validUserDto_ExternalErrorException() throws ExternalErrorException, UserAlreadyExistsException {
+    @Test
+    public void testCreaterUser_validUserDto_ExternalErrorException() {
 
         //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
 
-
-        //Execute method
-       //UserDto userDtoRs = fridChefApiClient.createUser(exampleUserDto);
 
         //Asserts
-        //assertNotNull(userDtoRs);
-        //assertTrue(userDtoRs.isAlreadyExists());
+        assertThrows(ExternalErrorException.class, () -> fridChefApiClient.createUser(exampleUserDto));
 
     }
 
@@ -109,13 +96,17 @@ public class FridChefApiClientTest {
     public void testDeleteUser_validEmail_userDeletedTrue() throws Exception {
 
         //Prepare method dependencies
-
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.delete()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(boolean.class)).thenReturn(true);
 
         //Execute method
-        //boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
+        boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
 
         //Asserts
-        //assertTrue(deleted);
+        assertTrue(deleted);
 
     }
 
@@ -123,13 +114,16 @@ public class FridChefApiClientTest {
     public void testDeleteUser_validEmail_userDeletedFalse() throws Exception {
 
         //Prepare method dependencies
-
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.delete()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
 
         //Execute method
-        //boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
+        boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
 
         //Asserts
-        //assertTrue(!deleted);
+        assertTrue(!deleted);
 
     }
 
@@ -137,14 +131,18 @@ public class FridChefApiClientTest {
     public void testFindUser_validEmailPassword_userDtoNotNull() throws ExternalErrorException {
 
         //Prepare method dependencies
-
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(UserDto.class)).thenReturn(exampleUserDto);
 
         //Execute method
-        //UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
+        UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
 
         //Asserts
-        //assertNotNull(userDtoRs);
-        //assertTrue(userDtoRs.getEmail().equals("example@a.com") && userDtoRs.getPassword().equals("example"));
+        assertNotNull(userDtoRs);
+        assertTrue(userDtoRs.getEmail().equals("example@a.com") && userDtoRs.getPassword().equals("example"));
 
     }
 
@@ -152,27 +150,28 @@ public class FridChefApiClientTest {
     public void testFindUser_validEmailPassword_userDtoNull() throws ExternalErrorException {
 
         //Prepare method dependencies
-
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.NO_CONTENT.getStatusCode());
 
         //Execute method
-        //UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
+        UserDto userDtoRs = fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword());
 
         //Asserts
-        //assertNotNull(userDtoRs);
-
-
+        assertNull(userDtoRs);
     }
 
     @Test
-    public void testFindUser_validEmailPassword_ExternalErrorException() throws ExternalErrorException {
+    public void testFindUser_validEmailPassword_ExternalErrorException() {
 
-        //Prepare method dependencies
-
-
-        //Execute method
+        ///Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
 
         //Asserts
-        //assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
+        assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
     }
 
 }

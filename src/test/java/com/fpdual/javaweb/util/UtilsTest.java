@@ -1,27 +1,19 @@
 package com.fpdual.javaweb.util;
 
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 @ExtendWith(MockitoExtension.class)
 
 public class UtilsTest {
 
-    private Utils utils;
-
     @Test
     public void testEncryptPassword_validString_encryptedString() {
-
-        //Prepare method dependencies
-        utils = new Utils();
-
         //Execute method
-        String rs = utils.encryptPassword("example123");
+        String rs = Utils.encryptPassword("example123");
 
         //Asserts
         assertNotNull(rs);
@@ -30,14 +22,12 @@ public class UtilsTest {
     }
 
     @Test
-    public void testEncryptPassword_nullString_nullPointerException() {
-
-        //Prepare method dependencies
-
-        //Execute method
+    public void testEncryptPassword_nullString_nullResponse() {
 
         //Asserts
-        assertThrows(NullPointerException.class, () -> utils.encryptPassword(null));
+        String encrypted =  Utils.encryptPassword(null);
+        assertNull(encrypted);
 
     }
+
 }
