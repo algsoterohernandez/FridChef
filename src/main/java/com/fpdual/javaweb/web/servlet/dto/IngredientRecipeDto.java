@@ -16,4 +16,10 @@ public class IngredientRecipeDto {
     private int idIngredient;
     private float quantity;
     private String unit;
+
+    public IngredientRecipeDto(String idIngredient, String quantity, String unit){
+        this.idIngredient = Integer.parseInt(idIngredient);
+        this.quantity = Float.parseFloat(quantity);
+        this.unit = unit;
+    }
 }

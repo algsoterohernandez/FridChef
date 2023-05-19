@@ -147,4 +147,18 @@ public class FridChefApiClient {
         return recipeDtoList;
 
     }
+
+    public RecipeDto createRecipe(RecipeDto recipeDto) throws ExternalErrorException {
+
+        RecipeDto rs = null;
+        Invocation.Builder builder = webTarget.path("recipes/create").request(MediaType.APPLICATION_JSON);
+        Response response = builder.post(entity(recipeDto, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() == 200) {
+            rs = response.readEntity(RecipeDto.class);
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error al enviar la solicitud de receta");
+        }
+        return rs;
+    }
 }

@@ -3,11 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.security.MessageDigest;
 import java.util.List;
 
 public class RecipeService {
@@ -26,4 +22,11 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
+
+    public RecipeDto createRecipe(RecipeDto recipeDto) {
+
+        recipeDto.setId(1345);
+        return recipeDto;
+    }
+
 }

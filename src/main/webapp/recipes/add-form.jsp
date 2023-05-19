@@ -13,6 +13,7 @@
 <% ArrayList<CategoryDto> categories = (ArrayList<CategoryDto>) request.getAttribute("categories");%>
 <% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
 <% ArrayList<ItemDto> units = (ArrayList<ItemDto>) request.getAttribute("units");%>
+<% ArrayList<ItemDto> recipeCreated = (Boolean) request.getAttribute("recipe_created");%>
 
 <html>
 <head>
@@ -26,7 +27,6 @@
 <body>
 <div class="content">
   <%@ include file="../header/header.jsp" %>
-
   <div class = "main-form">
     <h1>¡Crea tu receta ahora!</h1>
     <form action="/FridChef/addRecipe-form" method="POST">
@@ -60,7 +60,7 @@
         <label for="5">Muy dificil</label>
       </div>
       <div>
-        <select id="category" name="categoria">
+        <select id="category" name="category">
           <% for (CategoryDto category : categories) { %>
           <option value="<%=category.getId() %>"><%= category.getName() %></option>
           <% } %>
@@ -92,7 +92,13 @@
   </form>
 </div>
 <%@ include file="../footer/footer.jsp" %>
-</div>
 
+<% if (recipeCreated) { %>
+
+  <script>
+    alert('Receta creada correctamente, esperando a ser revisada y aprobada ')
+  </script>
+<% } %>
+</div>
 </body>
 </html>

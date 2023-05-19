@@ -9,7 +9,15 @@ import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 
 import java.util.ArrayList;
 import java.util.List;
+enum UNIT {
+    GR {
+        public String toString() {
+            return "gr";
+        }
+    },
+    MG,
 
+}
 public class IngredientService {
 
     private final FridChefApiClient fridChefApiClient;
@@ -41,13 +49,16 @@ public class IngredientService {
 
 
     public List<ItemDto> getAllIngredientUnits() {
+
+
         List<ItemDto> items = new ArrayList<>();
-        items.add(new ItemDto("gr", "gramos"));
-        items.add(new ItemDto("ml", "miligramos"));
+        items.add(new ItemDto(UNIT.MG.toString(), "miligramos"));
+        items.add(new ItemDto(UNIT.GR.toString(), "gramos"));
+        items.add(new ItemDto("ml", "mililitros"));
         items.add(new ItemDto("l", "litros"));
         items.add(new ItemDto("pizca", "pizca"));
-        items.add(new ItemDto("cucharada", "cucharada"));
         items.add(new ItemDto("cucharadita", "cucharadita"));
+        items.add(new ItemDto("cucharada", "cucharada"));
         return items;
     }
 
