@@ -80,8 +80,6 @@ public class UserServiceTest {
         //Prepare method dependencies
         when(apiClient.createUser(any())).thenThrow(ExternalErrorException.class);
 
-        //Execute methods
-
         //Asserts
         assertThrows(ExternalErrorException.class, () -> userService.registerUser(exampleUserDto));
 
@@ -121,8 +119,6 @@ public class UserServiceTest {
         //Prepare method dependencies
         when(apiClient.deleteUser(any())).thenThrow(Exception.class);
 
-        //Execute method
-
         //Asserts
         assertThrows(Exception.class, () -> userService.unregisterUser(exampleUserDto.getEmail()));
 
@@ -149,8 +145,6 @@ public class UserServiceTest {
 
         //Prepare method dependencies
         when(apiClient.findUser(any(), any())).thenThrow(ExternalErrorException.class);
-
-        //Execute method
 
         //Asserts
         assertThrows(ExternalErrorException.class, () -> userService.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));

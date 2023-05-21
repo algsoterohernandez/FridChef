@@ -14,19 +14,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
+import java.util.Properties;
 
 
 @WebServlet(name = "RegisterFormServlet", urlPatterns = {"/register-form"})
 public class RegisterFormServlet extends HttpServlet {
     private UserService userService;
-    private Utils utils;
-    private UserDto userDto;
-
+    private SenderEmail senderEmail;
     @Override
     public void init() {
         userService = new UserService(new FridChefApiClient());
-        utils = new Utils();
-        userDto = new UserDto();
+        senderEmail = new SenderEmail(new Properties(), new Properties());
     }
 
     @Override
@@ -59,14 +57,13 @@ public class RegisterFormServlet extends HttpServlet {
 
                 //Envio de Email de bienvenida
                 String from = "fridcheffpdual@gmail.com";
-                String to = userDto.getEmail();
+                String to = createdUser.getEmail();
                 String subject = "¡Desde FRIDCHEF te damos la bienvenida!";
 
                 String content = "<h3>¡¡¡Ya eres un FridChefer!!!<h3>" +
                         "<div><p>Enhorabuena, el registro se ha completado con éxito. Ahora puedes INICIAR SESIÓN con " +
                         "tu correo electrónico y contraseña</div>" + "<h3>¡Comienza la aventura en la cocina!<h3>" ;
 
-                SenderEmail senderEmail = new SenderEmail();
 
                 senderEmail.sendEmail(from, to, subject, content);
 
@@ -88,11 +85,12 @@ public class RegisterFormServlet extends HttpServlet {
 
     private UserDto getUserFromRequest(HttpServletRequest req) {
 
+        UserDto userDto = new UserDto();
         userDto.setName(req.getParameter("name"));
         userDto.setSurname1(req.getParameter("surname1"));
         userDto.setSurname2(req.getParameter("surname2"));
         userDto.setEmail(req.getParameter("email"));
-        userDto.setPassword(utils.encryptPassword(req.getParameter("password")));
+        userDto.setPassword(Utils.encryptPassword(req.getParameter("password")));
 
 
         return userDto;
