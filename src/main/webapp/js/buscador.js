@@ -5,10 +5,11 @@ const optionInput = document.getElementById('add-ingredient');
 const addOptionButton = document.getElementById('add-ingredient-button');
 const optionsContainer = document.getElementById('ingredients-container');
 const searchButton = document.getElementById('search-button');
-const form = document.querySelector('form');
+const form = document.getElementById('form');
 const addedOptions = [];
 
 addOptionButton.addEventListener('click', addOption);
+
 optionInput.addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
         addOption(event);
@@ -45,7 +46,7 @@ function addOption(event) {
         // Agregar un botón para eliminar la opción
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
-        const buttonText = document.createTextNode('Eliminar');
+        const buttonText = document.createTextNode('X');
         deleteButton.appendChild(buttonText);
         option.appendChild(deleteButton);
 
@@ -72,7 +73,7 @@ function search() {
 
     for (let i = 0; i < addedOptions.length; i++) {
         const input = document.createElement('input');
-        input.setAttribute('type', 'text');
+        input.setAttribute('type', 'hidden');
         input.setAttribute('name', 'ingredientes[]'); // nombre del parámetro que se enviará
         input.setAttribute('value', addedOptions[i]);
 
@@ -83,3 +84,4 @@ function search() {
 
 
 }
+

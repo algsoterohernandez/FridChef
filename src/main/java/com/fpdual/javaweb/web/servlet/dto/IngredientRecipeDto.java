@@ -1,9 +1,6 @@
 package com.fpdual.javaweb.web.servlet.dto;
 
-
 import lombok.*;
-
-import java.util.List;
 
 @Setter
 @Getter
@@ -13,11 +10,10 @@ import java.util.List;
 @ToString
 @Builder
 @Data
-public class IngredientDto {
-
+public class IngredientRecipeDto {
     private int id;
-    private String name;
-    private List<AllergenDto> allergens;
-
-
+    private int idRecipe;
+    private int idIngredient;
+    private float quantity;
+    private String unit;
 }

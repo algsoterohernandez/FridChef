@@ -1,12 +1,62 @@
 /* Estilos generales */
 
 body {
-    background-color: cornflowerblue;
+    background-color: white;
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
     padding: 0;
+}
+
+div {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+div.content {
+    background-color: cornflowerblue;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    font-family: Ubuntu;
+    font-size: 14px;
+    box-shadow: 5px 5px 15px  15px gray;
+}
+
+div.header {
+    display: block;
+    color: white;
+    text-align: center;
+    background-color: cornflowerblue;
+    box-sizing: border-box;
+    background-size: 30%;
+
+}
+
+div.menu {
+    display: block;
+    color: white;
+    background: cornflowerblue;
+    text-align: center;
+    box-sizing: border-box
+}
+
+div.menu a:link {
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+
+}
+
+div.menu a:hover {
+    color: #3b89f1;
+    background: #ffffff;
+}
+
+div.menu a:visited {
+    text-decoration: none;
 }
 
 h1 {
@@ -26,18 +76,6 @@ form {
     margin: 0 auto;
     max-width: 800px;
     padding: 1rem;
-}
-/*Menu*/
-header {
-    margin-top: 80px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-
 }
 
 nav {
@@ -70,7 +108,50 @@ a {
 a:hover {
     background-color: #eee;
 }
-/*logo*/
+
+/*header*/
+
+.top-header{
+    display:flex;
+}
+.logo {
+    text-align: right;
+    width: 60%;
+    height: 15%;
+    padding-right: 8%;
+}
+.logo img{
+    min-width:150px;
+    width: 25%;
+}
+.user-session{
+    text-align: right;
+    align-self: flex-end;
+    width: 30%;
+}
+.user-container li{
+    list-style: none;
+}
+
+.user-container{
+    display: none;
+    position: absolute;
+    background-color: #efcf8a;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.user-container a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-session:hover .user-container{
+    display: block;
+}
 
 /* Estilos del buscador */
 
@@ -107,7 +188,7 @@ a:hover {
 
 #add-ingredient-button,
 #search-button {
-    background-color: #4CAF50;
+    background-color: #000000;
     border: none;
     color: white;
     cursor: pointer;
@@ -232,4 +313,54 @@ a:hover {
 .buttons input[type="submit"]:hover,
 .buttons input[type="reset"]:hover {
     background-color: #555;
+}
+
+div.search {
+    border: 1px solid #ccc;
+
+}
+
+div.ingredients-container {
+    border: 1px solid #000;
+    background-color: #fff;
+    width: 40%;
+    height: 10%;
+}
+div.recipes-list {
+    background-color: #8cafee;
+    border: 1px solid #000;
+    width: 40%;
+    box-shadow: 5px 5px 15px #193669;
+}
+
+div.recipe-suggestions {
+    background-color: #8cafee;
+    border: 1px solid #000;
+    width: 40%;
+    box-shadow: 5px 5px 15px #193669;
+}
+
+div.allergen-list {
+
+}
+
+div.footer {
+    display: block;
+    background-color: cornflowerblue;
+    color: black;
+    text-align: right;
+    padding: 5px;
+    box-sizing: border-box
+}
+
+.table-footer {
+    margin: auto;
+    text-align: center;
+}
+
+div.pie a:link,
+a:visited,
+a:hover {
+    color: white;
+    text-decoration: none;
 }
