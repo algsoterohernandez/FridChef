@@ -19,7 +19,7 @@ public class RecipeServlet extends HttpServlet {
         List<RecipeDto> recipes = recipeService.findRecipeByCategory();
         req.setAttribute("RecipeList", recipes);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("recipes.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("recipe.jsp");
         dispatcher.forward(req, resp);
     }*/
 }
