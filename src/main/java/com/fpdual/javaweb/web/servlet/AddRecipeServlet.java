@@ -1,9 +1,11 @@
 package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.service.CategoryService;
 import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
+import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import jakarta.servlet.ServletException;
@@ -15,6 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @WebServlet(name="AddRecipeServlet", urlPatterns = {"/add-recipes"})
 public class AddRecipeServlet extends HttpServlet{
@@ -35,7 +39,7 @@ public class AddRecipeServlet extends HttpServlet{
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             req.setAttribute("categories", categoryService.getAllCategories());
             req.setAttribute("ingredients", ingredientService.findAllIngredients());
-            req.setAttribute("units", ingredientService.getAllIngredientUnits());
+            req.setAttribute("units", ingredientService.getAllUnits());
             req.setAttribute("recipe_created", false);
             req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
 
@@ -50,15 +54,16 @@ public class AddRecipeServlet extends HttpServlet{
             String unitTime = req.getParameter("unit_time");
             int idCategory = Integer.parseInt(req.getParameter("category"));
             String[] ingredients = req.getParameterValues("ingredient[]");
-            String[] unit = req.getParameterValues("unit[]");
             String[] quantity = req.getParameterValues("quantity[]");
+            String[] unit = req.getParameterValues("unit[]");
 
-            List<IngredientRecipeDto> ingredientsRecipe = new ArrayList<>();
 
-            for(int i = 0; i<ingredients.length;i++){
-                ingredientsRecipe.add(new IngredientRecipeDto(ingredients[i], unit[i], quantity[i]));
-            }
+            //Se crea una lista de tipo IngredientRecipeDto con stream
+            List<IngredientRecipeDto> ingredientsRecipe = IntStream.range(0, ingredients.length)
+                    .mapToObj(i -> new IngredientRecipeDto(ingredients[i], quantity[i], unit[i]))
+                    .collect(Collectors.toList());
 
+            //Se crea un objeto RecipeDto con los datos del formulario
             RecipeDto recipeDto = new RecipeDto();
             recipeDto.setName(name);
             recipeDto.setDescription(description);
@@ -66,13 +71,19 @@ public class AddRecipeServlet extends HttpServlet{
             recipeDto.setTime(time);
             recipeDto.setUnitTime(unitTime);
             recipeDto.setIdCategory(idCategory);
-            recipeDto.setIngredientsRecipe(ingredientsRecipe);
+            recipeDto.setIngredients(ingredientsRecipe);
 
-            recipeService.createRecipe(recipeDto);
+            //Se llama al service para crear la receta
+            try {
+                recipeService.registerRecipe(recipeDto);
+            } catch (ExternalErrorException e) {
+                throw new RuntimeException(e);
+            }
 
+            //Se setean los atributos para la vista
             req.setAttribute("categories", categoryService.getAllCategories());
             req.setAttribute("ingredients", ingredientService.findAllIngredients());
-            req.setAttribute("units", ingredientService.getAllIngredientUnits());
+            req.setAttribute("units", ingredientService.getAllUnits());
             req.setAttribute("recipe_created", true);
             req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
         }

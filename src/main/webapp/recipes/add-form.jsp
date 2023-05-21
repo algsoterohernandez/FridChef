@@ -13,7 +13,7 @@
 <% ArrayList<CategoryDto> categories = (ArrayList<CategoryDto>) request.getAttribute("categories");%>
 <% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
 <% ArrayList<ItemDto> units = (ArrayList<ItemDto>) request.getAttribute("units");%>
-<% ArrayList<ItemDto> recipeCreated = (Boolean) request.getAttribute("recipe_created");%>
+<% Boolean recipeCreated = (Boolean) request.getAttribute("recipe_created");%>
 
 <html>
 <head>
@@ -29,15 +29,15 @@
   <%@ include file="../header/header.jsp" %>
   <div class = "main-form">
     <h1>¡Crea tu receta ahora!</h1>
-    <form action="/FridChef/addRecipe-form" method="POST">
+    <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data">
       <div class="form-input">
         <label for="title">Titulo:</label>
         <input type="text" id= "title" name="title" minlength="2" maxlength="50" required/>
-      </div>
+      </div><br>
       <div class="form-input">
         <label for="description">Elaboración: </label>
         <input type="text" id= "description" name="description" minlength="2" maxlength="500" required/>
-      </div>
+      </div><br>
       <div class="form-input">
         <label for="time">duración:</label>
         <input type="number" id="time" name="time" min="0"/>
@@ -45,10 +45,10 @@
           <option value="h">h</option>
           <option value="min">min</option>
         </select>
-      </div>
+      </div><br>
       <div class="form-input">
         <label>Dificultad:</label><br>
-        <input type="radio" id="1" name="1" value="1">
+        <input type="radio" id="1" name="difficulty" value="1">
         <label for="1">Muy fácil</label><br>
         <input type="radio" id="2" name="difficulty" value="2">
         <label for="2">Fácil</label><br>
@@ -58,14 +58,14 @@
         <label for="4">Dificil</label><br>
         <input type="radio" id="5" name="difficulty" value="5">
         <label for="5">Muy dificil</label>
-      </div>
+      </div><br>
       <div>
         <select id="category" name="category">
           <% for (CategoryDto category : categories) { %>
           <option value="<%=category.getId() %>"><%= category.getName() %></option>
           <% } %>
         </select>
-      </div>
+      </div><br><br>
       <div>
         <label>A continuación agregue los ingredientes utilizados en esta receta: </label><br>
 
@@ -84,7 +84,11 @@
         </select>
         <button id="add-ingredient">Agregar</button><br>
         <div class="ingredients-container" id="ingredients-container"></div>
-      </div>
+      </div><br>
+      <div>
+        <label for="image">Agrega una imagen:</label>
+        <input accept="image/png, imagen/jpeg" type="file" id="image" name="image">
+      </div><br>
       <div class="buttons">
         <input type="submit" value="Enviar">
         <input type="reset" value="Borrar">

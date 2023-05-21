@@ -48,9 +48,14 @@ public class RecipeService {
           return recipeDtoList;
       }
 
-    public RecipeDto createRecipe(RecipeDto recipeDto) {
+    public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
+        try{
+            recipeDto = apiClient.createRecipe(recipeDto);
 
-        recipeDto.setId(1345);
+        }catch (ExternalErrorException e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
         return recipeDto;
     }
 
