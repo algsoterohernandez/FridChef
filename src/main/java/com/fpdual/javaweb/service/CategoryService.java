@@ -13,11 +13,12 @@ public class CategoryService {
     public CategoryService(FridChefApiClient apiClient) {
 this.apiClient = apiClient;
     }
-    public List<CategoryDto> getAllCategories(){
+
+    public List<CategoryDto> getAllCategories() {
         List<CategoryDto> categories = new ArrayList<>();
-        try{
-           categories = apiClient.findCategories();
-        }catch (ExternalErrorException e){
+        try {
+            categories = apiClient.findCategories();
+        } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
         return categories;

@@ -12,6 +12,8 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static jakarta.ws.rs.client.Entity.entity;
@@ -148,18 +150,34 @@ public class FridChefApiClient {
         return recipeDtoList;
 
     }
-    public List<CategoryDto> findCategories() throws ExternalErrorException {
+
+    public RecipeDto createRecipe(RecipeDto recipeDto) throws ExternalErrorException {
+
+        RecipeDto rs = null;
+        Invocation.Builder builder = webTarget.path("recipes/").request(MediaType.APPLICATION_JSON);
+        Response response = builder.post(entity(recipeDto, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() == 200) {
+            rs = response.readEntity(RecipeDto.class);
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error al enviar la solicitud de receta");
+        }
+        return rs;
+    }
+
+    public List<CategoryDto> findCategories() throws ExternalErrorException{
         List<CategoryDto> categories = null;
-        Response response = webTarget.path("categories")
+        Response rs = webTarget.path("category/")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
-        if (response.getStatus() == 200) {
-            categories = response.readEntity(new GenericType<List<CategoryDto>>() {
-            });
-        } else if (response.getStatus() == 204) {
+        if(rs.getStatus() ==200){
+            categories = rs.readEntity(new GenericType<List<CategoryDto>>(){});
+        }else if(rs.getStatus() ==204){
+            categories = Collections.emptyList();
+        } else{
             throw new ExternalErrorException("Ha ocurrido un error");
         }
-        return categories;
+        return  categories;
     }
 }

@@ -22,10 +22,8 @@ public class RecipeDto {
     private int time;
     private String unitTime;
     private int idCategory;
-    private Date createTime;
+    private String createTime;
     private Blob image;
-    private List<IngredientDto> ingredients;
+    private List<IngredientRecipeDto> ingredients;
     private String status;
-    private List<IngredientRecipeDto> ingredientsRecipe;
-
 }

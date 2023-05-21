@@ -4,6 +4,7 @@ import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import jakarta.ws.rs.core.Response;
+
 import java.util.List;
 
 public class RecipeService {
@@ -46,4 +47,16 @@ public class RecipeService {
           }
           return recipeDtoList;
       }
+
+    public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
+        try{
+            recipeDto = apiClient.createRecipe(recipeDto);
+
+        }catch (ExternalErrorException e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return recipeDto;
+    }
+
 }
