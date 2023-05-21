@@ -48,6 +48,9 @@ public class IndexServlet extends HttpServlet {
             if(req.getQueryString().contains("userRegistered")){
                 req.setAttribute("userRegistered", true);
             }
+            if(req.getQueryString().contains("userClosedSession")){
+                req.setAttribute("userClosedSession", true);
+            }
         }
     }
 }

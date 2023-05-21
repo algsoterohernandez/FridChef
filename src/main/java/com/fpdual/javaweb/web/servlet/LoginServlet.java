@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setMaxInactiveInterval(60);
                 req.getSession().setAttribute("sessionUser", searchUser);
 
-
                 resp.sendRedirect("/FridChef/home");
             }
 

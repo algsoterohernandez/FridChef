@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "UnregisterServlet", urlPatterns = {"/unregister"})
-public class UnregisterServlet extends HttpServlet {
+@WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
+public class CloseSessionServlet extends HttpServlet {
     private UserService userService;
 
     @Override
@@ -26,13 +26,8 @@ public class UnregisterServlet extends HttpServlet {
 
             if (user != null) {
 
-                boolean deleted = userService.unregisterUser(user.getEmail());
-                if (deleted) {
                     req.getSession().setAttribute("sessionUser",null);
-                    resp.sendRedirect("/FridChef/home?userDeleted=true");
-                }
-            }else{
-                resp.sendRedirect("/FridChef/home?userNotDeleted=true");
+                    resp.sendRedirect("/FridChef/home");
             }
 
         } catch (Exception e) {
