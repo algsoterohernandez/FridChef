@@ -26,7 +26,7 @@ public class AddRecipeServlet extends HttpServlet{
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            req.setAttribute("categories", categoryService.getCategories());
+            req.setAttribute("categories", categoryService.getAllCategories());
             req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
 
         }

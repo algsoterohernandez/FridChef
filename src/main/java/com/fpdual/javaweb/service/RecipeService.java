@@ -3,11 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.security.MessageDigest;
+import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 public class RecipeService {
@@ -26,4 +22,28 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
+      /*public List<RecipeDto> findRecipesByCategory(String category) {
+        List<RecipeDto> recipeDtoList = null;
+        try {
+            Response response = fridChefApiClient.(category);
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                recipeDtoList = response.readEntity(List.class);
+            }
+        } catch (ExternalErrorException e) {
+            System.out.println(e.getMessage());
+        }
+        return recipeDtoList;
+    }*/
+      public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
+          List<RecipeDto> recipeDtoList = null;
+          try {
+              Response response = (Response) apiClient.findByIngredients(ingredientList);
+              if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                  recipeDtoList = response.readEntity(List.class);
+              }
+          } catch (ExternalErrorException e) {
+              System.out.println(e.getMessage());
+          }
+          return recipeDtoList;
+      }
 }
