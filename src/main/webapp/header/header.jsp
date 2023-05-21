@@ -28,8 +28,8 @@
     </div>
     <div class="menu">
         <a href="/FridChef">Inicio</a>
-        <a href="#">Recetas</a>
-        <a href="#">Agregar recetas</a>
+        <a href="/FridChef/recipes">Recetas</a>
+        <a href="/FridChef/add-recipes">Agregar recetas</a>
     </div>
 </div>
 

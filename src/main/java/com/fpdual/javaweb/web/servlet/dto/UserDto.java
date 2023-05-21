@@ -1,8 +1,12 @@
 package com.fpdual.javaweb.web.servlet.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
+@NoArgsConstructor
 @Data
 
 public class UserDto {
@@ -11,8 +15,6 @@ public class UserDto {
 
     private boolean alreadyExists;
 
-    public UserDto() {
-
-    }
+    private List<RolUserDto> rolUserDto;
 
 }
