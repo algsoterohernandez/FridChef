@@ -6,6 +6,7 @@ import com.fpdual.javaweb.service.CategoryService;
 import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
+import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -36,6 +37,14 @@ public class RecipeDetailsServlet extends HttpServlet {
         }
 
         try {
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+
+            if (user == null) {
+                req.setAttribute("not_user", true);
+                req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
+                return;
+            }
+
             int idRecipe = Integer.parseInt(recipeId);
 
             RecipeDto recipe = recipeService.findRecipe(idRecipe);
