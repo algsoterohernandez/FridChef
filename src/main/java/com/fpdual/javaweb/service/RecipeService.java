@@ -59,4 +59,15 @@ public class RecipeService {
         return recipeDto;
     }
 
+    public RecipeDto findRecipe(int idRecipe) throws ExternalErrorException{
+        RecipeDto recipeDto;
+
+          try{
+              recipeDto = apiClient.findRecipeDetails(idRecipe);
+          }catch (ExternalErrorException e){
+              System.out.println("Ha ocurrido al solicitar los datos de la Receta");
+              throw e;
+          }
+          return recipeDto;
+    }
 }

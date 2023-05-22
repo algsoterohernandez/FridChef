@@ -180,4 +180,26 @@ public class FridChefApiClient {
         }
         return  categories;
     }
+
+    public RecipeDto findRecipeDetails(int idRecipe) throws ExternalErrorException{
+        RecipeDto rs;
+
+        Response resp = webTarget.path("recipes/{id}")
+                .resolveTemplate("id", idRecipe)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (resp.getStatus() == HttpStatus.OK.getStatusCode()) {
+            rs = resp.readEntity(RecipeDto.class);
+
+        } else if (resp.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
+            rs = null;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+
+        return rs;
+    }
+
+
 }
