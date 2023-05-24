@@ -1,10 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" %>
-<%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
-<%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
-<%@ page import="com.fpdual.javaweb.web.servlet.dto.AllergenDto" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.*" %>
 <% List<RecipeDto> recipesList = (List<RecipeDto>) request.getAttribute("recipes");%>
 <% List<IngredientDto> ingredients = (List<IngredientDto>) request.getAttribute("IngredientList"); %>
 <% List<AllergenDto> allergenDtoList = (List<AllergenDto>) request.getAttribute("AllergenDtoList"); %>
@@ -52,8 +50,8 @@
                 <div class="recipes-list">
                     <h2><%= recipe.getName() %></h2>
                     <h3>Ingredientes:</h3>
-                    <% for (IngredientDto ingredient : recipe.getIngredients()) { %>
-                        <span><%=ingredient.getName()%></span> ·
+                    <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                        <span><%=ingredient.getNameIngredient()%></span> ·
                     <% } %>
                     <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
                     <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
@@ -82,12 +80,13 @@
                     <h2><%= recipeSuggestion.getName() %></h2>
 
                     <h3>Ingredientes:</h3>
-                    <% for (IngredientDto ingredient : recipeSuggestion.getIngredients()) { %>
-                        <span><%=ingredient.getName()%></span> ·
+                    <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
+                        <span><%=ingredient.getNameIngredient()%></span> ·
 
-                        <% for (AllergenDto allergen : ingredient.getAllergens()) {
-                            recipeAllergens.add(allergen);
-                        }%>
+                            <% for (AllergenDto allergen : ingredient.getAllergens()) {
+                                recipeAllergens.add(allergen);
+                            }%>
+
                     <% } %>
 
                     <p><%= recipeSuggestion.getDescription() %></p>

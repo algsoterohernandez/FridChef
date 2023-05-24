@@ -3,6 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
+import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,8 +42,8 @@ public class RecipeServiceTest {
                         .name("Ensalada de tomate y lechuga")
                         .ingredients(Arrays.asList(
                                 // Creación de los objetos IngredientDto dentro de la lista de ingredientes
-                                IngredientDto.builder().id(1).name("Tomate").build(),
-                                IngredientDto.builder().id(2).name("Lechuga").build()
+                                IngredientRecipeDto.builder().idIngredient(1).nameIngredient("Tomate").build(),
+                                IngredientRecipeDto.builder().idIngredient(2).nameIngredient("Lechuga").build()
                         ))
                         .build(),
 
@@ -52,9 +53,9 @@ public class RecipeServiceTest {
                         .name("Sopa de tomate")
                         .ingredients(Arrays.asList(
                                 // Creación de los objetos IngredientDto dentro de la lista de ingredientes
-                                IngredientDto.builder().id(1).name("Tomate").build(),
-                                IngredientDto.builder().id(3).name("Cebolla").build(),
-                                IngredientDto.builder().id(4).name("Caldo").build()
+                                IngredientRecipeDto.builder().idIngredient(1).nameIngredient("Tomate").build(),
+                                IngredientRecipeDto.builder().idIngredient(3).nameIngredient("Cebolla").build(),
+                                IngredientRecipeDto.builder().idIngredient(4).nameIngredient("Caldo").build()
                         ))
                         .build()
         );

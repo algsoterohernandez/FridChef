@@ -1,10 +1,13 @@
 package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.enums.Unit;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
+import com.fpdual.javaweb.web.servlet.dto.ItemDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientService {
@@ -34,6 +37,21 @@ public class IngredientService {
             System.out.println(e.getMessage());
         }
         return recipeList;
-
     }
+
+
+    public List<ItemDto> getAllUnits() {
+
+        List<ItemDto> items = new ArrayList<>();
+        items.add(new ItemDto(Unit.MG.toString(), "miligramos"));
+        items.add(new ItemDto(Unit.GR.toString(), "gramos"));
+        items.add(new ItemDto(Unit.ML.toString(), "mililitros"));
+        items.add(new ItemDto(Unit.L.toString(), "litros"));
+        items.add(new ItemDto(Unit.PIZCA.toString(), "pizca"));
+        items.add(new ItemDto(Unit.CUCHARADITA.toString(), "cucharadita"));
+        items.add(new ItemDto(Unit.CUCHARADA.toString(), "cucharada"));
+        return items;
+    }
+
+
 }

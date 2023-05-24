@@ -19,5 +19,4 @@ public class IngredientDto {
     private String name;
     private List<AllergenDto> allergens;
 
-
 }
