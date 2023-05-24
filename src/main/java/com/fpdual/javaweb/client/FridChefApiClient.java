@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -145,6 +146,24 @@ public class FridChefApiClient {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
             });
         } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return recipeDtoList;
+
+    }
+    public List<RecipeDto> findRecipesByCategory(int idCategory) throws ExternalErrorException {
+        List<RecipeDto> recipeDtoList = null;
+
+        Response response = webTarget.path("category/" + idCategory + "/recipes")
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
+        } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
+            recipeDtoList = new ArrayList<>();
+        }else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return recipeDtoList;

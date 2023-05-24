@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "IndexServlet", urlPatterns = {"/home"})
+@WebServlet(name = "IndexServlet", urlPatterns = {""})
 public class IndexServlet extends ParentServlet {
 
     private IngredientService ingredientService;

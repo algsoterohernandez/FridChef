@@ -36,8 +36,8 @@ public class SearchServlet extends ParentServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.fillCategories(req);
-        this.fillCommonParameters(req, resp);
+        req = this.fillCategories(req);
+        req = this.fillCommonParameters(req, resp);
         String idCategory = req.getParameter("id_category");
         try {
             if (idCategory != null) {
@@ -72,23 +72,21 @@ public class SearchServlet extends ParentServlet {
         } catch (Exception e) {
             req.getRequestDispatcher("error/recipenotfound.jsp").forward(req, resp);
         }
-
+        req = this.fillCommonParameters(req, resp);
         req.setAttribute("recipes", recipes);
         req.setAttribute("recipeSuggestions", recipeSuggestions);
-
-        this.fillCommonParameters(req, resp);
-
         RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
         dispatcher.forward(req, resp);
     }
 
 
-    protected void fillCommonParameters(HttpServletRequest req, HttpServletResponse resp) {
+    protected HttpServletRequest fillCommonParameters(HttpServletRequest req, HttpServletResponse resp) {
         List<IngredientDto> ingredients =  ingredientService.findAllIngredients();
         req.setAttribute("IngredientList", ingredients);
 
         List<AllergenDto> allergenDtoList =  allergenService.findAllAllergens();
         req.setAttribute("AllergenDtoList", allergenDtoList);
+        return req;
     }
 
 }

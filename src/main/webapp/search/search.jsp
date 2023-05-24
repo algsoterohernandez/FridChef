@@ -43,9 +43,9 @@
             <form action="search" method="post" id="form">
             </form>
         </div>
-        <% if (recipesList.isEmpty()) { %>
+        <% if (recipesList != null && recipesList.isEmpty()) { %>
         <p>No se han encontrado recetas con estos ingredientes</p>
-        <% } else { %>
+        <% } else if (recipesList != null) { %>
              <% for (RecipeDto recipe : recipesList) { %>
 
                     <div class="recipes-list">
@@ -63,9 +63,9 @@
 
             <% } %>
         <% } %>
-        <% if (recipeSuggestions.isEmpty()) { %>
+        <% if (recipeSuggestions != null && recipeSuggestions.isEmpty()) { %>
             <p>¡Prueba con otros ingredientes!</p>
-        <% } else { %>
+        <% } else if (recipeSuggestions != null) { %>
             <div class="allergen-list">
                 <span>Con algunos ingredientes más, podrías cocinar todo esto!</span>
                 <p></p>

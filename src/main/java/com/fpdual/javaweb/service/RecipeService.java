@@ -27,28 +27,12 @@ public class RecipeService {
     public List<RecipeDto> findRecipesByCategory(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
         try {
-            Response response = (Response) apiClient.(idCategory);
-            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
-            }
+            recipeDtoList = apiClient.findRecipesByCategory(idCategory);
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
-        return recipeDtoList;
+        return  recipeDtoList;
     }
-
-    public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
-          List<RecipeDto> recipeDtoList = null;
-          try {
-              Response response = (Response) apiClient.findByIngredients(ingredientList);
-              if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                  recipeDtoList = response.readEntity(List.class);
-              }
-          } catch (ExternalErrorException e) {
-              System.out.println(e.getMessage());
-          }
-          return recipeDtoList;
-      }
 
     public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
         try{

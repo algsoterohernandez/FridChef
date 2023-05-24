@@ -50,7 +50,7 @@ public class LoginServlet extends ParentServlet {
                 req.getSession().setMaxInactiveInterval(60);
                 req.getSession().setAttribute("sessionUser", searchUser);
 
-                resp.sendRedirect("/FridChef/home");
+                resp.sendRedirect("/FridChef");
             }
 
         } catch (Exception e) {
