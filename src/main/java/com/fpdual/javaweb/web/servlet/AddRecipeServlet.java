@@ -2,41 +2,36 @@ package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.service.CategoryService;
 import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
-import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @WebServlet(name="AddRecipeServlet", urlPatterns = {"/add-recipes"})
-public class AddRecipeServlet extends HttpServlet{
+public class AddRecipeServlet extends ParentServlet {
     private RecipeService recipeService;
-    private CategoryService categoryService;
     private IngredientService ingredientService;
 
         @Override
         public void init() {
             FridChefApiClient apiClient = new FridChefApiClient();
             recipeService = new RecipeService(apiClient);
-            categoryService = new CategoryService(apiClient);
             ingredientService = new IngredientService(apiClient);
-
+            super.init(apiClient);
         }
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            this.fillCategories(req);
             req.setAttribute("categories", categoryService.getAllCategories());
             req.setAttribute("ingredients", ingredientService.findAllIngredients());
             req.setAttribute("units", ingredientService.getAllUnits());
@@ -47,6 +42,7 @@ public class AddRecipeServlet extends HttpServlet{
 
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            this.fillCategories(req);
             String name = req.getParameter("title");
             String description = req.getParameter("description");
             int difficulty = Integer.parseInt(req.getParameter("difficulty"));

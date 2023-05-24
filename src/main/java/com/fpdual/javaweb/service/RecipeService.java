@@ -27,7 +27,7 @@ public class RecipeService {
     public List<RecipeDto> findRecipesByCategory(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
         try {
-            Response response = (Response) apiClient.findCategories();
+            Response response = (Response) apiClient.(idCategory);
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
             }

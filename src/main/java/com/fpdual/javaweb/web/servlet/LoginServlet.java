@@ -6,7 +6,6 @@ import com.fpdual.javaweb.util.Utils;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -15,28 +14,31 @@ import java.io.IOException;
 
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends ParentServlet {
     private UserService userService;
 
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        userService = new UserService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        this.fillCategories(req);
         req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         UserDto searchUser;
         try {
+            this.fillCategories(req);
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String passwordMD5 = Utils.encryptPassword(password);
-
             searchUser = userService.findUser(email, passwordMD5);
 
             if (searchUser == null || searchUser.getEmail() == null) {

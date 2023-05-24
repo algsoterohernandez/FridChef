@@ -8,7 +8,6 @@ import com.fpdual.javaweb.util.Utils;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -18,18 +17,20 @@ import java.util.Properties;
 
 
 @WebServlet(name = "RegisterFormServlet", urlPatterns = {"/register-form"})
-public class RegisterFormServlet extends HttpServlet {
+public class RegisterFormServlet extends ParentServlet {
     private UserService userService;
     private SenderEmail senderEmail;
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        userService = new UserService(apiClient);
         senderEmail = new SenderEmail(new Properties(), new Properties());
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        this.fillCategories(req);
         req.getRequestDispatcher("/register/registerForm.jsp").forward(req, resp);
 
     }
@@ -40,6 +41,7 @@ public class RegisterFormServlet extends HttpServlet {
         boolean succeeded = false;
 
         try {
+            this.fillCategories(req);
             UserDto user = getUserFromRequest(req);
 
             UserDto createdUser = userService.registerUser(user);
