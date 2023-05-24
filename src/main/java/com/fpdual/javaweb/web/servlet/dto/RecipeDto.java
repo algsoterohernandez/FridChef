@@ -26,4 +26,5 @@ public class RecipeDto {
     private Blob image;
     private List<IngredientRecipeDto> ingredients;
     private String status;
+
 }

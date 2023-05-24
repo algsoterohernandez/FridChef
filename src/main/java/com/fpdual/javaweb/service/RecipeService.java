@@ -3,6 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
@@ -23,19 +24,20 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
-      /*public List<RecipeDto> findRecipesByCategory(String category) {
+    public List<RecipeDto> findRecipesByCategory(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
         try {
-            Response response = fridChefApiClient.(category);
+            Response response = (Response) apiClient.findCategories();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                recipeDtoList = response.readEntity(List.class);
+                recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
             }
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
         return recipeDtoList;
-    }*/
-      public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
+    }
+
+    public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
           List<RecipeDto> recipeDtoList = null;
           try {
               Response response = (Response) apiClient.findByIngredients(ingredientList);

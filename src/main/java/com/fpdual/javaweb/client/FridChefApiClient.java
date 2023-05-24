@@ -166,18 +166,18 @@ public class FridChefApiClient {
     }
 
     public List<CategoryDto> findCategories() throws ExternalErrorException{
-        List<CategoryDto> categories = null;
-        Response rs = webTarget.path("category/")
+        List<CategoryDto> rs = null;
+        Response response = webTarget.path("category/")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
-        if(rs.getStatus() ==200){
-            categories = rs.readEntity(new GenericType<List<CategoryDto>>(){});
-        }else if(rs.getStatus() ==204){
-            categories = Collections.emptyList();
-        } else{
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            rs = response.readEntity(new GenericType<List<CategoryDto>>() {
+            });
+        } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
-        return  categories;
+        return rs;
     }
+
 }
