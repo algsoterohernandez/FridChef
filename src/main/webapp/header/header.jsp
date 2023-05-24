@@ -24,12 +24,14 @@
             <a href="/FridChef/login">Login</a>
             <a href="/FridChef/register-form">Regístrate</a>
             <% } %>
+
         </div>
     </div>
     <div class="menu">
         <a href="/FridChef">Inicio</a>
         <a href="/FridChef/recipes">Recetas</a>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
+
     </div>
 </div>
 
