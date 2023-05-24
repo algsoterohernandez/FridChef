@@ -180,4 +180,19 @@ public class FridChefApiClient {
         }
         return  categories;
     }
+    public List<RecipeDto> findFavorites() throws ExternalErrorException{
+        List<RecipeDto> recipes = null;
+        Response rs = webTarget.path("favorite/")
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if(rs.getStatus() ==200){
+            recipes = rs.readEntity(new GenericType<List<RecipeDto>>(){});
+        }else if(rs.getStatus() ==204){
+            recipes = Collections.emptyList();
+        } else{
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return  recipes;
+    }
 }
