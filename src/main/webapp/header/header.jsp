@@ -28,9 +28,15 @@
     </div>
     <div class="menu">
         <a href="/FridChef">Inicio</a>
-        <a href="#">Recetas</a>
-        <a href="#">Recetas favoritas</a>
+        <div class="dropdown">
+            <a href="#">Recetas</a>
+            <div class="dropdown-content">
+                <a href="#">Categoría 1</a>
+                <a href="#">Categoría 2</a>
+            </div>
+        </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
+
     </div>
 </div>
 

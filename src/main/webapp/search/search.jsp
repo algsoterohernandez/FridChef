@@ -47,16 +47,20 @@
         <p>No se han encontrado recetas con estos ingredientes</p>
         <% } else { %>
              <% for (RecipeDto recipe : recipesList) { %>
-                <div class="recipes-list">
-                    <h2><%= recipe.getName() %></h2>
-                    <h3>Ingredientes:</h3>
-                    <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                        <span><%=ingredient.getNameIngredient()%></span> ·
-                    <% } %>
-                    <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
-                    <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
-                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
-                </div>
+
+                    <div class="recipes-list">
+                        <a href="#">
+                        <h2><%= recipe.getName() %></h2>
+                        <h3>Ingredientes:</h3>
+                        <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                            <span><%=ingredient.getNameIngredient()%></span> ·
+                        <% } %>
+                        <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
+                        <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
+                        <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                        </a>
+                    </div>
+
             <% } %>
         <% } %>
         <% if (recipeSuggestions.isEmpty()) { %>
