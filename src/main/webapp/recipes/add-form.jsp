@@ -35,8 +35,8 @@
         <input type="text" id= "title" name="title" minlength="2" maxlength="50" required/>
       </div><br>
       <div class="form-input">
-        <label for="description">Elaboración: </label>
-        <input type="text" id= "description" name="description" minlength="2" maxlength="500" required/>
+        <label for="description">Elaboración: </label><br/>
+        <textarea type="textarea" id= "description" name="description" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
       </div><br>
       <div class="form-input">
         <label for="time">duración:</label>
