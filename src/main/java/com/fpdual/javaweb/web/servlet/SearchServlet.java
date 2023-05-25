@@ -19,18 +19,19 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
-public class SearchServlet extends HttpServlet {
+public class SearchServlet extends ParentServlet {
     private IngredientService ingredientService;
     private AllergenService allergenService;
-
     private RecipeService recipeService;
 
 
     @Override
     public void init() {
-        ingredientService = new IngredientService(new FridChefApiClient());
-        allergenService = new AllergenService(new FridChefApiClient());
-        recipeService = new RecipeService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        ingredientService = new IngredientService(apiClient);
+        allergenService = new AllergenService(apiClient);
+        recipeService = new RecipeService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
@@ -39,6 +40,7 @@ public class SearchServlet extends HttpServlet {
         List<RecipeDto> recipeSuggestions = null;
 
         try {
+            this.fillCategories(req);
             String[] ingredientes = req.getParameterValues("ingredientes[]");
 
             if (ingredientes == null || ingredientes.length < 3 || ingredientes.length > 6) {

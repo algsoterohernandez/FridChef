@@ -10,18 +10,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "UnregisterServlet", urlPatterns = {"/unregister"})
-public class UnregisterServlet extends HttpServlet {
+public class UnregisterServlet extends ParentServlet {
     private UserService userService;
 
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        userService = new UserService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
+            this.fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user != null) {

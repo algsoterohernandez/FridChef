@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @WebServlet(name="AddRecipeServlet", urlPatterns = {"/add-recipes"})
-public class AddRecipeServlet extends HttpServlet{
+public class AddRecipeServlet extends ParentServlet{
     private RecipeService recipeService;
     private CategoryService categoryService;
     private IngredientService ingredientService;
@@ -32,11 +32,12 @@ public class AddRecipeServlet extends HttpServlet{
             recipeService = new RecipeService(apiClient);
             categoryService = new CategoryService(apiClient);
             ingredientService = new IngredientService(apiClient);
-
+            super.init(apiClient);
         }
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            this.fillCategories(req);
             req.setAttribute("categories", categoryService.getAllCategories());
             req.setAttribute("ingredients", ingredientService.findAllIngredients());
             req.setAttribute("units", ingredientService.getAllUnits());
@@ -47,6 +48,7 @@ public class AddRecipeServlet extends HttpServlet{
 
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            this.fillCategories(req);
             String name = req.getParameter("title");
             String description = req.getParameter("description");
             int difficulty = Integer.parseInt(req.getParameter("difficulty"));

@@ -6,7 +6,6 @@ import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -14,20 +13,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "IndexServlet", urlPatterns = {"/home", ""})
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "IndexServlet", urlPatterns = {"", "/home"})
+public class IndexServlet extends ParentServlet {
 
     private IngredientService ingredientService;
 
     @Override
+
     public void init() {
-        ingredientService = new IngredientService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        ingredientService = new IngredientService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        AddAttributesToRequestFromUrl(req);
+        this.fillCategories(req);
+        addAttributesToRequestFromUrl(req);
 
 
         List<IngredientDto> ingredients =  ingredientService.findAllIngredients();
@@ -37,7 +39,7 @@ public class IndexServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
-    private void AddAttributesToRequestFromUrl(HttpServletRequest req) {
+    private void addAttributesToRequestFromUrl(HttpServletRequest req) {
         if(req.getQueryString() != null){
             if(req.getQueryString().contains("userDeleted")){
                 req.setAttribute("userDeleted", true);

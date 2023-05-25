@@ -10,18 +10,21 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
-public class CloseSessionServlet extends HttpServlet {
+public class CloseSessionServlet extends ParentServlet {
     private UserService userService;
 
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        FridChefApiClient apiclient = new FridChefApiClient();
+        userService = new UserService(apiclient);
+        super.init(apiclient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
+            this.fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user != null) {

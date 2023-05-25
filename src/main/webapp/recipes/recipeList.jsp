@@ -18,17 +18,23 @@
         <% List<RecipeDto> recipes = (List<RecipeDto>) request.getAttribute("RecipeList"); %>
 
         <% if (recipes != null && !recipes.isEmpty()) { %>
-        <ul>
-            <% for (RecipeDto recipe : recipes) { %>
-            <li>
-                <h3><%= recipe.getName() %></h3>
-                <p><%= recipe.getDescription() %></p>
-                <p>Categoría: <%= recipe.getIdCategory() %></p>
-            </li>
-            <% } %>
-        </ul>
+        <% for (RecipeDto recipe : recipes) { %>
+        <div class="recipes-list">
+            <a href="#">
+                <h2><%= recipe.getName() %></h2>
+                <h3>Ingredientes:</h3>
+                <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                <span><%=ingredient.getNameIngredient()%></span> ·
+                <% } %>
+                <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
+                <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
+                <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+            </a>
+        </div>
+
+        <% } %>
         <% } else { %>
-        <p>No se encontraron recetas para esta categoría.</p>
+        <p>No se encontraron recetas para esta categoría. Busca en otra categoría.</p>
         <% } %>
     </div>
 

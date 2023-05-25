@@ -15,17 +15,19 @@ import java.io.IOException;
 
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends ParentServlet {
     private UserService userService;
 
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        FridChefApiClient apiClient = new FridChefApiClient();
+        userService = new UserService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        this.fillCategories(req);
         req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
     }
 
@@ -33,6 +35,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDto searchUser;
         try {
+            this.fillCategories(req);
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String passwordMD5 = Utils.encryptPassword(password);
