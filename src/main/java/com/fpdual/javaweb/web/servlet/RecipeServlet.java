@@ -14,6 +14,8 @@ public class RecipeServlet extends HttpServlet {
         recipeService = new RecipeService(new FridChefApiClient());
     }
 
+
+
     /*@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<RecipeDto> recipes = recipeService.findRecipeByCategory();
