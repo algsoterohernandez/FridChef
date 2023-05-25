@@ -1,4 +1,5 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.UserDto" %>
+<%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Object userDeleted = request.getAttribute("userDeleted");
@@ -21,8 +22,10 @@
                 <li><a href="/FridChef/unregister">Darse de baja</a></li>
             </div>
             <% } else { %>
-            <a href="/FridChef/login">Login</a>
-            <a href="/FridChef/register-form">Regístrate</a>
+            <div class="login">
+                <a href="/FridChef/login">Login</a>
+                <a href="/FridChef/register-form">Regístrate</a>
+            </div>
             <% } %>
         </div>
     </div>
@@ -31,6 +34,7 @@
         <div class="dropdown">
             <a href="#">Recetas</a>
             <div class="dropdown-content">
+
                 <a href="#">Categoría 1</a>
                 <a href="#">Categoría 2</a>
             </div>

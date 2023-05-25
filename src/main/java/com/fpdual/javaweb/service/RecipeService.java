@@ -14,8 +14,10 @@ public class RecipeService {
     public RecipeService(FridChefApiClient apiClient) {
         this.apiClient = apiClient;
     }
+
     public List<RecipeDto> findRecipeSuggestions(List<String> ingredientList) {
         List<RecipeDto> recipeSuggestions = null;
+
         try {
             recipeSuggestions = apiClient.findRecipeSuggestions(ingredientList);
         } catch (ExternalErrorException e) {
@@ -23,30 +25,7 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
-      /*public List<RecipeDto> findRecipesByCategory(String category) {
-        List<RecipeDto> recipeDtoList = null;
-        try {
-            Response response = fridChefApiClient.(category);
-            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                recipeDtoList = response.readEntity(List.class);
-            }
-        } catch (ExternalErrorException e) {
-            System.out.println(e.getMessage());
-        }
-        return recipeDtoList;
-    }*/
-      public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
-          List<RecipeDto> recipeDtoList = null;
-          try {
-              Response response = (Response) apiClient.findByIngredients(ingredientList);
-              if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                  recipeDtoList = response.readEntity(List.class);
-              }
-          } catch (ExternalErrorException e) {
-              System.out.println(e.getMessage());
-          }
-          return recipeDtoList;
-      }
+
 
     public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
         try{
