@@ -16,10 +16,10 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends ParentServlet {
     private UserService userService;
-
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient =  new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }
@@ -50,7 +50,7 @@ public class LoginServlet extends ParentServlet {
                 req.getSession().setMaxInactiveInterval(60);
                 req.getSession().setAttribute("sessionUser", searchUser);
 
-                resp.sendRedirect("/FridChef");
+                resp.sendRedirect("/FridChef/home");
             }
 
         } catch (Exception e) {

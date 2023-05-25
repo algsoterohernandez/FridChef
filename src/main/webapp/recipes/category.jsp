@@ -1,6 +1,8 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% List<RecipeDto> recipes = (List<RecipeDto>) request.getAttribute("recipes"); %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,13 +17,10 @@
     <div class="contprincipal">
         <h2>Lista de recetas por categoría</h2>
 
-        <% List<RecipeDto> recipes = (List<RecipeDto>) request.getAttribute("RecipeList"); %>
-
         <% if (recipes != null && !recipes.isEmpty()) { %>
         <% for (RecipeDto recipe : recipes) { %>
         <div class="recipes-list">
-            <a href="#">
-                <h2><%= recipe.getName() %></h2>
+            <a href="/FridChef/category">
                 <h3>Ingredientes:</h3>
                 <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                 <span><%=ingredient.getNameIngredient()%></span> ·

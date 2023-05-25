@@ -22,11 +22,12 @@ public class SearchServlet extends ParentServlet {
     private IngredientService ingredientService;
     private AllergenService allergenService;
     private RecipeService recipeService;
+    private FridChefApiClient apiClient;
 
 
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         ingredientService = new IngredientService(apiClient);
         allergenService = new AllergenService(apiClient);
         recipeService = new RecipeService(apiClient);

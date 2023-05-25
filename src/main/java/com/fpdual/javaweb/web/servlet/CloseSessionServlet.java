@@ -11,10 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
 public class CloseSessionServlet extends ParentServlet {
     private UserService userService;
-
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }

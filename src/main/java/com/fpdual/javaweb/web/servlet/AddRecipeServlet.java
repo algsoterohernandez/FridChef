@@ -20,10 +20,10 @@ import java.util.stream.IntStream;
 public class AddRecipeServlet extends ParentServlet {
     private RecipeService recipeService;
     private IngredientService ingredientService;
-
+    private FridChefApiClient apiClient;
         @Override
         public void init() {
-            FridChefApiClient apiClient = new FridChefApiClient();
+            apiClient = new FridChefApiClient();
             recipeService = new RecipeService(apiClient);
             ingredientService = new IngredientService(apiClient);
             super.init(apiClient);
