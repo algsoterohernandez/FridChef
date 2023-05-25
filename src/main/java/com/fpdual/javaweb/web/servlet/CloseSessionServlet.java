@@ -29,7 +29,7 @@ public class CloseSessionServlet extends ParentServlet {
             if (user != null) {
 
                     req.getSession().setAttribute("sessionUser",null);
-                    resp.sendRedirect("/FridChef");
+                    resp.sendRedirect("/FridChef/home");
             }
 
         } catch (Exception e) {

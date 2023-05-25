@@ -34,5 +34,23 @@ public class RecipeServlet extends ParentServlet {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/header/header.jsp");
         dispatcher.forward(req, resp);
+
+        //String categoryIdParam = request.getParameter("id_category");
+        //if (categoryIdParam != null) {
+        // Obtener recetas de una categoría específica
+        ////    CategoryDto categoryDto = categoryService.getAllCategories().get(categoryId);
+        //    List<RecipeDto> recipes = recipeService.findRecipesByCategory(categoryId);
+        //    request.setAttribute("category", categoryId);
+        //    request.setAttribute("recipes", recipes);
+
+        //   RequestDispatcher dispatcher = request.getRequestDispatcher("recipeList.jsp");
+        //   dispatcher.forward(request, response);
+        // } else {
+        // Obtener todas las categorías
+        //   List<CategoryDto> categories = categoryService.getAllCategories();
+        //     request.setAttribute("categories", categories);
+
+        //   RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
+        //  dispatcher.forward(request, response);
     }
 }

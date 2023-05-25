@@ -37,11 +37,11 @@ public class RegisterFormServlet extends ParentServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         boolean succeeded = false;
 
         try {
             this.fillCategories(req);
+
             UserDto user = getUserFromRequest(req);
 
             UserDto createdUser = userService.registerUser(user);

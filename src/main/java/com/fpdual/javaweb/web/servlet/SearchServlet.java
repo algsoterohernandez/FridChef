@@ -21,7 +21,6 @@ import java.util.List;
 public class SearchServlet extends ParentServlet {
     private IngredientService ingredientService;
     private AllergenService allergenService;
-
     private RecipeService recipeService;
 
 
@@ -35,30 +34,12 @@ public class SearchServlet extends ParentServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req = this.fillCategories(req);
-        req = this.fillCommonParameters(req, resp);
-        String idCategory = req.getParameter("id_category");
-        try {
-            if (idCategory != null) {
-                List<RecipeDto> recipes = recipeService.findRecipesByCategory(Integer.parseInt(idCategory));
-                req.setAttribute("recipes", recipes);
-            }
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
-            dispatcher.forward(req, resp);
-        } catch (Exception e) {
-            req.getRequestDispatcher("error/recipenotfound.jsp").forward(req, resp);
-        }
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.fillCategories(req);
         List<RecipeDto> recipes = null;
         List<RecipeDto> recipeSuggestions = null;
 
         try {
+            this.fillCategories(req);
             String[] ingredientes = req.getParameterValues("ingredientes[]");
 
             if (ingredientes == null || ingredientes.length < 3 || ingredientes.length > 6) {
@@ -72,21 +53,18 @@ public class SearchServlet extends ParentServlet {
         } catch (Exception e) {
             req.getRequestDispatcher("error/recipenotfound.jsp").forward(req, resp);
         }
-        req = this.fillCommonParameters(req, resp);
+
         req.setAttribute("recipes", recipes);
         req.setAttribute("recipeSuggestions", recipeSuggestions);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
-        dispatcher.forward(req, resp);
-    }
 
-
-    protected HttpServletRequest fillCommonParameters(HttpServletRequest req, HttpServletResponse resp) {
         List<IngredientDto> ingredients =  ingredientService.findAllIngredients();
         req.setAttribute("IngredientList", ingredients);
 
         List<AllergenDto> allergenDtoList =  allergenService.findAllAllergens();
         req.setAttribute("AllergenDtoList", allergenDtoList);
-        return req;
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
+        dispatcher.forward(req, resp);
     }
 
 }
