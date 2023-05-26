@@ -2,13 +2,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientDto" %>
-<%@ page import="com.fpdual.javaweb.web.servlet.dto.ItemDto" %><%--
-  Created by IntelliJ IDEA.
-  User: alba.lima.garcia
-  Date: 5/17/2023
-  Time: 12:25 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.ItemDto" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% ArrayList<CategoryDto> categories = (ArrayList<CategoryDto>) request.getAttribute("categories");%>
 <% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
@@ -29,7 +24,7 @@
   <%@ include file="../header/header.jsp" %>
   <div class = "main-form">
     <h1>¡Crea tu receta ahora!</h1>
-    <form action="/FridChef/add-recipes" method="POST">
+    <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data">
       <div class="form-input">
         <label for="title">Titulo:</label>
         <input type="text" id= "title" name="title" minlength="2" maxlength="50" required/>

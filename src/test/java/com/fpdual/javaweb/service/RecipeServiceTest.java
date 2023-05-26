@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceTest {
@@ -68,5 +69,40 @@ public class RecipeServiceTest {
         // Assert: Verificación de los resultados
         assertEquals(expectedSuggestions, actualSuggestions);
         verify(apiClient, times(1)).findRecipeSuggestions(ingredientList);
+    }
+
+    @Test
+    void testFindRecipeById_Success() throws ExternalErrorException {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        int id = 1;
+        RecipeDto expectedRecipe = RecipeDto.builder()
+                .id(id)
+                .name("Recipe 1")
+                .build();
+
+        when(apiClient.findRecipeById(id)).thenReturn(expectedRecipe);
+
+        // Act: Invocación del método a testear
+        RecipeDto result = recipeService.findRecipeById(id);
+
+        // Assert: Verificación de los resultados
+        verify(apiClient).findRecipeById(id);
+        assertEquals(expectedRecipe, result);
+    }
+
+    @Test
+    void testFindRecipeById_Error() throws ExternalErrorException {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        int id = 1;
+        ExternalErrorException expectedException = new ExternalErrorException("Error");
+
+        when(apiClient.findRecipeById(id)).thenThrow(expectedException);
+
+        // Act: Invocación del método a testear
+        RecipeDto result = recipeService.findRecipeById(id);
+
+        // Assert: Verificación de los resultados
+        verify(apiClient).findRecipeById(id);
+        assertNull(result);
     }
 }

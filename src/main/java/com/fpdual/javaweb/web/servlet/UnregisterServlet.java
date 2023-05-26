@@ -4,24 +4,27 @@ import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "UnregisterServlet", urlPatterns = {"/unregister"})
-public class UnregisterServlet extends HttpServlet {
+public class UnregisterServlet extends ParentServlet {
     private UserService userService;
+    private FridChefApiClient apiClient;
 
     @Override
     public void init() {
-        userService = new UserService(new FridChefApiClient());
+        apiClient = new FridChefApiClient();
+        userService = new UserService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
+            this.fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user != null) {
