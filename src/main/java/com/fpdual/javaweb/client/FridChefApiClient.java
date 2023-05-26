@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -150,6 +151,24 @@ public class FridChefApiClient {
         return recipeDtoList;
 
     }
+    public List<RecipeDto> findRecipesByCategory(int idCategory) throws ExternalErrorException {
+        List<RecipeDto> recipeDtoList = null;
+
+        Response response = webTarget.path("category/" + idCategory + "/recipes")
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
+        } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
+            recipeDtoList = new ArrayList<>();
+        }else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return recipeDtoList;
+
+    }
 
     public RecipeDto createRecipe(RecipeDto recipeDto) throws ExternalErrorException {
 
@@ -167,18 +186,17 @@ public class FridChefApiClient {
 
     public List<CategoryDto> findCategories() throws ExternalErrorException{
         List<CategoryDto> categories = null;
-        Response rs = webTarget.path("category/")
+        Response response = webTarget.path("category/")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
-        if(rs.getStatus() ==200){
-            categories = rs.readEntity(new GenericType<List<CategoryDto>>(){});
-        }else if(rs.getStatus() ==204){
-            categories = Collections.emptyList();
-        } else{
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            categories = response.readEntity(new GenericType<List<CategoryDto>>() {
+            });
+        } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
-        return  categories;
+        return categories;
     }
 
     public RecipeDto findRecipeById(int id) throws ExternalErrorException {

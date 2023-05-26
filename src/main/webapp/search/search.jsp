@@ -49,18 +49,14 @@
         <div class="recipes-list">
             <a href="/FridChef/recipes?id=<%= recipe.getId() %>">
                 <div class="recipe-content">
-                    <h2><%= recipe.getName() %>
-                    </h2>
+                    <h2><%= recipe.getName() %></h2>
                     <h3>Ingredientes:</h3>
                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                     <span><%=ingredient.getNameIngredient()%></span> ·
                     <% } %>
-                    <p><span>Descripción:</span> <%= recipe.getDescription() %>
-                    </p>
-                    <p><span>Dificultad:</span> <%= recipe.getDifficulty() %>
-                    </p>
-                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %>
-                    </p>
+                    <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
+                    <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
+                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                 </div>
                 <div class="image-content">
                     <% if (recipe.getImageBase64() != null) { %>
@@ -109,8 +105,7 @@
 
                         <% } %>
 
-                    <p><%= recipeSuggestion.getDescription() %>
-                    </p>
+                    <p><%= recipeSuggestion.getDescription() %></p>
 
                     <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> ·
                         <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %>

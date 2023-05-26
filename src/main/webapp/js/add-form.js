@@ -2,17 +2,16 @@ const addIngredientButton = document.querySelector('#add-ingredient');
 addIngredientButton.addEventListener('click', addIngredient)
 
 function addIngredient($event) {
-    debugger
     $event.stopPropagation();
     $event.preventDefault();
     const ingredientSelect = (
-        document.querySelector('#ingredient option[selected]') ||
+        document.querySelector('#ingredient option:checked') ||
         document.querySelector('#ingredient option:first-of-type')
     )
     const ingredientName = ingredientSelect.innerHTML.trim();
     const idIngredient = ingredientSelect.getAttribute('value');
     const unit = (
-        document.querySelector('#unit option[selected]') ||
+        document.querySelector('#unit option:checked') ||
         document.querySelector('#unit option:first-of-type')
     ).getAttribute('value');
     const quantity = document.querySelector('#quantity').value;

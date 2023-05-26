@@ -1,4 +1,6 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.UserDto" %>
+<%@ page import="com.fpdual.javaweb.web.servlet.dto.*" %>
+<%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Object userDeleted = request.getAttribute("userDeleted");
@@ -7,6 +9,7 @@
     Object userRegistered = request.getAttribute("userRegistered");
     UserDto searchUser = (UserDto) request.getSession().getAttribute("sessionUser");
 %>
+<% List<CategoryDto> categoryList = (List<CategoryDto>) request.getAttribute("categoryList"); %>
 <div class="header">
     <div class="top-header">
         <div class="logo">
@@ -32,11 +35,13 @@
         <a href="/FridChef">Inicio</a>
         <div class="dropdown">
             <a href="#">Recetas</a>
+            <% if (categoryList != null) { %>
             <div class="dropdown-content">
-
-                <a href="#">Categoría 1</a>
-                <a href="#">Categoría 2</a>
+                <% for (CategoryDto  category : categoryList) {%>
+                <a href="/FridChef/category?id_category=<%= category.getId()%>"><%= category.getName()%></a>
+                <% } %>
             </div>
+            <% } %>
         </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
         <a href="./contacto/contacto.jsp">Contacto</a>

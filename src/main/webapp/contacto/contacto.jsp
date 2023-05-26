@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Conatcto</title>
+    <title>Contacto</title>
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
@@ -23,7 +23,7 @@
             <div class="contact-form">
                 <h2>Tienes algo que contarnos? quieres que añadamos algún nuevo ingrediente?</h2>
                 <h2>¡Contacta con nosotros!</h2>
-                <form id="contact-form" action="mailtoj:fridchef@gmail.com" method="POST" enctype="text/plain">
+                <form id="contact-form" action="mailtoj:fridcheffpdual@gmail.com" method="POST" enctype="text/plain">
                     <input name="name" type="text" class="feedback-input" placeholder="Nombre" />
                     <input name="email" type="text" class="feedback-input" placeholder="Email" />
                     <textarea name="text" class="feedback-input" placeholder="comentario"></textarea>

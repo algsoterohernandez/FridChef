@@ -10,7 +10,6 @@ import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,18 +18,20 @@ import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
-public class SearchServlet extends HttpServlet {
+public class SearchServlet extends ParentServlet {
     private IngredientService ingredientService;
     private AllergenService allergenService;
-
     private RecipeService recipeService;
+    private FridChefApiClient apiClient;
 
 
     @Override
     public void init() {
-        ingredientService = new IngredientService(new FridChefApiClient());
-        allergenService = new AllergenService(new FridChefApiClient());
-        recipeService = new RecipeService(new FridChefApiClient());
+        apiClient = new FridChefApiClient();
+        ingredientService = new IngredientService(apiClient);
+        allergenService = new AllergenService(apiClient);
+        recipeService = new RecipeService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
@@ -39,6 +40,7 @@ public class SearchServlet extends HttpServlet {
         List<RecipeDto> recipeSuggestions = null;
 
         try {
+            this.fillCategories(req);
             String[] ingredientes = req.getParameterValues("ingredientes[]");
 
             if (ingredientes == null || ingredientes.length < 3 || ingredientes.length > 6) {
@@ -61,8 +63,6 @@ public class SearchServlet extends HttpServlet {
 
         List<AllergenDto> allergenDtoList =  allergenService.findAllAllergens();
         req.setAttribute("AllergenDtoList", allergenDtoList);
-
-
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
         dispatcher.forward(req, resp);
