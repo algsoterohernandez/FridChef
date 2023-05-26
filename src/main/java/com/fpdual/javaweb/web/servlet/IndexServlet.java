@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "IndexServlet", urlPatterns = {""})
+@WebServlet(name = "IndexServlet", urlPatterns = {"/home", ""})
 public class IndexServlet extends ParentServlet {
 
     private IngredientService ingredientService;
-
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         ingredientService = new IngredientService(apiClient);
         super.init(apiClient);
     }

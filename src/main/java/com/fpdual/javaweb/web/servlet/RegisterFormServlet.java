@@ -20,9 +20,10 @@ import java.util.Properties;
 public class RegisterFormServlet extends ParentServlet {
     private UserService userService;
     private SenderEmail senderEmail;
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         senderEmail = new SenderEmail(new Properties(), new Properties());
         super.init(apiClient);
@@ -37,11 +38,11 @@ public class RegisterFormServlet extends ParentServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         boolean succeeded = false;
 
         try {
             this.fillCategories(req);
+
             UserDto user = getUserFromRequest(req);
 
             UserDto createdUser = userService.registerUser(user);

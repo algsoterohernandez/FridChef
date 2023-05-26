@@ -13,10 +13,10 @@ import java.io.IOException;
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
 public class CloseSessionServlet extends ParentServlet {
     private UserService userService;
-
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }
@@ -31,7 +31,7 @@ public class CloseSessionServlet extends ParentServlet {
             if (user != null) {
 
                     req.getSession().setAttribute("sessionUser",null);
-                    resp.sendRedirect("/FridChef");
+                    resp.sendRedirect("/FridChef/home");
             }
 
         } catch (IOException e) {

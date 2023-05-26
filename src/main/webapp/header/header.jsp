@@ -38,7 +38,7 @@
             <% if (categoryList != null) { %>
             <div class="dropdown-content">
                 <% for (CategoryDto  category : categoryList) {%>
-                <a href="/FridChef/search?id_category=<%= category.getId()%>"><%= category.getName()%></a>
+                <a href="/FridChef/category?id_category=<%= category.getId()%>"><%= category.getName()%></a>
                 <% } %>
             </div>
             <% } %>

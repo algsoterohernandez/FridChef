@@ -24,7 +24,7 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
-    public List<RecipeDto> findRecipesByCategory(int idCategory) {
+    public List<RecipeDto> findAllRecipesByCategoryId(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
         try {
             recipeDtoList = apiClient.findRecipesByCategory(idCategory);
