@@ -41,17 +41,13 @@
             <form action="search" method="post" id="form">
             </form>
         </div>
-        <%
-            if (recipesList.isEmpty()) {
-                // No se encontraron recetas
-        %>
+        <% if (recipesList.isEmpty()) { %>
         <p>No se han encontrado recetas con estos ingredientes</p>
-        <%
-        } else {
+        <% } else {
             for (RecipeDto recipe : recipesList) {
         %>
         <div class="recipes-list">
-            <a href="#">
+            <a href="/FridChef/recipes?id=<%= recipe.getId() %>">
                 <div class="recipe-content">
                     <h2><%= recipe.getName() %></h2>
                     <h3>Ingredientes:</h3>
@@ -76,55 +72,61 @@
             }
         %>
         <% if (recipeSuggestions.isEmpty()) { %>
-            <p>¡Prueba con otros ingredientes!</p>
-        <% } else  { %>
-            <div class="allergen-list">
-                <span>Con algunos ingredientes más, podrías cocinar todo esto!</span>
-                <p></p>
-                <label for="allergen-filter-options">Mostrar recetas que no contengan:</label>
-                <select id="allergen-filter-options">
-                    <option value="none">Selecciona alérgeno</option>
-                    <% for (AllergenDto allergenDto : allergenDtoList) { %>
-                    <option value="<%= allergenDto.getName()%>"><%= allergenDto.getName()%></option>
-                    <% } %>
-                </select>
-                <button id="allergen-filter-button" type="submit">Filtrar</button>
-            </div>
-            <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
-                <% Set<AllergenDto> recipeAllergens = new HashSet<>();%>
-                <div class="recipe-suggestions">
-                    <div class="recipe-content">
-                    <h2><%= recipeSuggestion.getName() %></h2>
+        <p>¡Prueba con otros ingredientes!</p>
+        <% } else { %>
+        <div class="allergen-list">
+            <span>Con algunos ingredientes más, podrías cocinar todo esto!</span>
+            <p></p>
+            <label for="allergen-filter-options">Mostrar recetas que no contengan:</label>
+            <select id="allergen-filter-options">
+                <option value="none">Selecciona alérgeno</option>
+                <% for (AllergenDto allergenDto : allergenDtoList) { %>
+                <option value="<%= allergenDto.getName()%>"><%= allergenDto.getName()%>
+                </option>
+                <% } %>
+            </select>
+            <button id="allergen-filter-button" type="submit">Filtrar</button>
+        </div>
+        <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
+        <% Set<AllergenDto> recipeAllergens = new HashSet<>();%>
+        <div class="recipe-suggestions">
+            <div class="recipe-content">
+                <a href="/FridChef/recipes?id=<%= recipeSuggestion.getId() %>">
+                    <h2><%= recipeSuggestion.getName() %>
+                    </h2>
 
                     <h3>Ingredientes:</h3>
-                    <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
-                        <span><%=ingredient.getNameIngredient()%></span> ·
+                        <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
+                    <span><%=ingredient.getNameIngredient()%></span> ·
 
-                            <% for (AllergenDto allergen : ingredient.getAllergens()) {
+                        <% for (AllergenDto allergen : ingredient.getAllergens()) {
                                 recipeAllergens.add(allergen);
                             }%>
 
-                    <% } %>
+                        <% } %>
 
                     <p><%= recipeSuggestion.getDescription() %></p>
 
-                    <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> · <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %></p>
+                    <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> ·
+                        <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %>
+                    </p>
 
                     <h3>Alergenos:</h3>
-                    <% for(AllergenDto allergen : recipeAllergens) {%>
-                        <span class="recipe-allergen"><%=allergen.getName()%></span> ·
-                    <% } %>
-                    </div>
-                    <div class="image-content">
-                        <% if (recipeSuggestion.getImageBase64() != null) { %>
-                        <img src="data:image/jpeg;base64,<%= recipeSuggestion.getImageBase64() %>">
-                        <% } else { %>
-                        <p>No hay Imagen</p>
+                        <% for(AllergenDto allergen : recipeAllergens) {%>
+                    <span class="recipe-allergen"><%=allergen.getName()%></span> ·
                         <% } %>
-                    </div>
-                </div>
-                <p></p>
-            <% } %>
+            </div>
+            <div class="image-content">
+                <% if (recipeSuggestion.getImageBase64() != null) { %>
+                <img src="data:image/jpeg;base64,<%= recipeSuggestion.getImageBase64() %>">
+                <% } else { %>
+                <p>No hay Imagen</p>
+                <% } %>
+            </div>
+        </div>
+        </a>
+        <p></p>
+        <% } %>
         <% } %>
 
         <%@ include file="../footer/footer.jsp" %>

@@ -44,6 +44,7 @@
             <% } %>
         </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
+        <a href="./contacto/contacto.jsp">Contacto</a>
 
     </div>
 </div>
