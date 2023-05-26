@@ -1,7 +1,7 @@
 /* Estilos generales */
 
 body {
-    background: url("https://res.cloudinary.com/finnhvman/image/upload/v1541930411/pattern.png");
+    background: url("https://www.recetasderechupete.com/wp-content/themes/derechupete/img/patterns_rdr2.png");
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -11,7 +11,6 @@ body {
 
 div {
     padding: 20px;
-    border-radius: 10px;
     box-sizing: border-box;
 }
 
@@ -20,7 +19,7 @@ div.content {
     margin: auto;
     width: 80%;
     font-size: 14px;
-    box-shadow: 5px 5px 15px  15px gray;
+    box-shadow: 5px 5px 15px gray;
 }
 
 div.header {
@@ -30,7 +29,6 @@ div.header {
     background-color: #ffffff;
     box-sizing: border-box;
     background-size: 30%;
-
 }
 
 div.menu {
@@ -41,80 +39,78 @@ div.menu {
     border: 1px solid #636363;
 }
 
-div.menu a:link {
+div.menu a {
     color: #000000;
     text-decoration: none;
-    padding: 20px;
+    padding: 1rem;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 1rem;
-
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 div.menu a:hover {
-    color: #ffffff;
-    background: #fab641;
+    color: #fab641;
 }
 
 div.menu a:visited {
-    text-decoration: none;
     color: black;
 }
 
-h1 {
-    font-size: 36px;
-    margin: 0;
-    padding: 1rem;
+div.login {
+    display: block;
+    color: #fab641;
+    background: #ffffff;
     text-align: center;
+    border: 0px;
 }
 
-p {
-    margin: 0;
+div.login a:link {
+    color: #000000;
+    text-decoration: none;
     padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-form {
-
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 1rem;
+div.login a:hover {
+    color: #fab641;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-}
 
 /*header*/
 
-.top-header{
-    display:flex;
+.top-header {
+    display: flex;
 }
+
 .logo {
     text-align: right;
     width: 60%;
     height: 15%;
     padding-right: 8%;
 }
-.logo img{
-    min-width:150px;
+
+.logo img {
+    min-width: 150px;
     width: 25%;
 }
-.user-session{
+
+.user-session {
     text-align: right;
     align-self: flex-end;
     width: 30%;
 }
-.user-container li{
+
+.user-container li {
     list-style: none;
 }
 
-.user-container{
+.user-container {
     display: none;
     position: absolute;
     background-color: #efcf8a;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -125,7 +121,7 @@ nav {
     display: block;
 }
 
-.user-session:hover .user-container{
+.user-session:hover .user-container {
     display: block;
 }
 
@@ -217,7 +213,6 @@ nav {
 
 /* Estilos específicos para el formulario de la página */
 
-
 #add-ingredient-button {
     display: inline-block;
 }
@@ -225,7 +220,6 @@ nav {
 #delete-icon {
     display: inline-block;
 }
-
 
 .login {
     width: 300px;
@@ -293,7 +287,6 @@ nav {
 
 div.search {
     border: 1px solid #ccc;
-
 }
 
 div.ingredients-container {
@@ -302,52 +295,59 @@ div.ingredients-container {
     width: 40%;
     height: 10%;
 }
+
 div.recipes-list {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%;
     background-color: white;
     border: 1px solid #636363;
-    width: 60%;
     box-shadow: 5px 5px 15px #694d19;
 }
 
-div.recipes-list a:link {
-    text-decoration: none;
-    color: black;
-}
-
-div.recipes-list a:hover {
-    text-decoration: none;
-    color: black;
-}
-
+div.recipes-list a:link,
+div.recipes-list a:hover,
 div.recipes-list a:visited {
     text-decoration: none;
     color: black;
 }
 
+div.recipe-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 60%;
+}
+
+div.image-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 39%;
+}
+
+div.image-content img{
+
+    width: 300px;
+    height: 300px;
+}
+
+
 div.recipe-suggestions {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%;
     background-color: white;
     border: 1px solid #636363;
-    width: 60%;
     box-shadow: 5px 5px 15px #694d19;
 }
 
-div.recipe-suggestions a:link {
-    text-decoration: none;
-    color: black;
-}
-
-div.recipe-suggestions a:hover {
-    text-decoration: none;
-    color: black;
-}
-
+div.recipe-suggestions a:link,
+div.recipe-suggestions a:hover,
 div.recipe-suggestions a:visited {
     text-decoration: none;
     color: black;
 }
 
 div.allergen-list {
-
 }
 
 div.footer {
@@ -356,7 +356,7 @@ div.footer {
     color: black;
     text-align: right;
     padding: 5px;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .table-footer {
@@ -364,7 +364,7 @@ div.footer {
     text-align: center;
 }
 
-/*MENU DESPLEGABLE*/
+/* MENU DESPLEGABLE */
 
 .dropdown {
     position: relative;
@@ -376,7 +376,7 @@ div.footer {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -399,5 +399,3 @@ div.footer {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
-
-

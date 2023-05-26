@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+
 
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
 public class CloseSessionServlet extends ParentServlet {
@@ -32,8 +34,8 @@ public class CloseSessionServlet extends ParentServlet {
                     resp.sendRedirect("/FridChef");
             }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

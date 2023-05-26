@@ -24,8 +24,10 @@
                 <li><a href="/FridChef/unregister">Darse de baja</a></li>
             </div>
             <% } else { %>
-            <a href="/FridChef/login">Login</a>
-            <a href="/FridChef/register-form">Regístrate</a>
+            <div class="login">
+                <a href="/FridChef/login">Login</a>
+                <a href="/FridChef/register-form">Regístrate</a>
+            </div>
             <% } %>
         </div>
     </div>

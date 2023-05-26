@@ -1,8 +1,6 @@
-<%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.HashSet" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.*" %>
+<%@ page import="java.util.*" %>
 <% List<RecipeDto> recipesList = (List<RecipeDto>) request.getAttribute("recipes");%>
 <% List<IngredientDto> ingredients = (List<IngredientDto>) request.getAttribute("IngredientList"); %>
 <% List<AllergenDto> allergenDtoList = (List<AllergenDto>) request.getAttribute("AllergenDtoList"); %>
@@ -43,29 +41,43 @@
             <form action="search" method="post" id="form">
             </form>
         </div>
-        <% if (recipesList != null && recipesList.isEmpty()) { %>
+        <%
+            if (recipesList.isEmpty()) {
+                // No se encontraron recetas
+        %>
         <p>No se han encontrado recetas con estos ingredientes</p>
-        <% } else if (recipesList != null) { %>
-             <% for (RecipeDto recipe : recipesList) { %>
-
-                    <div class="recipes-list">
-                        <a href="#">
-                        <h2><%= recipe.getName() %></h2>
-                        <h3>Ingredientes:</h3>
-                        <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                            <span><%=ingredient.getNameIngredient()%></span> ·
-                        <% } %>
-                        <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
-                        <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
-                        <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
-                        </a>
-                    </div>
-
-            <% } %>
-        <% } %>
-        <% if (recipeSuggestions != null && recipeSuggestions.isEmpty()) { %>
+        <%
+        } else {
+            for (RecipeDto recipe : recipesList) {
+        %>
+        <div class="recipes-list">
+            <a href="#">
+                <div class="recipe-content">
+                    <h2><%= recipe.getName() %></h2>
+                    <h3>Ingredientes:</h3>
+                    <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                    <span><%=ingredient.getNameIngredient()%></span> ·
+                    <% } %>
+                    <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
+                    <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
+                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                </div>
+                <div class="image-content">
+                    <% if (recipe.getImageBase64() != null) { %>
+                    <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
+                    <% } else { %>
+                    <p>No hay Imagen</p>
+                    <% } %>
+                </div>
+            </a>
+        </div>
+        <%
+                }
+            }
+        %>
+        <% if (recipeSuggestions.isEmpty()) { %>
             <p>¡Prueba con otros ingredientes!</p>
-        <% } else if (recipeSuggestions != null) { %>
+        <% } else  { %>
             <div class="allergen-list">
                 <span>Con algunos ingredientes más, podrías cocinar todo esto!</span>
                 <p></p>
@@ -81,6 +93,7 @@
             <% for (RecipeDto recipeSuggestion : recipeSuggestions) { %>
                 <% Set<AllergenDto> recipeAllergens = new HashSet<>();%>
                 <div class="recipe-suggestions">
+                    <div class="recipe-content">
                     <h2><%= recipeSuggestion.getName() %></h2>
 
                     <h3>Ingredientes:</h3>
@@ -101,6 +114,14 @@
                     <% for(AllergenDto allergen : recipeAllergens) {%>
                         <span class="recipe-allergen"><%=allergen.getName()%></span> ·
                     <% } %>
+                    </div>
+                    <div class="image-content">
+                        <% if (recipeSuggestion.getImageBase64() != null) { %>
+                        <img src="data:image/jpeg;base64,<%= recipeSuggestion.getImageBase64() %>">
+                        <% } else { %>
+                        <p>No hay Imagen</p>
+                        <% } %>
+                    </div>
                 </div>
                 <p></p>
             <% } %>
