@@ -50,7 +50,7 @@ public class SearchServlet extends HttpServlet {
                 recipes = ingredientService.findByIngredients(listaIngredientes);
             }
         } catch (Exception e) {
-            req.getRequestDispatcher("error/recipenotfound.jsp").forward(req, resp);
+            req.getRequestDispatcher("/error/recipenotfound.jsp").forward(req, resp);
         }
 
         req.setAttribute("recipes", recipes);

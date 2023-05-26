@@ -1,5 +1,4 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.UserDto" %>
-<%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Object userDeleted = request.getAttribute("userDeleted");
@@ -40,6 +39,7 @@
             </div>
         </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
+        <a href="./contacto/contacto.jsp">Contacto</a>
 
     </div>
 </div>

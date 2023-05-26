@@ -38,4 +38,14 @@ public class RecipeService {
         return recipeDto;
     }
 
+    public RecipeDto findRecipeById(int id) {
+        try {
+            RecipeDto recipeDto = apiClient.findRecipeById(id);
+            return recipeDto;
+        } catch (ExternalErrorException e) {
+            System.out.println(e.getMessage());
+            return null; // tengo que ver como manejo este error
+        }
+    }
+
 }
