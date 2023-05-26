@@ -93,7 +93,7 @@ public class FridChefApiClient {
             rs = response.readEntity(new GenericType<List<IngredientDto>>() {
             });
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
-            throw new ExternalErrorException("Ha ocurrido un error");
+            throw new ExternalErrorException("Ha ocurrido un error al listar todos los ingredientes");
         }
         return rs;
     }
@@ -108,7 +108,7 @@ public class FridChefApiClient {
             rs = response.readEntity(new GenericType<List<AllergenDto>>() {
             });
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
-            throw new ExternalErrorException("Ha ocurrido un error");
+            throw new ExternalErrorException("Ha ocurrido un error al listar todos los alérgenos");
         }
         return rs;
     }
@@ -126,7 +126,7 @@ public class FridChefApiClient {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
             });
         } else {
-            throw new ExternalErrorException("Ha ocurrido un error");
+            throw new ExternalErrorException("Ha ocurrido un error al buscar las recetas por ingredientes");
         }
         return recipeDtoList;
 
@@ -145,7 +145,7 @@ public class FridChefApiClient {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
             });
         } else {
-            throw new ExternalErrorException("Ha ocurrido un error");
+            throw new ExternalErrorException("Ha ocurrido un error al buscar las recetas sugeridas");
         }
         return recipeDtoList;
 
@@ -179,5 +179,18 @@ public class FridChefApiClient {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return  categories;
+    }
+
+    public RecipeDto findRecipeById(int id) throws ExternalErrorException {
+        Response response = webTarget.path("recipes/" + id)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            RecipeDto recipeDto = response.readEntity(RecipeDto.class);
+            return recipeDto;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error en la busqueda de recetas por Id");
+        }
     }
 }
