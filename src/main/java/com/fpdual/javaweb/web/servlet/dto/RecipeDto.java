@@ -2,8 +2,6 @@ package com.fpdual.javaweb.web.servlet.dto;
 
 import lombok.*;
 
-import java.sql.Blob;
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -23,7 +21,8 @@ public class RecipeDto {
     private String unitTime;
     private int idCategory;
     private String createTime;
-    private Blob image;
+    private String imageBase64;
     private List<IngredientRecipeDto> ingredients;
     private String status;
+
 }

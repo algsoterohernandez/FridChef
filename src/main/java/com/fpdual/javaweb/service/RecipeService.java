@@ -3,7 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import jakarta.ws.rs.core.Response;
+
 
 import java.util.List;
 
@@ -23,30 +23,15 @@ public class RecipeService {
         }
         return recipeSuggestions;
     }
-      /*public List<RecipeDto> findRecipesByCategory(String category) {
+    public List<RecipeDto> findAllRecipesByCategoryId(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
         try {
-            Response response = fridChefApiClient.(category);
-            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                recipeDtoList = response.readEntity(List.class);
-            }
+            recipeDtoList = apiClient.findRecipesByCategory(idCategory);
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
-        return recipeDtoList;
-    }*/
-      public List<RecipeDto> findRecipesByIngredients(List<String> ingredientList) {
-          List<RecipeDto> recipeDtoList = null;
-          try {
-              Response response = (Response) apiClient.findByIngredients(ingredientList);
-              if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-                  recipeDtoList = response.readEntity(List.class);
-              }
-          } catch (ExternalErrorException e) {
-              System.out.println(e.getMessage());
-          }
-          return recipeDtoList;
-      }
+        return  recipeDtoList;
+    }
 
     public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
         try{
@@ -59,11 +44,51 @@ public class RecipeService {
         return recipeDto;
     }
 
+    public RecipeDto findRecipeById(int id) {
+        try {
+            RecipeDto recipeDto = apiClient.findRecipeById(id);
+            return recipeDto;
+        } catch (ExternalErrorException e) {
+            System.out.println(e.getMessage());
+            return null; // tengo que ver como manejo este error
+        }
+    }
+
+    public List<RecipeDto> findByStatusPending() throws ExternalErrorException{
+        List<RecipeDto> recipeDtoList;
+
+        try {
+            recipeDtoList = apiClient.findByStatusPending();
+
+        } catch (ExternalErrorException eee) {
+            System.out.println(eee.getMessage());
+            throw eee;
+
+        }
+
+        return recipeDtoList;
+
+    }
+
+    public RecipeDto updateRecipeStatus(int id, String status) throws Exception {
+        RecipeDto recipeDto;
+
+        try {
+            recipeDto = apiClient.updateRecipeStatus(id, status);
+
+        } catch (ExternalErrorException eee) {
+            System.out.println(eee.getMessage());
+            throw eee;
+
+        }
+
+        return recipeDto;
+    }
     public RecipeDto findRecipe(int idRecipe) throws ExternalErrorException{
         RecipeDto recipeDto;
 
           try{
-              recipeDto = apiClient.findRecipeDetails(idRecipe);
+              recipeDto = apiClient.findRecipeById(idRecipe);
           }catch (ExternalErrorException e){
               System.out.println("Ha ocurrido al solicitar los datos de la Receta");
               throw e;

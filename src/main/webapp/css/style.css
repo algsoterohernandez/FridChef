@@ -1,7 +1,7 @@
 /* Estilos generales */
 
 body {
-    background-color: white;
+    background: url("https://www.recetasderechupete.com/wp-content/themes/derechupete/img/patterns_rdr2.png");
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -11,134 +11,153 @@ body {
 
 div {
     padding: 20px;
-    border-radius: 10px;
+    box-sizing: border-box;
 }
 
-div.content {
-    background-color: cornflowerblue;
-    margin: auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    font-family: Ubuntu;
+/* Estilo general formularios */
+
+input {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
     font-size: 14px;
-    box-shadow: 5px 5px 15px  15px gray;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.buttons input[type="submit"],
+.buttons input[type="reset"] {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+}
+
+.buttons input[type="submit"]:hover,
+.buttons input[type="reset"]:hover {
+    background-color: #555;
+}
+
+
+div.content {
+    background-color: #ffffff;
+    margin: auto;
+    width: 80%;
+    font-size: 14px;
+    box-shadow: 5px 5px 15px gray;
 }
 
 div.header {
     display: block;
-    color: white;
+    color: #fab641;
     text-align: center;
-    background-color: cornflowerblue;
+    background-color: #ffffff;
     box-sizing: border-box;
     background-size: 30%;
-
 }
+/* Estilos menu */
 
 div.menu {
     display: block;
-    color: white;
-    background: cornflowerblue;
+    color: #fab641;
+    background: #ffffff;
     text-align: center;
-    box-sizing: border-box
+    border: 1px solid #636363;
 }
 
-div.menu a:link {
-    color: white;
+div.menu a {
+    color: #000000;
     text-decoration: none;
-    padding: 20px;
-
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 div.menu a:hover {
-    color: #3b89f1;
-    background: #ffffff;
+    color: #fab641;
 }
 
 div.menu a:visited {
     text-decoration: none;
 }
 
-h1 {
-    font-size: 36px;
-    margin: 0;
-    padding: 1rem;
+div.login {
+    display: block;
+    color: #fab641;
+    background: #ffffff;
     text-align: center;
+    border: 0px;
 }
 
-p {
-    margin: 0;
-    padding: 1rem;
-}
-
-form {
-
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 1rem;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-}
-
-ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-}
-
-
-li {
-    margin: 0 1rem;
-}
-
-a {
+div.login a:link {
+    color: #000000;
     text-decoration: none;
-    color: #333;
+    padding: 1rem;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 1rem;
-    transition: background-color 0.2s ease-in-out;
 }
 
-a:hover {
-    background-color: #eee;
+div.login a:hover {
+    color: #fab641;
 }
+
 
 /*header*/
 
-.top-header{
-    display:flex;
+.top-header {
+    display: flex;
 }
+
 .logo {
     text-align: right;
     width: 60%;
     height: 15%;
     padding-right: 8%;
 }
-.logo img{
-    min-width:150px;
+
+.logo img {
+    min-width: 150px;
     width: 25%;
 }
-.user-session{
+
+.user-session {
     text-align: right;
     align-self: flex-end;
     width: 30%;
 }
-.user-container li{
+
+.user-container li {
     list-style: none;
 }
 
-.user-container{
+.user-container {
     display: none;
     position: absolute;
     background-color: #efcf8a;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -149,7 +168,7 @@ a:hover {
     display: block;
 }
 
-.user-session:hover .user-container{
+.user-session:hover .user-container {
     display: block;
 }
 
@@ -239,7 +258,6 @@ a:hover {
     opacity: 0.8;
 }
 
-/* Estilos específicos para el formulario de la página */
 
 
 #add-ingredient-button {
@@ -250,6 +268,7 @@ a:hover {
     display: inline-block;
 }
 
+/* Estilos específicos para login */
 
 .login {
     width: 300px;
@@ -268,56 +287,9 @@ a:hover {
     color: #333;
 }
 
-.login-input {
-    margin-bottom: 10px;
-}
-
-.login-input label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-.login-input input[type="email"],
-.login-input input[type="password"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-.buttons {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.buttons input[type="submit"],
-.buttons input[type="reset"] {
-    display: inline-block;
-    margin-right: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
-    cursor: pointer;
-}
-
-.buttons input[type="submit"]:hover,
-.buttons input[type="reset"]:hover {
-    background-color: #555;
-}
 
 div.search {
     border: 1px solid #ccc;
-
 }
 
 div.ingredients-container {
@@ -326,31 +298,67 @@ div.ingredients-container {
     width: 40%;
     height: 10%;
 }
+
 div.recipes-list {
-    background-color: #8cafee;
-    border: 1px solid #000;
-    width: 40%;
-    box-shadow: 5px 5px 15px #193669;
+    display: inline-block;
+    vertical-align: top;
+    width: 90%;
+    background-color: white;
+    border: 1px solid #636363;
+    box-shadow: 5px 5px 15px #694d19;
 }
 
+div.recipes-list a:link,
+div.recipes-list a:hover,
+div.recipes-list a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+div.recipe-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 60%;
+}
+
+div.image-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 39%;
+}
+
+div.image-content img {
+
+    height: 250px;
+}
+
+
 div.recipe-suggestions {
-    background-color: #8cafee;
-    border: 1px solid #000;
-    width: 40%;
-    box-shadow: 5px 5px 15px #193669;
+    display: inline-block;
+    vertical-align: top;
+    width: 90%;
+    background-color: white;
+    border: 1px solid #636363;
+    box-shadow: 5px 5px 15px #694d19;
+}
+
+div.recipe-suggestions a:link,
+div.recipe-suggestions a:hover,
+div.recipe-suggestions a:visited {
+    text-decoration: none;
+    color: black;
 }
 
 div.allergen-list {
-
 }
 
 div.footer {
     display: block;
-    background-color: cornflowerblue;
+    background-color: white;
     color: black;
     text-align: right;
     padding: 5px;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .table-footer {
@@ -358,9 +366,68 @@ div.footer {
     text-align: center;
 }
 
-div.pie a:link,
-a:visited,
-a:hover {
-    color: white;
-    text-decoration: none;
+/* MENU DESPLEGABLE */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+<<<<<<< Updated upstream
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/*!* Estilo formulario de contacto *!*/
+
+/*div.contact-form {*/
+/*    margin: 0 auto;*/
+/*    text-align: center;*/
+/*}*/
+/*div.contact-form form { max-width:420px; margin:50px auto; }*/
+
+/*.feedback-input {*/
+/*    color:black;*/
+/*    font-family: Helvetica, Arial, sans-serif;*/
+/*    font-weight:500;*/
+/*    font-size: 18px;*/
+/*    border-radius: 5px;*/
+/*    line-height: 22px;*/
+/*    background-color: transparent;*/
+/*    border:2px solid #333;*/
+/*    transition: all 0.3s;*/
+/*    padding: 13px;*/
+/*    margin-bottom: 15px;*/
+/*    width:100%;*/
+/*    box-sizing: border-box;*/
+/*    outline:0;*/
+/*}*/
+
+/*.feedback-input:focus { border:2px solid #000000; }*/
+
+/*textarea {*/
+/*    height: 150px;*/
+/*    line-height: 150%;*/
+/*    resize:vertical;*/
+/*}*/
+
+
+
+/*[type="submit"]:hover { background: #595959; }*/

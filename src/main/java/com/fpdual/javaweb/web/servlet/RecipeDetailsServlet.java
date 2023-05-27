@@ -16,13 +16,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "RecipeDetailsServlet", urlPatterns = {"/details-recipe"})
-public class RecipeDetailsServlet extends HttpServlet {
+public class RecipeDetailsServlet extends ParentServlet {
     private RecipeService recipeService;
 
     @Override
     public void init() {
         FridChefApiClient apiClient = new FridChefApiClient();
         recipeService = new RecipeService(apiClient);
+        super.init(apiClient);
 
     }
 
@@ -37,6 +38,7 @@ public class RecipeDetailsServlet extends HttpServlet {
         }
 
         try {
+            fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user == null) {
