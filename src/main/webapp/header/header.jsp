@@ -1,7 +1,6 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.UserDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.fpdual.javaweb.enums.Rol" %>
 <%@ page pageEncoding="UTF-8" %>
 
 <%
@@ -10,7 +9,8 @@
     Object userClosedSession = request.getAttribute("userClosedSession");
     Object userRegistered = request.getAttribute("userRegistered");
     UserDto searchUser = (UserDto) request.getSession().getAttribute("sessionUser");
-    List<CategoryDto> categoryList = (List<CategoryDto>) request.getAttribute("categoryList"); %>
+    List<CategoryDto> categoryList = (List<CategoryDto>) request.getAttribute("categoryList");
+%>
 
 <div class="header">
     <div class="top-header">
