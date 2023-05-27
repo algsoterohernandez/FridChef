@@ -97,12 +97,9 @@
 
                     <h3>Ingredientes:</h3>
                         <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
-                    <span><%=ingredient.getNameIngredient()%></span> ·
+                            <span><%=ingredient.getNameIngredient()%></span> ·
 
-                        <% for (AllergenDto allergen : ingredient.getAllergens()) {
-                                recipeAllergens.add(allergen);
-                            }%>
-
+                            <% recipeAllergens.addAll(ingredient.getAllergens());%>
                         <% } %>
 
                     <p><%= recipeSuggestion.getDescription() %></p>
@@ -112,9 +109,9 @@
                     </p>
 
                     <h3>Alergenos:</h3>
-                        <% for(AllergenDto allergen : recipeAllergens) {%>
-                    <span class="recipe-allergen"><%=allergen.getName()%></span> ·
-                        <% } %>
+                    <% for(AllergenDto allergen : recipeAllergens) {%>
+                        <span class="recipe-allergen"><%=allergen.getName()%></span> ·
+                    <% } %>
             </div>
             <div class="image-content">
                 <% if (recipeSuggestion.getImageBase64() != null) { %>

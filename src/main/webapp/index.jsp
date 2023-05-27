@@ -17,27 +17,29 @@
         <div class="content">
             <%@ include file="header/header.jsp" %>
 
-            <div class="contprincipal">
-                <div class="buscador">
+            <div class="principal-container">
+                <div class="search">
+                    <div class="searh">
 
-                    <h2>En mi nevera tengo...</h2>
+                        <h2>En mi nevera tengo...</h2>
 
-                    <label for="add-ingredient">Ingrediente:</label>
-                    <input list="ingrediente1" id="add-ingredient" name="ingredientes">
-                    <datalist id="ingrediente1">
-                        <% for (IngredientDto ingredient : ingredients) { %>
-                        <option value="<%= ingredient.getName()%>"></option>
-                        <% } %>
-                    </datalist>
-                    <button type="button" id="add-ingredient-button">Agregar</button>
-                    <p></p>
-                    Opciones:
-                    <div class="ingredients-container" id="ingredients-container"></div>
+                        <label for="add-ingredient">Ingrediente:</label>
+                        <input list="ingrediente1" id="add-ingredient" name="ingredientes">
+                        <datalist id="ingrediente1">
+                            <% for (IngredientDto ingredient : ingredients) { %>
+                            <option value="<%= ingredient.getName()%>"></option>
+                            <% } %>
+                        </datalist>
+                        <button type="button" id="add-ingredient-button">Agregar</button>
+                        <p></p>
+                        Opciones:
+                        <div class="ingredients-container" id="ingredients-container"></div>
 
-                    <button type="button" id="search-button">Buscar</button>
+                        <button type="button" id="search-button">Buscar</button>
 
-                    <form action="search" method="post" id="form">
-                    </form>
+                        <form action="search" method="post" id="form">
+                        </form>
+                    </div>
                 </div>
             </div>
 
