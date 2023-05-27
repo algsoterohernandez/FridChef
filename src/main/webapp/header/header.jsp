@@ -1,7 +1,6 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.UserDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.fpdual.javaweb.enums.Rol" %>
 <%@ page pageEncoding="UTF-8" %>
 
 <%
@@ -10,7 +9,8 @@
     Object userClosedSession = request.getAttribute("userClosedSession");
     Object userRegistered = request.getAttribute("userRegistered");
     UserDto searchUser = (UserDto) request.getSession().getAttribute("sessionUser");
-    List<CategoryDto> categoryList = (List<CategoryDto>) request.getAttribute("categoryList"); %>
+    List<CategoryDto> categoryList = (List<CategoryDto>) request.getAttribute("categoryList");
+%>
 
 <div class="header">
     <div class="top-header">
@@ -19,12 +19,13 @@
         </div>
         <div class="user-session">
             <% if (searchUser != null) { %>
-            <a href="#" class="dropbtn"><%= searchUser.getName() %>
+            <a href="#" class="user-logged"><%= searchUser.getName() %>
             </a>
             <div class="user-container">
                 <li><a href="#">Recetas Favoritas</a></li>
                 <%if (searchUser.isAdmin()) {%>
                 <li><a href="/FridChef/recipe-request">Solicitudes</a></li>
+                <li><a href="/FridChef/admin-ingredients">Gestionar ingredientes</a></li>
                 <% } %>
                 <li><a href="/FridChef/close-session">Cerrar Sesión</a></li>
                 <li><a href="/FridChef/unregister">Darse de baja</a></li>
@@ -51,7 +52,7 @@
             <% } %>
         </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
-        <a href="./contacto/contacto.jsp">Contacto</a>
+        <a href="/FridChef/contact">Contacto</a>
 
     </div>
 </div>

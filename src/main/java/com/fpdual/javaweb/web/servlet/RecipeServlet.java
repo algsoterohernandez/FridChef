@@ -26,7 +26,7 @@ public class RecipeServlet extends ParentServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        fillCategories(request);
+        super.fillCategories(request);
         String recipeId = request.getParameter("id");
         RecipeDto recipe = recipeService.findRecipeById(Integer.parseInt(recipeId)); // Obtiene los detalles de la receta
 

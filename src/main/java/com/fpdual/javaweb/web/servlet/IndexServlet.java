@@ -17,10 +17,9 @@ import java.util.List;
 public class IndexServlet extends ParentServlet {
 
     private IngredientService ingredientService;
-    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        apiClient = new FridChefApiClient();
+        FridChefApiClient apiClient = new FridChefApiClient();
         ingredientService = new IngredientService(apiClient);
         super.init(apiClient);
     }

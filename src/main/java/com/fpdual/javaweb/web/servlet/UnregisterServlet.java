@@ -11,11 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "UnregisterServlet", urlPatterns = {"/unregister"})
 public class UnregisterServlet extends ParentServlet {
     private UserService userService;
-    private FridChefApiClient apiClient;
 
     @Override
     public void init() {
-        apiClient = new FridChefApiClient();
+        FridChefApiClient apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }

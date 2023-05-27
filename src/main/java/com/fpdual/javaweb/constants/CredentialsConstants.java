@@ -1,4 +1,4 @@
-package com.fpdual.javaweb.email;
+package com.fpdual.javaweb.constants;
 
 public class CredentialsConstants {
     public static final String PASSWD = "mail.smtp.password";

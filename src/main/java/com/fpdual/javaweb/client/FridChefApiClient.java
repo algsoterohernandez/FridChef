@@ -13,7 +13,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class FridChefApiClient {
         return rs;
     }
 
-    public boolean deleteUser(String email) throws Exception {
+    public boolean deleteUser(String email) {
         boolean deleted = false;
 
         String path = "user/delete/".concat(email);
@@ -59,10 +58,6 @@ public class FridChefApiClient {
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             deleted = response.readEntity(boolean.class);
-
-        } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
-            deleted = false;
-
         }
         return deleted;
     }
@@ -122,7 +117,7 @@ public class FridChefApiClient {
     public List<RecipeDto> findByIngredients(List<String> ingredientsList) throws ExternalErrorException {
         RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
         recipeFilterDto.setIngredients(ingredientsList);
-        List<RecipeDto> recipeDtoList = null;
+        List<RecipeDto> recipeDtoList;
 
         Response response = webTarget.path("recipes/findbyingredients")
                 .request(MediaType.APPLICATION_JSON)
@@ -255,6 +250,35 @@ public class FridChefApiClient {
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
 
+        }
+        return rs;
+    }
+
+    public boolean deleteIngredient(int id){
+        boolean deleted = false;
+
+        Response response = webTarget.path("ingredient/delete/" + id)
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            deleted = response.readEntity(boolean.class);
+
+        }
+        return deleted;
+    }
+
+    public IngredientDto createIngredient(String name) throws ExternalErrorException {
+        IngredientDto rs;
+        Invocation.Builder builder = webTarget.path("ingredient/create").request(MediaType.APPLICATION_JSON);
+        Response response = builder.post(entity(name, MediaType.APPLICATION_JSON));
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            rs = response.readEntity(IngredientDto.class);
+        }
+        else
+        {
+            throw new ExternalErrorException("Ha ocurrido un error");
         }
         return rs;
     }

@@ -13,27 +13,23 @@ import java.io.IOException;
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
 public class CloseSessionServlet extends ParentServlet {
     private UserService userService;
-    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        apiClient = new FridChefApiClient();
+        FridChefApiClient apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
         try {
             this.fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user != null) {
-
-                    req.getSession().setAttribute("sessionUser",null);
-                    resp.sendRedirect("/FridChef/home");
+                 req.getSession().setAttribute("sessionUser",null);
             }
-
+            resp.sendRedirect("/FridChef/home");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

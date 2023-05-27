@@ -12,10 +12,8 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="./images/logo.jpg" type="image/icon">
-    <script src="../js/buscador.js" defer></script>
-    <script src="../js/filter.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
 </head>
     <body>
         <div class="content">
@@ -23,12 +21,12 @@
             <div class="contact-form">
                 <h2>Tienes algo que contarnos? quieres que añadamos algún nuevo ingrediente?</h2>
                 <h2>¡Contacta con nosotros!</h2>
-                <form id="contact-form" action="mailtoj:fridcheffpdual@gmail.com" method="POST" enctype="text/plain">
+                <form id="contact-form" action="/Fridchef/contact" method="POST" enctype="text/plain">
                     <input name="name" type="text" class="feedback-input" placeholder="Nombre" />
                     <input name="email" type="text" class="feedback-input" placeholder="Email" />
                     <textarea name="text" class="feedback-input" placeholder="comentario"></textarea>
                     <input type="submit" value="Enviar" form="contact-form" onclick="this.form.reset();"/>
-                </form >
+                </form>
             </div>
             <%@ include file="../footer/footer.jsp" %>
         </div>

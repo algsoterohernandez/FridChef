@@ -39,7 +39,6 @@ public class IngredientService {
         return recipeList;
     }
 
-
     public List<ItemDto> getAllUnits() {
 
         List<ItemDto> items = new ArrayList<>();
