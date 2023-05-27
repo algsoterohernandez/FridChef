@@ -15,34 +15,32 @@ import java.io.IOException;
 public class AcceptRejectRecipeServlet extends ParentServlet {
 
     private RecipeService recipeService;
-    private FridChefApiClient apiClient;
 
     @Override
     public void init() {
-        apiClient =  new FridChefApiClient();
+        FridChefApiClient apiClient =  new FridChefApiClient();
         recipeService = new RecipeService(apiClient);
         super.init(apiClient);
     }
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.fillCategories(req);
         try {
-            int recipeId = Integer.parseInt(request.getParameter("id"));
-            String recipeStatus = request.getParameter("status");
+            int recipeId = Integer.parseInt(req.getParameter("id"));
+            String recipeStatus = req.getParameter("status");
             RecipeDto recipe = recipeService.updateRecipeStatus(recipeId, recipeStatus);
 
             if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())) {
-                response.sendRedirect("/FridChef/recipes?id="+ recipeId);
-
+                resp.sendRedirect("/FridChef/recipes?id="+ recipeId);
             } else if (recipe.getStatus().equals(RecipeStatus.DECLINED.name())) {
-                response.sendRedirect("/FridChef/home");
+                resp.sendRedirect("/FridChef/home");
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            request.getRequestDispatcher("/error/recipenotfound.jsp").forward(request, response);
+            req.getRequestDispatcher("/error/recipenotfound.jsp").forward(req, resp);
         }
 
     }

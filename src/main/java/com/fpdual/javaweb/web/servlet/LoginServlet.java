@@ -16,10 +16,9 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends ParentServlet {
     private UserService userService;
-    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        apiClient =  new FridChefApiClient();
+        FridChefApiClient apiClient =  new FridChefApiClient();
         userService = new UserService(apiClient);
         super.init(apiClient);
     }

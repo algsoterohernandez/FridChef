@@ -17,11 +17,10 @@ import java.util.List;
 public class CategoryServlet extends ParentServlet {
 
     private RecipeService recipeService;
-    private FridChefApiClient apiClient;
 
     @Override
     public void init() {
-        apiClient = new FridChefApiClient();
+        FridChefApiClient apiClient = new FridChefApiClient();
         recipeService = new RecipeService(apiClient);
         super.init(apiClient);
 
