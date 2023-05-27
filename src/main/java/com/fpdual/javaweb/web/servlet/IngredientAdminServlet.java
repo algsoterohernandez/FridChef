@@ -16,14 +16,12 @@ import java.util.List;
 
 @WebServlet(name = "IngredientAdminServlet", urlPatterns = {"/admin-ingredients"})
 public class IngredientAdminServlet extends ParentServlet {
-    private UserService userService;
     private IngredientService ingredientService;
 
     @Override
     public void init() {
         FridChefApiClient apiClient = new FridChefApiClient();
         ingredientService = new IngredientService(apiClient);
-        userService = new UserService(apiClient);
         super.init(apiClient);
     }
 
@@ -43,4 +41,16 @@ public class IngredientAdminServlet extends ParentServlet {
             resp.sendRedirect("/FridChef/home");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        //HARA INSERT Y HARÁ DELETE EN FUNCIÓN DE LOS PARÁMETROS QUE LE LLEGUEN EN LA REQUEST.
+
+    }
+
+
+
+
 }

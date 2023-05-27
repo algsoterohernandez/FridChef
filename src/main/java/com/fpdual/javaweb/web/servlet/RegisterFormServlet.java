@@ -2,7 +2,7 @@ package com.fpdual.javaweb.web.servlet;
 
 
 import com.fpdual.javaweb.client.FridChefApiClient;
-import com.fpdual.javaweb.email.SenderEmail;
+import com.fpdual.javaweb.service.SenderEmailService;
 import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.util.Utils;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
@@ -19,12 +19,12 @@ import java.util.Properties;
 @WebServlet(name = "RegisterFormServlet", urlPatterns = {"/register-form"})
 public class RegisterFormServlet extends ParentServlet {
     private UserService userService;
-    private SenderEmail senderEmail;
+    private SenderEmailService senderEmail;
     @Override
     public void init() {
         FridChefApiClient apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
-        senderEmail = new SenderEmail(new Properties(), new Properties());
+        senderEmail = new SenderEmailService(new Properties(), new Properties());
         super.init(apiClient);
     }
 

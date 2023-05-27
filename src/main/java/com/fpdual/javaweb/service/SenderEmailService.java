@@ -1,5 +1,6 @@
-package com.fpdual.javaweb.email;
+package com.fpdual.javaweb.service;
 
+import com.fpdual.javaweb.constants.CredentialsConstants;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,13 +18,13 @@ import java.util.Properties;
 @Setter
 @Getter
 
-public class SenderEmail {
+public class SenderEmailService {
 
     private Properties mailProp, credentialProp;
     /**
      * Build the sender class loading the properties from mail and credentials files.
      */
-    public SenderEmail(Properties mailProp, Properties credentialProp) {
+    public SenderEmailService(Properties mailProp, Properties credentialProp) {
 
         try {
 

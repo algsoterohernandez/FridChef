@@ -22,17 +22,14 @@ public class CloseSessionServlet extends ParentServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        this.fillCategories(req);
         try {
             this.fillCategories(req);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             if (user != null) {
-
-                    req.getSession().setAttribute("sessionUser",null);
-                    resp.sendRedirect("/FridChef/home");
+                 req.getSession().setAttribute("sessionUser",null);
             }
-
+            resp.sendRedirect("/FridChef/home");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
