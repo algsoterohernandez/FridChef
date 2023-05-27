@@ -3,8 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.Response;
+
 
 import java.util.List;
 
@@ -53,6 +52,38 @@ public class RecipeService {
             System.out.println(e.getMessage());
             return null; // tengo que ver como manejo este error
         }
+    }
+
+    public List<RecipeDto> findByStatusPending() throws ExternalErrorException{
+        List<RecipeDto> recipeDtoList;
+
+        try {
+            recipeDtoList = apiClient.findByStatusPending();
+
+        } catch (ExternalErrorException eee) {
+            System.out.println(eee.getMessage());
+            throw eee;
+
+        }
+
+        return recipeDtoList;
+
+    }
+
+    public RecipeDto updateRecipeStatus(int id, String status) throws Exception{
+        RecipeDto recipeDto;
+
+        try {
+            recipeDto = apiClient.updateRecipeStatus(id, status);
+
+        } catch (ExternalErrorException eee) {
+            System.out.println(eee.getMessage());
+            throw eee;
+
+        }
+
+        return recipeDto;
+
     }
 
 }
