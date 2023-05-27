@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto" %>
-<% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe"); %>
+<%@ page import="com.fpdual.javaweb.enums.RecipeStatus" %>
+
+<%
+    RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +20,14 @@
 <body>
 <div class="content">
     <%@ include file="../header/header.jsp" %>
-    <h1><%= recipe.getName() %></h1>
+    <div class="title"><%= recipe.getName() %>
+        <%if (searchUser!= null && searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
+            <div class="buttons">
+                <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
+                <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
+            </div>
+        <% } %>
+    </div>
     <div class="image">
         <h2>Imagen</h2>
         <div class="image-content">

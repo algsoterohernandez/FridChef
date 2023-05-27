@@ -16,11 +16,11 @@
     </head>
     <body>
         <div class="content">
-            <div class="title">Recetas creadas por usuarios:</div>
             <div>
                 <%@ include file="../header/header.jsp" %>
+                <div class="title">Recetas creadas por usuarios:</div>
                 <% for (RecipeDto recipe : recipesPending) { %>
-                <li><a href="#" class="redirect"><%=recipe.getName()%></a>
+                <li><a href="/FridChef/recipes?id=<%=recipe.getId()%>" class="redirect"><%=recipe.getName()%></a>
                     <span><%=recipe.getCreateTime().substring(0, 10)%> </span>
                 </li>
                 <% } %>
