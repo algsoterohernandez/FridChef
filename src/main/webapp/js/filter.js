@@ -6,15 +6,15 @@ allergenFilterButton.addEventListener('click', filterByAllergen);
 function filterByAllergen() {
     const selectedAllergen = allergenFilterSelect.value;
 
-    if (selectedAllergen != 'none') {
-        //Obtener sugerencias por la clase recipe-suggestions
-        const suggestions = document.getElementsByClassName('recipe-suggestions');
+    //Obtener sugerencias por la clase recipe-suggestions
+    const suggestions = document.getElementsByClassName('recipe-suggestions');
 
-        //Recorre las sugerencias
-        for (let i = 0; i < suggestions.length; i++) {
-            const suggestedRecipe = suggestions[i];
-            let suggestedRecipeHidden = false;
+    //Recorre las sugerencias
+    for (let i = 0; i < suggestions.length; i++) {
+        const suggestedRecipe = suggestions[i];
+        let suggestedRecipeHidden = false;
 
+        if (selectedAllergen !== 'none') {
             //Obtener alérgenos de la sugerencia
             const recipeAllergens = suggestedRecipe.getElementsByClassName('recipe-allergen');
 
@@ -29,10 +29,10 @@ function filterByAllergen() {
                     break;
                 }
             }
+        }
 
-            if (!suggestedRecipeHidden) {
-                suggestedRecipe.style.display = '';
-            }
+        if (!suggestedRecipeHidden) {
+            suggestedRecipe.style.display = '';
         }
     }
 }
