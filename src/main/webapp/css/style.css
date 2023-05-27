@@ -14,6 +14,52 @@ div {
     box-sizing: border-box;
 }
 
+/* Estilo general formularios */
+
+input {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.buttons input[type="submit"],
+.buttons input[type="reset"] {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+}
+
+.buttons input[type="submit"]:hover,
+.buttons input[type="reset"]:hover {
+    background-color: #555;
+}
+
+
 div.content {
     background-color: #ffffff;
     margin: auto;
@@ -30,6 +76,7 @@ div.header {
     box-sizing: border-box;
     background-size: 30%;
 }
+/* Estilos menu */
 
 div.menu {
     display: block;
@@ -53,7 +100,7 @@ div.menu a:hover {
 }
 
 div.menu a:visited {
-    color: black;
+    text-decoration: none;
 }
 
 div.login {
@@ -211,7 +258,7 @@ div.login a:hover {
     opacity: 0.8;
 }
 
-/* Estilos específicos para el formulario de la página */
+
 
 #add-ingredient-button {
     display: inline-block;
@@ -220,6 +267,8 @@ div.login a:hover {
 #delete-icon {
     display: inline-block;
 }
+
+/* Estilos específicos para login */
 
 .login {
     width: 300px;
@@ -238,52 +287,6 @@ div.login a:hover {
     color: #333;
 }
 
-.login-input {
-    margin-bottom: 10px;
-}
-
-.login-input label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-.login-input input[type="email"],
-.login-input input[type="password"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-.buttons {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.buttons input[type="submit"],
-.buttons input[type="reset"] {
-    display: inline-block;
-    margin-right: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
-    cursor: pointer;
-}
-
-.buttons input[type="submit"]:hover,
-.buttons input[type="reset"]:hover {
-    background-color: #555;
-}
 
 div.search {
     border: 1px solid #ccc;
@@ -299,7 +302,7 @@ div.ingredients-container {
 div.recipes-list {
     display: inline-block;
     vertical-align: top;
-    width: 80%;
+    width: 90%;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -326,15 +329,14 @@ div.image-content {
 
 div.image-content img {
 
-    width: 300px;
-    height: 300px;
+    height: 250px;
 }
 
 
 div.recipe-suggestions {
     display: inline-block;
     vertical-align: top;
-    width: 80%;
+    width: 90%;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -388,65 +390,44 @@ div.footer {
     display: block;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
 
-/* Estilo formulario de contacto */
+/*!* Estilo formulario de contacto *!*/
 
-div.contact-form {
-    margin: 0 auto;
-    text-align: center;
-}
-div.contact-form form { max-width:420px; margin:50px auto; }
+/*div.contact-form {*/
+/*    margin: 0 auto;*/
+/*    text-align: center;*/
+/*}*/
+/*div.contact-form form { max-width:420px; margin:50px auto; }*/
 
-.feedback-input {
-    color:black;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight:500;
-    font-size: 18px;
-    border-radius: 5px;
-    line-height: 22px;
-    background-color: transparent;
-    border:2px solid #333;
-    transition: all 0.3s;
-    padding: 13px;
-    margin-bottom: 15px;
-    width:100%;
-    box-sizing: border-box;
-    outline:0;
-}
+/*.feedback-input {*/
+/*    color:black;*/
+/*    font-family: Helvetica, Arial, sans-serif;*/
+/*    font-weight:500;*/
+/*    font-size: 18px;*/
+/*    border-radius: 5px;*/
+/*    line-height: 22px;*/
+/*    background-color: transparent;*/
+/*    border:2px solid #333;*/
+/*    transition: all 0.3s;*/
+/*    padding: 13px;*/
+/*    margin-bottom: 15px;*/
+/*    width:100%;*/
+/*    box-sizing: border-box;*/
+/*    outline:0;*/
+/*}*/
 
-.feedback-input:focus { border:2px solid #000000; }
+/*.feedback-input:focus { border:2px solid #000000; }*/
 
-textarea {
-    height: 150px;
-    line-height: 150%;
-    resize:vertical;
-}
+/*textarea {*/
+/*    height: 150px;*/
+/*    line-height: 150%;*/
+/*    resize:vertical;*/
+/*}*/
 
-[type="submit"] {
-    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-    width: 100%;
-    background:#333;
-    border-radius:5px;
-    border:0;
-    cursor:pointer;
-    color:white;
-    font-size:24px;
-    padding-top:10px;
-    padding-bottom:10px;
-    transition: all 0.3s;
-    margin-top:-4px;
-    font-weight:700;
-}
 
-[type="submit"]:hover { background: #595959; }
+
+/*[type="submit"]:hover { background: #595959; }*/

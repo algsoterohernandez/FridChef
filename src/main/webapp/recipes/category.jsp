@@ -20,8 +20,8 @@
         <% if (recipes != null && !recipes.isEmpty()) { %>
         <% for (RecipeDto recipe : recipes) { %>
         <div class="recipes-list">
-            <a href="/FridChef/category">
-                <h2>< <%= recipe.getName() %></h2>
+            <a href="/FridChef/recipes?id=<%= recipe.getId() %>">
+                <h2><%= recipe.getName() %></h2>
                 <h3>Ingredientes:</h3>
                 <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                 <span><%=ingredient.getNameIngredient()%></span> ·

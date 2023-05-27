@@ -2,9 +2,6 @@ package com.fpdual.javaweb.web.servlet.dto;
 
 import lombok.*;
 
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.Date;
 import java.util.List;
 
 @Setter

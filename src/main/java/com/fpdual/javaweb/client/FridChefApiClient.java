@@ -26,27 +26,30 @@ public class FridChefApiClient {
         Client client = ClientBuilder.newClient();
         this.webTarget = client.target("http://localhost:8081/FridChefWebService/webapi");
     }
-    public FridChefApiClient(WebTarget webTarget){
+
+    public FridChefApiClient(WebTarget webTarget) {
         this.webTarget = webTarget;
     }
 
     public UserDto createUser(UserDto userDto) throws UserAlreadyExistsException, ExternalErrorException {
-
-        UserDto rs = null;
+        UserDto rs;
         Invocation.Builder builder = webTarget.path("user/create").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(userDto, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             rs = response.readEntity(UserDto.class);
+
         } else if (response.getStatus() == HttpStatus.NOT_MODIFIED.getStatusCode()) {
             throw new UserAlreadyExistsException("El usuario ya existe en el sistema.");
+
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
+
         }
         return rs;
     }
 
-    public boolean deleteUser(String email) throws Exception{
+    public boolean deleteUser(String email) throws Exception {
         boolean deleted = false;
 
         String path = "user/delete/".concat(email);
@@ -59,6 +62,7 @@ public class FridChefApiClient {
 
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             deleted = false;
+
         }
         return deleted;
     }
@@ -78,6 +82,7 @@ public class FridChefApiClient {
 
         } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
             rs = null;
+
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
@@ -151,6 +156,7 @@ public class FridChefApiClient {
         return recipeDtoList;
 
     }
+
     public List<RecipeDto> findRecipesByCategory(int idCategory) throws ExternalErrorException {
         List<RecipeDto> recipeDtoList = null;
 
@@ -163,7 +169,7 @@ public class FridChefApiClient {
             });
         } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
             recipeDtoList = new ArrayList<>();
-        }else {
+        } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return recipeDtoList;
@@ -184,7 +190,7 @@ public class FridChefApiClient {
         return rs;
     }
 
-    public List<CategoryDto> findCategories() throws ExternalErrorException{
+    public List<CategoryDto> findCategories() throws ExternalErrorException {
         List<CategoryDto> categories = null;
         Response response = webTarget.path("category/")
                 .request(MediaType.APPLICATION_JSON)
@@ -193,6 +199,8 @@ public class FridChefApiClient {
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             categories = response.readEntity(new GenericType<List<CategoryDto>>() {
             });
+        } else if(response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()){
+            categories = Collections.emptyList();
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
@@ -211,6 +219,46 @@ public class FridChefApiClient {
             throw new ExternalErrorException("Ha ocurrido un error en la busqueda de recetas por Id");
         }
     }
+
+    public List<RecipeDto> findByStatusPending() throws ExternalErrorException {
+        List<RecipeDto> recipeDtoList;
+
+        Response response = webTarget.path("recipes/find-pending")
+                .request(MediaType.APPLICATION_JSON).get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>(){});
+
+
+        } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
+            recipeDtoList = null;
+
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+
+        }
+        return recipeDtoList;
+    }
+
+    public RecipeDto updateRecipeStatus(int id, String status) throws UserAlreadyExistsException, ExternalErrorException {
+        RecipeDto rs;
+
+        Response response = webTarget.path("recipes/update-status/" + id + "/" + status).
+                request(MediaType.APPLICATION_JSON).get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            rs = response.readEntity(RecipeDto.class);
+
+        } else if (response.getStatus() == HttpStatus.NOT_MODIFIED.getStatusCode()) {
+            throw new UserAlreadyExistsException("El estado de la solicitud no se ha podido modificar.");
+
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+
+        }
+        return rs;
+    }
+
     public List<RecipeDto> findFavorites() throws ExternalErrorException{
         List<RecipeDto> recipes = null;
         Response rs = webTarget.path("favorite/")
