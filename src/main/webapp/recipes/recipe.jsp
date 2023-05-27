@@ -4,15 +4,15 @@
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe"); %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>FridChef</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
-    <script src="js/buscador.js" defer></script>
-    <script src="js/filter.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>FridChef</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
+        <script src="js/buscador.js" defer></script>
+        <script src="js/filter.js" defer></script>
+    </head>
 <body>
 <div class="content">
     <%@ include file="../header/header.jsp" %>
