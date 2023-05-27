@@ -17,12 +17,16 @@ public class RecipeServlet extends ParentServlet {
 
     @Override
     public void init() {
-        recipeService = new RecipeService(new FridChefApiClient());
+        FridChefApiClient apiClient =new FridChefApiClient();
+        recipeService = new RecipeService(apiClient);
+        this.init(apiClient);
     }
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.fillCategories(request);
+
         String recipeId = request.getParameter("id");
         RecipeDto recipe = recipeService.findRecipeById(Integer.parseInt(recipeId)); // Obtiene los detalles de la receta
 

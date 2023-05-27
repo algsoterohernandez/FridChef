@@ -19,12 +19,13 @@
         </div>
         <div class="user-session">
             <% if (searchUser != null) { %>
-            <a href="#" class="dropbtn"><%= searchUser.getName() %>
+            <a href="#" class="user-logged"><%= searchUser.getName() %>
             </a>
             <div class="user-container">
                 <li><a href="#">Recetas Favoritas</a></li>
                 <%if (searchUser.isAdmin()) {%>
                 <li><a href="/FridChef/recipe-request">Solicitudes</a></li>
+                <li><a href="/FridChef/admin-ingredients">Gestionar ingredientes</a></li>
                 <% } %>
                 <li><a href="/FridChef/close-session">Cerrar Sesión</a></li>
                 <li><a href="/FridChef/unregister">Darse de baja</a></li>

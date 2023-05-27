@@ -20,10 +20,9 @@ import java.util.Properties;
 public class RegisterFormServlet extends ParentServlet {
     private UserService userService;
     private SenderEmail senderEmail;
-    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        apiClient = new FridChefApiClient();
+        FridChefApiClient apiClient = new FridChefApiClient();
         userService = new UserService(apiClient);
         senderEmail = new SenderEmail(new Properties(), new Properties());
         super.init(apiClient);
