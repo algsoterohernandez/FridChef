@@ -6,6 +6,7 @@ import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
 import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
+import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,9 +27,10 @@ import java.util.stream.IntStream;
 public class AddRecipeServlet extends ParentServlet {
     private RecipeService recipeService;
     private IngredientService ingredientService;
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-            FridChefApiClient apiClient = new FridChefApiClient();
+            apiClient = new FridChefApiClient();
             recipeService = new RecipeService(apiClient);
             ingredientService = new IngredientService(apiClient);
             super.init(apiClient);
@@ -37,32 +39,39 @@ public class AddRecipeServlet extends ParentServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
-            req.setAttribute("categories", categoryService.getAllCategories());
-            req.setAttribute("ingredients", ingredientService.findAllIngredients());
-            req.setAttribute("units", ingredientService.getAllUnits());
-            req.setAttribute("recipe_created", false);
-            req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
+        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+        req.setAttribute("user", user != null);
 
-        }
+        req.setAttribute("categories", categoryService.getAllCategories());
+        req.setAttribute("ingredients", ingredientService.findAllIngredients());
+        req.setAttribute("units", ingredientService.getAllUnits());
+        req.setAttribute("recipe_created", false);
+        req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
-            String name = req.getParameter("title");
-            String description = req.getParameter("description");
-            int difficulty = Integer.parseInt(req.getParameter("difficulty"));
-            int time = Integer.parseInt(req.getParameter("time"));
-            String unitTime = req.getParameter("unit_time");
-            int idCategory = Integer.parseInt(req.getParameter("category"));
-            String[] ingredients = req.getParameterValues("ingredient[]");
-            String[] quantity = req.getParameterValues("quantity[]");
-            String[] unit = req.getParameterValues("unit[]");
+
+        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+        req.setAttribute("user", user != null);
+
+        String name = req.getParameter("title");
+        String description = req.getParameter("description");
+        int difficulty = Integer.parseInt(req.getParameter("difficulty"));
+        int time = Integer.parseInt(req.getParameter("time"));
+        String unitTime = req.getParameter("unit_time");
+        int idCategory = Integer.parseInt(req.getParameter("category"));
+        String[] ingredients = req.getParameterValues("ingredient[]");
+        String[] quantity = req.getParameterValues("quantity[]");
+        String[] unit = req.getParameterValues("unit[]");
 
 
-            //Se crea una lista de tipo IngredientRecipeDto con stream
-            List<IngredientRecipeDto> ingredientsRecipe = IntStream.range(0, ingredients.length)
-                    .mapToObj(i -> new IngredientRecipeDto(ingredients[i], quantity[i], unit[i]))
-                    .collect(Collectors.toList());
+        //Se crea una lista de tipo IngredientRecipeDto con stream
+        List<IngredientRecipeDto> ingredientsRecipe = IntStream.range(0, ingredients.length)
+                .mapToObj(i -> new IngredientRecipeDto(ingredients[i], quantity[i], unit[i]))
+                .collect(Collectors.toList());
 
         //Obtenemos archivo de la imagen y la convertimos a un inputStream y pasamos a cadena de bytes
         Part imagePart = req.getPart("image");
