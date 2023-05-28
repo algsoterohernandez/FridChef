@@ -14,6 +14,23 @@ div {
     box-sizing: border-box;
 }
 
+div.content {
+    background-color: #ffffff;
+    margin: auto;
+    width: 80%;
+    font-size: 14px;
+    box-shadow: 5px 5px 15px gray;
+}
+
+div.header {
+    display: block;
+    color: #fab641;
+    text-align: center;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    background-size: 30%;
+}
+
 /* Estilo general formularios */
 
 input {
@@ -59,23 +76,23 @@ input {
     background-color: #555;
 }
 
-
-div.content {
-    background-color: #ffffff;
-    margin: auto;
-    width: 80%;
-    font-size: 14px;
-    box-shadow: 5px 5px 15px gray;
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
 }
 
-div.header {
-    display: block;
-    color: #fab641;
-    text-align: center;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    background-size: 30%;
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
 }
+
+
 /* Estilos menu */
 
 div.menu {
@@ -104,8 +121,9 @@ div.menu a:visited {
 }
 
 div.login {
+    text-align: center;
     display: block;
-    color: #fab641;
+    color: black;
     background: #ffffff;
     text-align: center;
     border: 0px;
@@ -123,6 +141,37 @@ div.login a:hover {
     color: #fab641;
 }
 
+div.login a:visited {
+    text-decoration: none;
+}
+
+/* MENU DESPLEGABLE */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+<<<<<<< Updated upstream
+display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 /*header*/
 
@@ -287,6 +336,7 @@ div.login a:hover {
     color: #333;
 }
 
+/* Buscador */
 
 div.search {
     border: 1px solid #ccc;
@@ -352,6 +402,8 @@ div.recipe-suggestions a:visited {
 div.allergen-list {
 }
 
+/* footer */
+
 div.footer {
     display: block;
     background-color: white;
@@ -366,33 +418,7 @@ div.footer {
     text-align: center;
 }
 
-/* MENU DESPLEGABLE */
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-<<<<<<< Updated upstream
-    display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
 
 /*!* Estilo formulario de contacto *!*/
