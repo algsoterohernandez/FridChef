@@ -2,7 +2,7 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -53,7 +52,7 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testCreaterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, UserAlreadyExistsException {
+    public void testCreaterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
@@ -80,7 +79,7 @@ public class FridChefApiClientTest {
 
 
         //Asserts
-        assertThrows(UserAlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
+        assertThrows(AlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
     }
 
     @Test

@@ -32,7 +32,7 @@ public class RecipeRequestServlet extends ParentServlet{
             List<RecipeDto> recipes = recipeService.findByStatusPending();
             req.setAttribute(RecipeStatus.PENDING.getStatus(), recipes);
 
-            req.getRequestDispatcher("/recipes/recipeRequest.jsp").forward(req, resp);
+            req.getRequestDispatcher("/admin/recipeRequest.jsp").forward(req, resp);
 
         }  catch (Exception e) {
 
