@@ -15,20 +15,151 @@ div {
 }
 
 div.content {
-    background-color: #ffffff;
+    background-color: white;
     margin: auto;
     width: 80%;
     font-size: 14px;
     box-shadow: 5px 5px 15px gray;
 }
 
-div.header {
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/******************HEADER******************/
+
+.top-header {
+    display: flex;
+}
+
+/* Image */
+
+.logo {
+    text-align: right;
+    width: 65%;
+    height: 15%;
+    padding-right: 8%;
+}
+
+.logo img {
+    min-width: 150px;
+    width: 25%;
+}
+
+/* User navbar*/
+
+.user-session {
+    align-self: flex-end;
+    width: 35%;
+    text-align: right;
+}
+
+
+/******************************************************************/
+
+.user-log-section {
+    display: inline-block;
+    color: black;
+    background: white;
+    text-align: center;
+    border: 0px;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.user-log-section a:link {
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.user-log-section a:hover {
+    color: #fab641;
+}
+
+.user-container li {
+    list-style: none;
+}
+
+/******************************************************************/
+.user-container {
+    display: none;
+    position: absolute;
+    background-color: #efcf8a;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.user-container a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+
+}
+
+.user-session:hover .user-container {
+    display: block;
+}
+
+/* Menu navbar*/
+
+div.menu {
     display: block;
     color: #fab641;
+    background: #ffffff;
     text-align: center;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    background-size: 30%;
+    border: 1px solid #636363;
+}
+
+div.menu a {
+    color: #000000;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+div.menu a:hover {
+    color: #fab641;
+}
+
+
+/******************CONTENT******************/
+
+/* MENU DESPLEGABLE */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+< < < < < < < Updated upstream display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 /* Estilo general formularios */
@@ -92,133 +223,23 @@ select {
     color: #333;
 }
 
+/* Formulario login */
 
-/* Estilos menu */
+.login {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
 
-div.menu {
-    display: block;
-    color: #fab641;
-    background: #ffffff;
+.login h1 {
+    margin: 0 0 20px;
     text-align: center;
-    border: 1px solid #636363;
-}
-
-div.menu a {
-    color: #000000;
-    text-decoration: none;
-    padding: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-div.menu a:hover {
-    color: #fab641;
-}
-
-div.menu a:visited {
-    text-decoration: none;
-}
-
-div.login {
-    text-align: center;
-    display: block;
-    color: black;
-    background: #ffffff;
-    text-align: center;
-    border: 0px;
-}
-
-div.login a:link {
-    color: #000000;
-    text-decoration: none;
-    padding: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-div.login a:hover {
-    color: #fab641;
-}
-
-div.login a:visited {
-    text-decoration: none;
-}
-
-/* MENU DESPLEGABLE */
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-<<<<<<< Updated upstream
-display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/*header*/
-
-.top-header {
-    display: flex;
-}
-
-.logo {
-    text-align: right;
-    width: 60%;
-    height: 15%;
-    padding-right: 8%;
-}
-
-.logo img {
-    min-width: 150px;
-    width: 25%;
-}
-
-.user-session {
-    text-align: right;
-    align-self: flex-end;
-    width: 30%;
-}
-
-.user-container li {
-    list-style: none;
-}
-
-.user-container {
-    display: none;
-    position: absolute;
-    background-color: #efcf8a;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.user-container a {
+    font-size: 24px;
     color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.user-session:hover .user-container {
-    display: block;
 }
 
 /* Estilos del buscador */
@@ -308,32 +329,12 @@ display: block;
 }
 
 
-
 #add-ingredient-button {
     display: inline-block;
 }
 
 #delete-icon {
     display: inline-block;
-}
-
-/* Estilos específicos para login */
-
-.login {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-.login h1 {
-    margin: 0 0 20px;
-    text-align: center;
-    font-size: 24px;
-    color: #333;
 }
 
 /* Buscador */
@@ -402,7 +403,8 @@ div.recipe-suggestions a:visited {
 div.allergen-list {
 }
 
-/* footer */
+
+/******************FOOTER******************/
 
 div.footer {
     display: block;
@@ -417,8 +419,6 @@ div.footer {
     margin: auto;
     text-align: center;
 }
-
-
 
 
 /*!* Estilo formulario de contacto *!*/
@@ -453,7 +453,6 @@ div.footer {
 /*    line-height: 150%;*/
 /*    resize:vertical;*/
 /*}*/
-
 
 
 /*[type="submit"]:hover { background: #595959; }*/
