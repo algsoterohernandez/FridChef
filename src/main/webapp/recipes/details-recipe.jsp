@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
-<% Boolean notUser = (Boolean) request.getAttribute("not_user");%>
+<% Boolean user = (Boolean) request.getAttribute("user");%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -14,33 +14,53 @@
 </head>
 <body>
 <div class="content">
-    <% if (!notUser) { %>
+    <%@ include file="../header/header.jsp" %>
+    <% if (user) { %>
     <div class="header">
         <h1><%=recipe.getName()%></h1>
     </div>
-    <% }%>
-
-    <div class="menu">
-        <a href="#">Enlace de menú 1</a>
-        <a href="#">Enlace de menú 2</a>
-        <a href="#">Enlace de menú 3</a>
+    <div class="recipe-details">
+        <h2><%=recipe.getName()%></h2>
+            <div>
+                <h3>Esta receta está valorada con XXXX puntos</h3>
+            </div>
+        <div>
+            <p><%=recipe.getDescription()%></p>
+            <p>duración:<%=recipe.getTime()%> <%=recipe.getUnitTime()%></p>
+            <p>Fecha de creación: XX/XX/XXXX</p>
+        </div>
     </div>
-    <% if (notUser) { %>
-        Registrate!!
+    <div>
+        <h3>Valora esta receta:</h3>
+        <form>
+            <div>
+            <label>Puntuación:</label>
+            <input type="radio" id="1" name="valoration" value="1">
+            <label for="1">1</label><br>
+            <input type="radio" id="2" name="valoration" value="2">
+            <label for="2">2</label><br>
+            <input type="radio" id="3" name="valoration" value="3">
+            <label for="3">3</label><br>
+            <input type="radio" id="4" name="valoration" value="4">
+            <label for="4">4</label><br>
+            <input type="radio" id="5" name="valoration" value="5">
+            <label for="5">5</label>
+            </div>
+            <div>
+                <label for="description">Comentario: </label><br/>
+                <textarea type="textarea" id= "description" name="description" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Enviar">
+            </div>
+        </form>
+
+    </div>
     <% } else { %>
-        <div class="recipe-details">
-        <%-- Aquí puedes mostrar los detalles de la receta --%>
-        <h2>Título de la receta</h2>
-        <p>Descripción de la receta</p>
-        <p>Duración: XX minutos</p>
-        <p>Fecha de creación: XX/XX/XXXX</p>
-        <%-- Otros detalles de la receta... --%>
+    <p>Oh vaya!</p>
+    <%}%>
     </div>
-    <% } %>
 </div>
-
-<div class="footer">
-    <p>Pie de página</p>
-</div>
+<%@ include file="../footer/footer.jsp" %>
 </body>
 </html>

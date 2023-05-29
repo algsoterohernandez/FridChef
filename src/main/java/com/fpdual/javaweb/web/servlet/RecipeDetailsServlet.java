@@ -39,16 +39,11 @@ public class RecipeDetailsServlet extends ParentServlet {
 
         try {
             fillCategories(req);
-            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
-            if (user == null) {
-                req.setAttribute("not_user", true);
-                req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
-                return;
-            }
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+            req.setAttribute("user", user != null);
 
             int idRecipe = Integer.parseInt(recipeId);
-
             RecipeDto recipe = recipeService.findRecipe(idRecipe);
 
             if (recipe == null) {
