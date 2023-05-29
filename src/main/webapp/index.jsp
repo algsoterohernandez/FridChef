@@ -8,7 +8,7 @@
     <head>
         <meta charset="UTF-8">
         <title>FridChef</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
         <link rel="stylesheet" href="css/style.css">
         <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
         <script src="js/buscador.js" defer></script>
@@ -19,10 +19,8 @@
 
             <div class="principal-container">
                 <div class="search">
-                    <div class="searh">
-
-                        <h2>En mi nevera tengo...</h2>
-
+                    <div class="search-left">
+                        <h1>En mi nevera tengo...</h1>
                         <label for="add-ingredient">Ingrediente:</label>
                         <input list="ingrediente1" id="add-ingredient" name="ingredientes">
                         <datalist id="ingrediente1">
@@ -34,15 +32,15 @@
                         <p></p>
                         Opciones:
                         <div class="ingredients-container" id="ingredients-container"></div>
-
+                        <br/>
                         <button type="button" id="search-button">Buscar</button>
 
                         <form action="search" method="post" id="form">
                         </form>
                     </div>
+                    <div class="chef-image-right"><img src="./images/chef.png" width="100%"></div>
                 </div>
             </div>
-
             <%@ include file="footer/footer.jsp" %>
         </div>
     </body>
