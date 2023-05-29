@@ -2,7 +2,7 @@ package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, UserAlreadyExistsException {
+    public void testRegisterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
 
         //Prepare method dependencies
         when(apiClient.createUser(any())).thenReturn(exampleUserDto);
@@ -62,10 +62,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterUser_validUserDto_userDtoAlreadyExistsException() throws ExternalErrorException, UserAlreadyExistsException {
+    public void testRegisterUser_validUserDto_userDtoAlreadyExistsException() throws ExternalErrorException, AlreadyExistsException {
 
         //Prepare method dependencies
-        when(apiClient.createUser(any())).thenThrow(UserAlreadyExistsException.class);
+        when(apiClient.createUser(any())).thenThrow(AlreadyExistsException.class);
 
         //Execute method
         UserDto userDtoRs = userService.registerUser(exampleUserDto);
@@ -77,7 +77,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterUser_validUserDto_userDtoExternalErrorException() throws ExternalErrorException, UserAlreadyExistsException {
+    public void testRegisterUser_validUserDto_userDtoExternalErrorException() throws ExternalErrorException, AlreadyExistsException {
 
         //Prepare method dependencies
         when(apiClient.createUser(any())).thenThrow(ExternalErrorException.class);

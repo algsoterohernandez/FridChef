@@ -2,7 +2,7 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -30,7 +30,7 @@ public class FridChefApiClient {
         this.webTarget = webTarget;
     }
 
-    public UserDto createUser(UserDto userDto) throws UserAlreadyExistsException, ExternalErrorException {
+    public UserDto createUser(UserDto userDto) throws AlreadyExistsException, ExternalErrorException {
         UserDto rs;
         Invocation.Builder builder = webTarget.path("user/create").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(userDto, MediaType.APPLICATION_JSON));
@@ -39,7 +39,7 @@ public class FridChefApiClient {
             rs = response.readEntity(UserDto.class);
 
         } else if (response.getStatus() == HttpStatus.NOT_MODIFIED.getStatusCode()) {
-            throw new UserAlreadyExistsException("El usuario ya existe en el sistema.");
+            throw new AlreadyExistsException("El usuario ya existe en el sistema.");
 
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
@@ -222,7 +222,8 @@ public class FridChefApiClient {
                 .request(MediaType.APPLICATION_JSON).get();
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>(){});
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
 
 
         } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
@@ -235,7 +236,7 @@ public class FridChefApiClient {
         return recipeDtoList;
     }
 
-    public RecipeDto updateRecipeStatus(int id, String status) throws UserAlreadyExistsException, ExternalErrorException {
+    public RecipeDto updateRecipeStatus(int id, String status) throws AlreadyExistsException, ExternalErrorException {
         RecipeDto rs;
 
         Response response = webTarget.path("recipes/update-status/" + id + "/" + status).
@@ -245,7 +246,7 @@ public class FridChefApiClient {
             rs = response.readEntity(RecipeDto.class);
 
         } else if (response.getStatus() == HttpStatus.NOT_MODIFIED.getStatusCode()) {
-            throw new UserAlreadyExistsException("El estado de la solicitud no se ha podido modificar.");
+            throw new AlreadyExistsException("El estado de la solicitud no se ha podido modificar.");
 
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
@@ -254,10 +255,10 @@ public class FridChefApiClient {
         return rs;
     }
 
-    public boolean deleteIngredient(int id){
+    public boolean deleteIngredient(int id) {
         boolean deleted = false;
 
-        Response response = webTarget.path("ingredient/delete/" + id)
+        Response response = webTarget.path("ingredients/delete/" + id)
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
 
@@ -270,14 +271,13 @@ public class FridChefApiClient {
 
     public IngredientDto createIngredient(String name) throws ExternalErrorException {
         IngredientDto rs;
-        Invocation.Builder builder = webTarget.path("ingredient/create").request(MediaType.APPLICATION_JSON);
+        Invocation.Builder builder = webTarget.path("ingredients/create/"+ name + "/").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(name, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             rs = response.readEntity(IngredientDto.class);
-        }
-        else
-        {
+
+        } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return rs;

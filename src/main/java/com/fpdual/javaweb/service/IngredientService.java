@@ -2,6 +2,7 @@ package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.enums.Unit;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import com.fpdual.javaweb.web.servlet.dto.ItemDto;
@@ -18,8 +19,8 @@ public class IngredientService {
         this.fridChefApiClient = fridChefApiClient;
     }
 
-    public List<IngredientDto> findAllIngredients () {
-       List<IngredientDto> ingredientDtoList = null;
+    public List<IngredientDto> findAllIngredients() {
+        List<IngredientDto> ingredientDtoList = null;
         try {
             ingredientDtoList = fridChefApiClient.findAllIngredients();
         } catch (ExternalErrorException e) {
@@ -28,7 +29,7 @@ public class IngredientService {
         return ingredientDtoList;
     }
 
-    public List<RecipeDto> findByIngredients (List<String> ingredientList) {
+    public List<RecipeDto> findByIngredients(List<String> ingredientList) {
         List<RecipeDto> recipeList = null;
 
         try {
@@ -52,5 +53,36 @@ public class IngredientService {
         return items;
     }
 
+    public boolean deleteIngredient(int id) {
+        boolean deleted;
+
+        try {
+            deleted = fridChefApiClient.deleteIngredient(id);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+
+        return deleted;
+
+    }
+
+    public IngredientDto createIngredient(String name) throws ExternalErrorException {
+        IngredientDto ingredientDto;
+
+        try {
+
+            ingredientDto = fridChefApiClient.createIngredient(name);
+
+
+        } catch (ExternalErrorException eee) {
+            System.out.println(eee.getMessage());
+            throw eee;
+        }
+
+        return ingredientDto;
+
+    }
 
 }

@@ -20,6 +20,7 @@
         <div class="user-session">
             <% if (searchUser != null) { %>
             <a href="#" class="user-logged"><%= searchUser.getName() %>
+                <img src="./images/user-icon.png" width="10%"/>
             </a>
             <div class="user-container">
                 <li><a href="#">Recetas Favoritas</a></li>
@@ -31,9 +32,10 @@
                 <li><a href="/FridChef/unregister">Darse de baja</a></li>
             </div>
             <% } else { %>
-            <div class="login">
+            <div class="login-header">
                 <a href="/FridChef/login">Login</a>
                 <a href="/FridChef/register-form">Regístrate</a>
+                <img src="./images/user-icon.png" width="10%"/>
             </div>
             <% } %>
         </div>

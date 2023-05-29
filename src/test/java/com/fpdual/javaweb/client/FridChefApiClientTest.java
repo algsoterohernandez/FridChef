@@ -2,7 +2,7 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -49,11 +48,11 @@ public class FridChefApiClientTest {
         exampleUserDto.setPassword("example");
         exampleUserDto.setEmail("example@a.com");
 
+
     }
 
-
     @Test
-    public void testCreaterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, UserAlreadyExistsException {
+    public void testCreaterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
@@ -80,7 +79,7 @@ public class FridChefApiClientTest {
 
 
         //Asserts
-        assertThrows(UserAlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
+        assertThrows(AlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
     }
 
     @Test
@@ -227,61 +226,158 @@ public class FridChefApiClientTest {
         verify(invocationBuilder, times(1)).get();
     }
 
+    @Test
+    public void testFindRecipeById_ReturnRecipeById_WhenSuccessful() throws ExternalErrorException {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
 
-//    @Test
-//    void testFindByIngredients_ReturnListOfRecipesByIngredients_WhenSuccessful() throws ExternalErrorException {
-//        // Arrange
-//        List<String> ingredientsList = Arrays.asList("Ingredient 1", "Ingredient 2");
-//
-//        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
-//        recipeFilterDto.setIngredients(ingredientsList);
-//
-//        List<RecipeDto> expectedRecipes = Arrays.asList(
-//                RecipeDto.builder().id(1).name("Recipe 1").build(),
-//                RecipeDto.builder().id(2).name("Recipe 2").build()
-//        );
-//        Response mockResponse = Response.ok(expectedRecipes).build();
-//
-//        when(webTarget.path("recipes/findbyingredients")).thenReturn(webTarget);
-//        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-//        when(builder.post(any(Entity.class))).thenReturn(mockResponse);
-//
-//        // Act
-//        List<RecipeDto> result = fridChefApiClient.findByIngredients(ingredientsList);
-//
-//        // Assert
-//        verify(webTarget).path("recipes/findbyingredients");
-//        verify(webTarget).request(MediaType.APPLICATION_JSON);
-//        when(builder.post(any(Entity.class))).thenReturn(mockResponse);
-//        assertEquals(expectedRecipes, result);
-//    }
-//
-//    @Test
-//    void testFindRecipeSuggestions_ReturnListOfRecipeSuggestions_WhenSuccessful() throws ExternalErrorException {
-//        // Arrange
-//        List<String> ingredientsList = Arrays.asList("Ingredient 1", "Ingredient 2");
-//
-//        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
-//        recipeFilterDto.setIngredients(ingredientsList);
-//
-//        List<RecipeDto> expectedSuggestions = Arrays.asList(
-//                RecipeDto.builder().id(1).name("Suggestion 1").build(),
-//                RecipeDto.builder().id(2).name("Suggestion 2").build()
-//        );
-//        Response mockResponse = Response.ok(expectedSuggestions).build();
-//
-//        when(webTarget.path("recipes/findSuggestions")).thenReturn(webTarget);
-//        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-//        when(builder.post(any(Entity.class))).thenReturn(mockResponse);
-//
-//        // Act
-//        List<RecipeDto> result = fridChefApiClient.findRecipeSuggestions(ingredientsList);
-//
-//        // Assert
-//        verify(webTarget).path("recipes/findSuggestions");
-//        verify(webTarget).request(MediaType.APPLICATION_JSON);
-//        verify(builder).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
-//        assertEquals(expectedSuggestions, result);
-//    }
+        int id = 1;
+        RecipeDto expectedRecipe = new RecipeDto( /* Se crea una nueva receta para el test */);
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(RecipeDto.class)).thenReturn(expectedRecipe);
+        when(webTarget.path("recipes/" + id)).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
 
+        // Act: Invocación del método a testear
+        RecipeDto actualRecipe = fridChefApiClient.findRecipeById(id);
+
+        // Assert: Verificación de los resultados
+        assertEquals(expectedRecipe, actualRecipe);
+        verify(webTarget, times(1)).path("recipes/" + id);
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).get();
+    }
+
+    @Test
+    public void testFindRecipeById_Error() {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        int id = 1;
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+        when(webTarget.path("recipes/" + id)).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+
+        // Assert: Verificación de que se lanza la excepción esperada
+        assertThrows(ExternalErrorException.class, () -> {
+            // Act: Invocación del método a testear
+            fridChefApiClient.findRecipeById(id);
+        });
+
+        // Assert: Verificación de que se llamaron a los métodos adecuados
+        verify(webTarget, times(1)).path("recipes/" + id);
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).get();
+    }
+
+    @Test
+    public void testFindByIngredients_ReturnListOfRecipesByIngredients_WhenSuccessful() throws ExternalErrorException {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        List<String> ingredientsList = new ArrayList<>();
+        ingredientsList.add("Aguacate");
+        ingredientsList.add("Tomate");
+        ingredientsList.add("Lechuga");
+        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
+        recipeFilterDto.setIngredients(ingredientsList);
+        List<RecipeDto> expectedRecipes = new ArrayList<>();
+        expectedRecipes.add(new RecipeDto(/* create a sample recipe for testing */));
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(new GenericType<List<RecipeDto>>() {})).thenReturn(expectedRecipes);
+        when(webTarget.path("recipes/findbyingredients")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
+
+        // Act: Invocación del método a testear
+        List<RecipeDto> actualRecipes = fridChefApiClient.findByIngredients(ingredientsList);
+
+        // Assert: Verificación de los resultados
+        assertEquals(expectedRecipes, actualRecipes);
+        verify(webTarget, times(1)).path("recipes/findbyingredients");
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void testFindByIngredients_Error() {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        List<String> ingredientsList = new ArrayList<>();
+        ingredientsList.add("Aguacate");
+        ingredientsList.add("Tomate");
+        ingredientsList.add("Lechuga");
+        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
+        recipeFilterDto.setIngredients(ingredientsList);
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+        when(webTarget.path("recipes/findbyingredients")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
+
+        // Assert: Verificación de que se lanza la excepción esperada
+        assertThrows(ExternalErrorException.class, () -> {
+            // Act: Invocación del método a testear
+            fridChefApiClient.findByIngredients(ingredientsList);
+        });
+
+        // Assert: Verificación de que se llamaron a los métodos adecuados
+        verify(webTarget, times(1)).path("recipes/findbyingredients");
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void testFindRecipeSuggestions_ReturnListOfRecipeSuggestions_WhenSuccessful() throws ExternalErrorException {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        List<String> ingredientsList = new ArrayList<>();
+        ingredientsList.add("Aguacate");
+        ingredientsList.add("Tomate");
+        ingredientsList.add("Lechuga");
+        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
+        recipeFilterDto.setIngredients(ingredientsList);
+        List<RecipeDto> expectedRecipes = new ArrayList<>();
+        expectedRecipes.add(new RecipeDto(/* create a sample recipe for testing */));
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(new GenericType<List<RecipeDto>>() {})).thenReturn(expectedRecipes);
+        when(webTarget.path("recipes/findSuggestions")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
+
+        // Act: Invocación del método a testear
+        List<RecipeDto> actualRecipes = fridChefApiClient.findRecipeSuggestions(ingredientsList);
+
+        // Assert: Verificación de los resultados
+        assertEquals(expectedRecipes, actualRecipes);
+        verify(webTarget, times(1)).path("recipes/findSuggestions");
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void testFindRecipeSuggestions_Error() {
+        // Arrange: Configuración del comportamiento esperado del objeto mock
+        List<String> ingredientsList = new ArrayList<>();
+        ingredientsList.add("Tomate");
+        ingredientsList.add("Aguacate");
+        ingredientsList.add("Lechuga");
+        RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
+        recipeFilterDto.setIngredients(ingredientsList);
+        Response response = mock(Response.class);
+        when(response.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+        when(webTarget.path("recipes/findSuggestions")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
+
+        // Assert: Verificación de que se lanza la excepción esperada
+        assertThrows(ExternalErrorException.class, () -> {
+            // Act: Invocación del método a testear
+            fridChefApiClient.findRecipeSuggestions(ingredientsList);
+        });
+
+        // Assert: Verificación de que se llamaron a los métodos adecuados
+        verify(webTarget, times(1)).path("recipes/findSuggestions");
+        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
+        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+    }
 }

@@ -15,7 +15,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Agregar recetas FridChef</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
   <script src="js/add-form.js" defer></script>

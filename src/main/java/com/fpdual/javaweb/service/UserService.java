@@ -2,7 +2,7 @@ package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.exceptions.UserAlreadyExistsException;
+import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 
 public class UserService {
@@ -19,7 +19,7 @@ public class UserService {
         try {
             userDto = apiClient.createUser(userDto);
 
-        } catch (UserAlreadyExistsException uaee) {
+        } catch (AlreadyExistsException uaee) {
             if (userDto != null) {
                 userDto.setAlreadyExists(true);
             }
@@ -33,7 +33,7 @@ public class UserService {
 
     }
 
-    public boolean unregisterUser(String email) throws Exception{
+    public boolean unregisterUser(String email){
         boolean deleted;
 
         try {
