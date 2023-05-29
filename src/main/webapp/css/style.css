@@ -15,6 +15,13 @@ div {
     box-sizing: border-box;
 }
 
+div.content {
+    background-color: #ffffff;
+    margin: auto;
+    width: 80%;
+    box-shadow: 5px 5px 15px gray;
+}
+
 div.header {
     display: block;
     text-align: center;
@@ -22,156 +29,9 @@ div.header {
     box-sizing: border-box;
     background-size: 30%;
 }
-div.content {
-    background-color: white;
-    margin: auto;
-    width: 80%;
-    box-shadow: 5px 5px 15px gray;
-}
 
-a {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-    color: black;
-}
-
-/******************HEADER******************/
-
-div.top-header {
-    display: flex;
-    width: 100%;
-}
-
-/* Image */
-
-.logo {
-    text-align: right;
-    width: 65%;
-    height: 15%;
-    padding-right: 8%;
-}
-
-.logo img {
-    min-width: 150px;
-    width: 25%;
-}
-
-/* User navbar*/
-
-.user-session {
-    align-self: flex-end;
-    width: 35%;
-    text-align: right;
-}
-
-
-.user-log-section {
-    display: inline-block;
-    color: black;
-    background: white;
-    text-align: center;
-    border: 0px;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.user-log-section a:link {
-    color: black;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 10px;
-}
-
-.user-log-section a:hover {
-    color: #fab641;
-}
-
-.user-container li {
-    list-style: none;
-}
-
-
-.user-container {
-    display: none;
-    position: absolute;
-    background-color: #efcf8a;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.user-container a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-
-}
-
-.user-session:hover .user-container {
-    display: block;
-}
-
-/* Menu navbar*/
-
-div.menu {
-    display: block;
-    background: #ffffff;
-    text-align: center;
-    border: 1px solid #636363;
-}
-
-div.menu a,
-div.login a,
-div.login-header a,
-div.user-session a {
-    color: #444444;
-    text-decoration: none;
-    padding: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-div.menu a:hover {
-    color: #fab641;
-}
-
-div.menu a:visited {
-    text-decoration: none;
-}
-
-div.login-header {
-    text-align: center;
-    display: block;
-    color: black;
-    background: #ffffff;
-    border: 0px;
-}
-
-div.login a:link,
-div.login-header a:link,
-div.user-session a:link {
-    color: #000000;
-    text-decoration: none;
-    padding: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-div.login a:hover,
-div.login-header a:hover,
-div.user-session a:hover {
-    color: #fab641;
-}
-
-div.login a:visited,
-div.login-header a:visited,
-div.user-session a:visited {
-    text-decoration: none;
+h1 {
+    color: darkslategrey;
 }
 
 /* Estilo general formularios */
@@ -240,10 +100,7 @@ div.menu {
     background: #ffffff;
     text-align: center;
     border: 1px solid #636363;
-
-
 }
-/* Formulario login */
 
 div.menu a,
 div.login a,
@@ -255,14 +112,6 @@ div.user-session a {
     font-weight: bold;
     text-transform: uppercase;
     transition: color 0.3s ease, background-color 0.3s ease;
-.login {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
 }
 
 div.menu a:hover {
@@ -331,6 +180,56 @@ div.user-session a:visited {
     display: block;
 }
 
+/*header*/
+
+div.top-header {
+    display: flex;
+    width: 100%;
+}
+
+.logo {
+    display: inline-block;
+    text-align: right;
+    width: 75%;
+    height: 15%;
+    padding-right: 8%;
+}
+
+.logo img {
+    min-width: 150px;
+    width: 25%;
+}
+
+div.user-session {
+    display: inline-block;
+    text-align: right;
+    align-self: flex-end;
+    width: 24%;
+}
+
+.user-container li {
+    list-style: none;
+}
+
+.user-container {
+    display: none;
+    position: absolute;
+    background-color: #efcf8a;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.user-container a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-session:hover .user-container {
+    display: block;
+}
 
 /* Estilos del buscador */
 
@@ -401,18 +300,6 @@ div.user-session a:visited {
 }
 
 
-#delete-icon {
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-    color: #ff0000;
-    cursor: pointer;
-}
-
-#delete-icon:hover {
-    opacity: 0.8;
-}
-
-
 #add-ingredient-button {
     display: inline-block;
 }
@@ -431,6 +318,18 @@ div.main-register-form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
+
+.login,
+div.register-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
 
 /* Buscador y listado de sus recetas */
 
@@ -511,8 +410,7 @@ div.recipe-suggestions a:visited {
 div.allergen-list {
 }
 
-
-/******************FOOTER******************/
+/* footer */
 
 div.footer {
     display: block;
@@ -599,3 +497,6 @@ textarea {
 [type="submit"]:hover {
     background: #595959;
 }
+
+
+
