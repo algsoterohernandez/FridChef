@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de recetas por categoría</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

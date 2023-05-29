@@ -2,9 +2,10 @@
 
 body {
     background: url("https://www.recetasderechupete.com/wp-content/themes/derechupete/img/patterns_rdr2.png");
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+    font-family: Amatic SC, serif;
+    font-size: 24px;
+    color: #444444;
+    line-height: 1;
     margin: 0;
     padding: 0;
 }
@@ -14,11 +15,17 @@ div {
     box-sizing: border-box;
 }
 
+div.header {
+    display: block;
+    text-align: center;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    background-size: 30%;
+}
 div.content {
     background-color: white;
     margin: auto;
     width: 80%;
-    font-size: 14px;
     box-shadow: 5px 5px 15px gray;
 }
 
@@ -33,8 +40,9 @@ a:visited {
 
 /******************HEADER******************/
 
-.top-header {
+div.top-header {
     display: flex;
+    width: 100%;
 }
 
 /* Image */
@@ -59,8 +67,6 @@ a:visited {
     text-align: right;
 }
 
-
-/******************************************************************/
 
 .user-log-section {
     display: inline-block;
@@ -87,7 +93,7 @@ a:visited {
     list-style: none;
 }
 
-/******************************************************************/
+
 .user-container {
     display: none;
     position: absolute;
@@ -113,14 +119,16 @@ a:visited {
 
 div.menu {
     display: block;
-    color: #fab641;
     background: #ffffff;
     text-align: center;
     border: 1px solid #636363;
 }
 
-div.menu a {
-    color: #000000;
+div.menu a,
+div.login a,
+div.login-header a,
+div.user-session a {
+    color: #444444;
     text-decoration: none;
     padding: 1rem;
     font-weight: bold;
@@ -132,8 +140,168 @@ div.menu a:hover {
     color: #fab641;
 }
 
+div.menu a:visited {
+    text-decoration: none;
+}
 
-/******************CONTENT******************/
+div.login-header {
+    text-align: center;
+    display: block;
+    color: black;
+    background: #ffffff;
+    border: 0px;
+}
+
+div.login a:link,
+div.login-header a:link,
+div.user-session a:link {
+    color: #000000;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.login a:hover,
+div.login-header a:hover,
+div.user-session a:hover {
+    color: #fab641;
+}
+
+div.login a:visited,
+div.login-header a:visited,
+div.user-session a:visited {
+    text-decoration: none;
+}
+
+/* Estilo general formularios */
+
+input {
+    margin-bottom: 1px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+}
+
+.buttons {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.buttons input[type="submit"],
+.buttons input[type="reset"],
+.buttons input[type="button"] {
+    margin-right: 10px;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+}
+
+.buttons input[type="submit"]:hover,
+.buttons input[type="reset"]:hover {
+    background-color: #555;
+}
+
+textarea {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+}
+
+
+/* Estilos menu */
+
+div.menu {
+    display: block;
+    background: #ffffff;
+    text-align: center;
+    border: 1px solid #636363;
+
+
+}
+/* Formulario login */
+
+div.menu a,
+div.login a,
+div.login-header a,
+div.user-session a {
+    color: #444444;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease, background-color 0.3s ease;
+.login {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+div.menu a:hover {
+    color: #fab641;
+}
+
+div.menu a:visited {
+    text-decoration: none;
+}
+
+div.login-header {
+    text-align: center;
+    display: block;
+    color: black;
+    background: #ffffff;
+    border: 0px;
+}
+
+div.login a:link,
+div.login-header a:link,
+div.user-session a:link {
+    color: #000000;
+    text-decoration: none;
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.login a:hover,
+div.login-header a:hover,
+div.user-session a:hover {
+    color: #fab641;
+}
+
+div.login a:visited,
+div.login-header a:visited,
+div.user-session a:visited {
+    text-decoration: none;
+}
 
 /* MENU DESPLEGABLE */
 
@@ -149,6 +317,7 @@ div.menu a:hover {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    line-height: 1.5;
 }
 
 .dropdown-content a {
@@ -162,85 +331,6 @@ div.menu a:hover {
     display: block;
 }
 
-/* Estilo general formularios */
-
-input {
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-.buttons {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.buttons input[type="submit"],
-.buttons input[type="reset"] {
-    margin-right: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
-    cursor: pointer;
-}
-
-.buttons input[type="submit"]:hover,
-.buttons input[type="reset"]:hover {
-    background-color: #555;
-}
-
-textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-/* Formulario login */
-
-.login {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-.login h1 {
-    margin: 0 0 20px;
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-}
 
 /* Estilos del buscador */
 
@@ -263,13 +353,6 @@ select {
     margin-right: 0.5rem;
 }
 
-.ingredient-item button {
-    background: none;
-    border: none;
-    color: #ff0000;
-    cursor: pointer;
-    font-size: 1.5rem;
-}
 
 .ingredient-item button:focus {
     outline: none;
@@ -277,13 +360,14 @@ select {
 
 #add-ingredient-button,
 #search-button {
-    background-color: #000000;
+    margin-right: 10px;
+    padding: 10px 10px;
     border: none;
-    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
 }
 
 #add-ingredient-button:hover,
@@ -298,7 +382,6 @@ select {
 
 #add-ingredient,
 #search-input {
-    font-size: 1rem;
     padding: 0.5rem;
     margin-right: 0.5rem;
 }
@@ -317,6 +400,7 @@ select {
     margin-top: 1rem;
 }
 
+
 #delete-icon {
     font-size: 1.5rem;
     margin-left: 0.5rem;
@@ -333,21 +417,45 @@ select {
     display: inline-block;
 }
 
-#delete-icon {
-    display: inline-block;
+
+/* Estilos específicos para login y registro */
+
+div.login-content,
+div.main-register-form {
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    display: block;
+    color: black;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
-/* Buscador */
+/* Buscador y listado de sus recetas */
 
 div.search {
     border: 1px solid #ccc;
+    width: 100%;
+}
+
+div.search-left {
+    display: inline-block;
+    width: 70%;
+}
+
+div.chef-image-right {
+    display: inline-block;
+    width: 29%;
 }
 
 div.ingredients-container {
-    border: 1px solid #000;
-    background-color: #fff;
-    width: 40%;
-    height: 10%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    width: 80%;
+    height: 20%;
 }
 
 div.recipes-list {
@@ -420,39 +528,74 @@ div.footer {
     text-align: center;
 }
 
+/* Estilo formulario de contacto */
 
-/*!* Estilo formulario de contacto *!*/
+div.feedbak-content {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    display: block;
+    color: black;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
 
-/*div.contact-form {*/
-/*    margin: 0 auto;*/
-/*    text-align: center;*/
-/*}*/
-/*div.contact-form form { max-width:420px; margin:50px auto; }*/
-
-/*.feedback-input {*/
-/*    color:black;*/
-/*    font-family: Helvetica, Arial, sans-serif;*/
-/*    font-weight:500;*/
-/*    font-size: 18px;*/
-/*    border-radius: 5px;*/
-/*    line-height: 22px;*/
-/*    background-color: transparent;*/
-/*    border:2px solid #333;*/
-/*    transition: all 0.3s;*/
-/*    padding: 13px;*/
-/*    margin-bottom: 15px;*/
-/*    width:100%;*/
-/*    box-sizing: border-box;*/
-/*    outline:0;*/
-/*}*/
-
-/*.feedback-input:focus { border:2px solid #000000; }*/
-
-/*textarea {*/
-/*    height: 150px;*/
-/*    line-height: 150%;*/
-/*    resize:vertical;*/
-/*}*/
+.contact-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
 
 
-/*[type="submit"]:hover { background: #595959; }*/
+div.contact-form form {
+    max-width: 420px;
+    margin: 50px auto;
+}
+
+div.contact-form-left {
+    display: inline-block;
+    width: 49%;
+}
+
+div.contact-form-rigth {
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    width: 50%;
+}
+
+.feedback-input {
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    border-radius: 5px;
+    line-height: 22px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    transition: all 0.3s;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+.feedback-input:focus {
+    border: 2px solid #000000;
+}
+
+textarea {
+    height: 150px;
+    line-height: 150%;
+    resize: vertical;
+}
+
+
+[type="submit"]:hover {
+    background: #595959;
+}
