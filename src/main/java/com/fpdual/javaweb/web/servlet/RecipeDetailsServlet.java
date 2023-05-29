@@ -18,10 +18,10 @@ import java.io.IOException;
 @WebServlet(name = "RecipeDetailsServlet", urlPatterns = {"/details-recipe"})
 public class RecipeDetailsServlet extends ParentServlet {
     private RecipeService recipeService;
-
+    private FridChefApiClient apiClient;
     @Override
     public void init() {
-        FridChefApiClient apiClient = new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         recipeService = new RecipeService(apiClient);
         super.init(apiClient);
 

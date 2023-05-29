@@ -1,4 +1,5 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
+<%@ page import="com.fpdual.javaweb.enums.RecipeStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
@@ -10,9 +11,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
-    <script src="js/details-recipe.js" defer></script>
+    <script src="js/buscador.js" defer></script>
+    <script src="js/filter.js" defer></script>
 </head>
 <body>
+<div class="content">
+    <%@ include file="../header/header.jsp" %>
+    <div class="title"><%= recipe.getName() %>
+        <%if (searchUser!= null && searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
+        <div class="buttons">
+            <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
+            <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
+        </div>
+        <% } %>
+    </div>
+
 <div class="content">
     <%@ include file="../header/header.jsp" %>
     <% if (user) { %>
