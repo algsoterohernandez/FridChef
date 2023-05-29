@@ -11,22 +11,26 @@
     <title>Contacto</title>
     <meta charset="UTF-8">
     <title>FridChef</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
 </head>
     <body>
         <div class="content">
             <%@ include file="../header/header.jsp" %>
-            <div class="contact-form">
-                <h2>Tienes algo que contarnos? quieres que añadamos algún nuevo ingrediente?</h2>
-                <h2>¡Contacta con nosotros!</h2>
-                <form id="contact-form" action="/Fridchef/contact" method="POST" enctype="text/plain">
-                    <input name="name" type="text" class="feedback-input" placeholder="Nombre" />
-                    <input name="email" type="text" class="feedback-input" placeholder="Email" />
-                    <textarea name="text" class="feedback-input" placeholder="comentario"></textarea>
-                    <input type="submit" value="Enviar" form="contact-form" onclick="this.form.reset();"/>
-                </form>
+            <div class="feedbak-content">
+                <div class="contact-form-left">
+                    <form id="contact-form" action="fridcheffpdual@gmail.com" method="POST" enctype="text/plain">
+                        <input name="name" type="text" class="feedback-input" placeholder="Nombre" />
+                        <input name="email" type="text" class="feedback-input" placeholder="Email" />
+                        <textarea name="text" class="feedback-input" placeholder="comentario"></textarea>
+                        <input type="submit" value="Enviar" form="contact-form" onclick="this.form.reset();"/>
+                    </form>
+                </div>
+                <div class="contact-form-rigth">
+                    <h1>¡Contacta con nosotros!</h1>
+                    <p>Tienes algo que contarnos? quieres que añadamos algún nuevo ingrediente?</p>
+                </div>
             </div>
             <%@ include file="../footer/footer.jsp" %>
         </div>
