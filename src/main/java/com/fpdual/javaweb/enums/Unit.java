@@ -11,6 +11,11 @@ public enum Unit {
             return "gr";
         }
     },
+    KG {
+        public String toString() {
+            return "kg";
+        }
+    },
     ML{
         public String toString() {
             return "ml";
@@ -34,6 +39,11 @@ public enum Unit {
     CUCHARADA{
         public String toString() {
             return "cucharada";
+        }
+    },
+    UNIDADES{
+        public String toString() {
+            return "unidades";
         }
     }
 }
