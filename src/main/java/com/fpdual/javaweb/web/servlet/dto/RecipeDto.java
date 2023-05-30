@@ -24,5 +24,6 @@ public class RecipeDto {
     private String imageBase64;
     private List<IngredientRecipeDto> ingredients;
     private String status;
+    private double valoration;
 
 }
