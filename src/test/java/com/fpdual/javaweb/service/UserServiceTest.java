@@ -88,7 +88,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUnregisterUser_validEmail_userDeletedTrue() throws Exception {
+    public void testUnregisterUser_validEmail_userDeletedTrue()  {
 
         //Prepare method dependencies
         when(apiClient.deleteUser(any())).thenReturn(true);
@@ -102,7 +102,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUnregisterUser_validEmail_userDeletedFalse() throws Exception {
+    public void testUnregisterUser_validEmail_userDeletedFalse()  {
 
         //Prepare method dependencies
         when(apiClient.deleteUser(any())).thenReturn(false);
@@ -116,10 +116,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUnregisterUser_validEmail_userException() throws Exception {
+    public void testUnregisterUser_validEmail_userException(){
 
         //Prepare method dependencies
-        when(apiClient.deleteUser(any())).thenThrow(Exception.class);
+        when(apiClient.deleteUser(any())).thenThrow();
 
         //Asserts
         assertThrows(Exception.class, () -> userService.unregisterUser(exampleUserDto.getEmail()));
