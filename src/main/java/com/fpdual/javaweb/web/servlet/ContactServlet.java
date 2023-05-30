@@ -3,6 +3,7 @@ package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.SenderEmailService;
+import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,15 +35,28 @@ public class ContactServlet extends ParentServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
+        try
+        {
+            //Envio de Email de bienvenida
+            String from = req.getParameter("email");
+            String to = "fridcheffpdual@gmail.com";
+            String subject = req.getParameter("name");
 
-        //Envio de Email de bienvenida
-        String from = "fridcheffpdual@gmail.com";
-        String to = "fridcheffpdual@gmail.com";
-        String subject = "";
+            String content = req.getParameter("text");
 
-        String content = "";
+            boolean success = senderEmail.sendEmail(from, to, subject, content);
+            if(success)
+            {
+                req.setAttribute("success", "true");
+            }
+            else
+            {
+                req.setAttribute("error", "Formulario inválido.");
+            }
 
-        senderEmail.sendEmail(from, to, subject, content);
+        }catch(Exception ex){
+            req.setAttribute("error", "Formulario inválido.");
+        }
 
         req.getRequestDispatcher("/contact/contact.jsp").forward(req, resp);
 
