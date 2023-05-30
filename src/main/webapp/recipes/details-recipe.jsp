@@ -94,7 +94,7 @@
             </div>
             <div>
                 <label for="comment">Comentario: </label><br/>
-                <textarea type="textarea" id= "comment" name="description" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
+                <textarea type="textarea" id= "comment" name="comment" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
             </div>
             <div class="buttons">
                 <input type="submit" value="Enviar">

@@ -37,8 +37,8 @@ public class RecipeDetailsServlet extends ParentServlet {
             return;
         }
         try {
-            this.fillCategories(req);
             int idRecipe = Integer.parseInt(recipeId);
+            this.fillCategories(req);
 
             RecipeDto recipe = recipeService.findRecipe(idRecipe);
 
@@ -46,15 +46,16 @@ public class RecipeDetailsServlet extends ParentServlet {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
-
+            //Se pasan los objetos recipe y valoration al jsp
             req.setAttribute("recipe", recipe);
-            double valoration = valorationService.getAverageRating(idRecipe);
-            req.setAttribute("valoration", valoration);
+            //se redirecciona al jsp para mostrar el detalle
             req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
 
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }catch (NumberFormatException e){
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
     }
@@ -71,15 +72,6 @@ public class RecipeDetailsServlet extends ParentServlet {
         }
 
         try {
-            // Obtener la receta y verificar si existe
-            this.fillCategories(req);
-            RecipeDto recipe = recipeService.findRecipe(idRecipe);
-
-            if (recipe == null) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-
             // Obtener el usuario de la sesión
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 

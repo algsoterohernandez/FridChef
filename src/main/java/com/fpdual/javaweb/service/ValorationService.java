@@ -20,12 +20,4 @@ public class ValorationService {
         }
     }
 
-    public double getAverageRating(int recipeId) throws ExternalErrorException {
-        try {
-            return apiClient.getAverageRating(recipeId);
-        } catch (ExternalErrorException e) {
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
 }
