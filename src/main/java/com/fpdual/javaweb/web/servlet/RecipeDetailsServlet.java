@@ -91,9 +91,10 @@ public class RecipeDetailsServlet extends ParentServlet {
 
             // Redireccionar a la página de detalles de la receta
             resp.sendRedirect("/FridChef/details-recipe?id=" + idRecipe);
-            } catch (ExternalErrorException e) {
+        } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
+
     }
 }
