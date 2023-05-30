@@ -39,8 +39,6 @@ public class AddRecipeServlet extends ParentServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
-        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-        req.setAttribute("user", user != null);
 
         req.setAttribute("categories", categoryService.getAllCategories());
         req.setAttribute("ingredients", ingredientService.findAllIngredients());
@@ -53,9 +51,6 @@ public class AddRecipeServlet extends ParentServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
-
-        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-        req.setAttribute("user", user != null);
 
         String name = req.getParameter("title");
         String description = req.getParameter("description");
@@ -98,7 +93,6 @@ public class AddRecipeServlet extends ParentServlet {
         recipeDto.setIdCategory(idCategory);
         recipeDto.setIngredients(ingredientsRecipe);
         recipeDto.setImageBase64(imageBase64);
-
 
 
             //Se llama al service para crear la receta

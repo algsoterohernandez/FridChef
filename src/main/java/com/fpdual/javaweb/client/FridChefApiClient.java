@@ -4,10 +4,7 @@ import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -298,4 +295,31 @@ public class FridChefApiClient {
         }
         return  recipes;
     }
+    public void createValoration(ValorationDto valorationDto) throws ExternalErrorException {
+        Response response = webTarget.path("recipes/add-rating")
+                .queryParam("recipeId", valorationDto.getIdRecipe())
+                .queryParam("userId", valorationDto.getIdUser())
+                .queryParam("comment", valorationDto.getComment())
+                .queryParam("rating", valorationDto.getValoration())
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.text(""));
+
+        if (response.getStatus() != HttpStatus.OK.getStatusCode()) {
+            throw new ExternalErrorException("Ha ocurrido un error al añadir la valoración");
+        }
+    }
+    public double getAverageRating(int recipeId) throws ExternalErrorException {
+        Response response = webTarget.path("recipes/average-rating/" + recipeId)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            double averageRating = response.readEntity(Double.class);
+            return averageRating;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error al obtener la puntuación media de la receta");
+        }
+    }
+
+
 }

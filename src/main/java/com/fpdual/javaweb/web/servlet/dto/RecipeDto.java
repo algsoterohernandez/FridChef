@@ -25,5 +25,4 @@ public class RecipeDto {
     private List<IngredientRecipeDto> ingredients;
     private String status;
     private double valoration;
-
 }

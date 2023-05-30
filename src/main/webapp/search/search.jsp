@@ -47,7 +47,7 @@
             for (RecipeDto recipe : recipesList) {
         %>
         <div class="recipes-list">
-            <a href="/FridChef/recipes?id=<%= recipe.getId() %>">
+            <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
                 <div class="recipe-content">
                     <h2><%= recipe.getName() %></h2>
                     <h3>Ingredientes:</h3>
@@ -91,7 +91,7 @@
         <% Set<AllergenDto> recipeAllergens = new HashSet<>();%>
         <div class="recipe-suggestions">
             <div class="recipe-content">
-                <a href="/FridChef/recipes?id=<%= recipeSuggestion.getId() %>">
+                <a href="/FridChef/details-recipe?id=<%= recipeSuggestion.getId() %>">
                     <h2><%= recipeSuggestion.getName() %>
                     </h2>
 
