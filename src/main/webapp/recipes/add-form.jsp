@@ -9,7 +9,6 @@
 <% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
 <% ArrayList<ItemDto> units = (ArrayList<ItemDto>) request.getAttribute("units");%>
 <% Boolean recipeCreated = (Boolean) request.getAttribute("recipe_created");%>
-<% Boolean user = (Boolean) request.getAttribute("user");%>
 
 <html>
 <head>
@@ -24,7 +23,7 @@
 <div class="content">
   <%@ include file="../header/header.jsp" %>
   <div class = "main-form">
-    <%if(user){%>
+    <%if(searchUser != null){%>
     <h1>¡Crea tu receta ahora!</h1>
     <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data">
       <div class="form-input">

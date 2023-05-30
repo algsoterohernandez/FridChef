@@ -390,10 +390,23 @@ div.footer {
     display: block;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+/*botón favorito*/
+
+
+.favorite-button {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
+.favorite-button.active {
+    background-color: #f00;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
 
 /*!* Estilo formulario de contacto *!*/
 
