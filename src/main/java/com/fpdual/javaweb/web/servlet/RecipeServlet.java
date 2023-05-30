@@ -14,19 +14,19 @@ import java.io.IOException;
 public class RecipeServlet extends ParentServlet {
 
     private RecipeService recipeService;
+    private FridChefApiClient apiClient;
 
     @Override
     public void init() {
-        FridChefApiClient apiClient =new FridChefApiClient();
+        apiClient = new FridChefApiClient();
         recipeService = new RecipeService(apiClient);
-        this.init(apiClient);
+        super.init(apiClient);
     }
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.fillCategories(request);
-
+        super.fillCategories(request);
         String recipeId = request.getParameter("id");
         RecipeDto recipe = recipeService.findRecipeById(Integer.parseInt(recipeId)); // Obtiene los detalles de la receta
 
