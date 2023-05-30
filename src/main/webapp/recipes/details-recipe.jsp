@@ -20,7 +20,7 @@
 <body>
 <div class="content">
     <%@ include file="../header/header.jsp" %>
-    <% if(searchUser!= null){%>
+    <% if(searchUser!= null || searchUser.isAdmin()){%>
     <div class="title"><%= recipe.getName() %>
         <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
         <div class="buttons">
