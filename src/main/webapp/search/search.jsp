@@ -49,13 +49,12 @@
             <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
                 <div class="recipe-content">
                     <h2><%= recipe.getName() %></h2>
-                    <h3>Ingredientes:</h3>
+                    <br/>
                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                    <span><%=ingredient.getNameIngredient()%></span> ·
+                    <span><b><%=ingredient.getNameIngredient()%></b></span> ·
                     <% } %>
-                    <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
-                    <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
-                    <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription() %> </p>
+                    <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %> · <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                 </div>
                 <div class="image-content">
                     <% if (recipe.getImageBase64() != null) { %>
@@ -91,26 +90,21 @@
         <div class="recipe-suggestions">
             <div class="recipe-content">
                 <a href="/FridChef/details-recipe?id=<%= recipeSuggestion.getId() %>">
-                    <h2><%= recipeSuggestion.getName() %>
-                    </h2>
-
-                    <h3>Ingredientes:</h3>
+                    <h2><%= recipeSuggestion.getName() %></h2>
+                    <br/>
                         <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
-                            <span><%=ingredient.getNameIngredient()%></span> ·
-
+                            <b><span><%=ingredient.getNameIngredient()%></span> ·</b>
                             <% recipeAllergens.addAll(ingredient.getAllergens());%>
                         <% } %>
-
-                    <p><%= recipeSuggestion.getDescription() %></p>
-
-                    <p><span>Dificultad:</span> <%= recipeSuggestion.getDifficulty() %> ·
-                        <span>Tiempo de preparación:</span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %>
+                    <p><span><b>Descripción:</b></span><%= recipeSuggestion.getDescription() %></p>
+                    <p><span><b>Dificultad:</b></span> <%= recipeSuggestion.getDifficulty() %> ·
+                        <span><b>Tiempo de preparación:</b></span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %>
                     </p>
-
-                    <h3>Alergenos:</h3>
+                    <p><b>Alergenos:</b>
                     <% for(AllergenDto allergen : recipeAllergens) {%>
                         <span class="recipe-allergen"><%=allergen.getName()%></span> ·
                     <% } %>
+                    </p>
             </div>
             <div class="image-content">
                 <% if (recipeSuggestion.getImageBase64() != null) { %>

@@ -36,8 +36,9 @@ div.header {
     padding: 0px;
 }
 
-h1 {
+h1, h2 {
     color: darkslategrey;
+    margin: 0px;
 }
 
 div.principal-container {
@@ -385,7 +386,7 @@ div.ingredients-container {
     border-radius: 5px;
     color: #333;
     width: 95%;
-    height: 20%;
+    height: 10%;
 }
 
 div.recipes-list {
@@ -408,6 +409,7 @@ div.recipe-content {
     display: inline-block;
     vertical-align: top;
     width: 60%;
+    padding: 0px;
 }
 
 div.image-content {
@@ -533,6 +535,7 @@ textarea {
     height: 150px;
     line-height: 150%;
     resize: vertical;
+    width: 100%;
 }
 
 
