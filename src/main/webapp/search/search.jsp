@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
+    <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
     <script src="js/buscador.js" defer></script>
     <script src="js/filter.js" defer></script>
 </head>
@@ -21,25 +22,23 @@
 <div class="content">
     <%@ include file="../header/header.jsp" %>
     <div class="contprincipal">
-        <div class="buscador">
-            <h2>En mi nevera tengo...</h2>
-
-            <label for="add-ingredient">Ingrediente:</label>
-            <input list="ingrediente1" id="add-ingredient" name="ingredientes">
-            <datalist id="ingrediente1">
-                <% for (IngredientDto ingredient : ingredients) { %>
-                <option value="<%= ingredient.getName()%>"></option>
-                <% } %>
-            </datalist>
-            <button type="button" id="add-ingredient-button">Agregar</button>
-            <p></p>
-            Opciones:
-            <div class="ingredients-container" id="ingredients-container"></div>
-
-            <button type="button" id="search-button">Buscar</button>
-
-            <form action="search" method="post" id="form">
-            </form>
+        <div class="search">
+            <div class="search-left">
+                <h1>En mi nevera tengo...</h1>
+                <input list="ingrediente1" id="add-ingredient" name="ingredientes"  placeholder="Ingrediente">
+                <datalist id="ingrediente1">
+                    <% for (IngredientDto ingredient : ingredients) { %>
+                    <option value="<%= ingredient.getName()%>"></option>
+                    <% } %>
+                </datalist>
+                <button type="button" id="add-ingredient-button">Agregar</button>
+                <p></p>
+                <div class="ingredients-container" id="ingredients-container"></div>
+                <br/>
+                <button type="button" id="search-button">Buscar</button>
+                <form action="search" method="post" id="form">
+                </form>
+            </div>
         </div>
         <% if (recipesList.isEmpty()) { %>
         <p>No se han encontrado recetas con estos ingredientes</p>

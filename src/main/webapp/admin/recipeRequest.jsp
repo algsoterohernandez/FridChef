@@ -10,7 +10,8 @@
     <head>
         <meta charset="UTF-8">
         <title>FridChef</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
+        <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script><link rel="stylesheet" href="css/style.css">
         <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     </head>
     <body>
