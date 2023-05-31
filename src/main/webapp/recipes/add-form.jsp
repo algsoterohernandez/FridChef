@@ -23,6 +23,7 @@
 <div class="content">
   <%@ include file="../header/header.jsp" %>
   <div class = "main-form">
+    <%if(searchUser != null){%>
     <h1>¡Crea tu receta ahora!</h1>
     <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data">
       <div class="form-input">
@@ -69,7 +70,6 @@
           <option value="<%=ingredient.getId() %>"><%= ingredient.getName()%></option>
           <% } %>
         </select>
-
         <input type="text" id="quantity" name="quantity" placeholder="Indique la cantidad aquí">
 
         <select id="unit" name="unit">
@@ -90,14 +90,17 @@
       </div>
   </form>
 </div>
+</div>
+<%}else{%>
+<p>Oh vaya! Parece que aún no has entrado en tu sesión para poder crear una receta</p>
+<%}%>
+
 <%@ include file="../footer/footer.jsp" %>
 
 <% if (recipeCreated) { %>
-
-  <script>
-    alert('Receta creada correctamente, esperando a ser revisada y aprobada ')
-  </script>
+<script>
+  alert('Receta creada correctamente, esperando a ser revisada y aprobada')
+</script>
 <% } %>
-</div>
 </body>
 </html>

@@ -70,7 +70,7 @@ public class RecipeService {
 
     }
 
-    public RecipeDto updateRecipeStatus(int id, String status) throws Exception{
+    public RecipeDto updateRecipeStatus(int id, String status) throws Exception {
         RecipeDto recipeDto;
 
         try {
@@ -83,7 +83,16 @@ public class RecipeService {
         }
 
         return recipeDto;
-
     }
+    public RecipeDto findRecipe(int idRecipe) throws ExternalErrorException{
+        RecipeDto recipeDto;
 
+          try{
+              recipeDto = apiClient.findRecipeById(idRecipe);
+          }catch (ExternalErrorException e){
+              System.out.println("Ha ocurrido al solicitar los datos de la Receta");
+              throw e;
+          }
+          return recipeDto;
+    }
 }

@@ -4,15 +4,13 @@ import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static jakarta.ws.rs.client.Entity.entity;
@@ -193,6 +191,8 @@ public class FridChefApiClient {
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             categories = response.readEntity(new GenericType<List<CategoryDto>>() {
             });
+        } else if(response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()){
+            categories = Collections.emptyList();
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
@@ -279,5 +279,31 @@ public class FridChefApiClient {
         }
         return rs;
     }
+
+    public List<RecipeDto> findFavorites() throws ExternalErrorException{
+        List<RecipeDto> recipes = null;
+        Response rs = webTarget.path("favorite/")
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if(rs.getStatus() ==200){
+            recipes = rs.readEntity(new GenericType<List<RecipeDto>>(){});
+        }else if(rs.getStatus() ==204){
+            recipes = Collections.emptyList();
+        } else{
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return  recipes;
+    }
+    public void createValoration(ValorationDto valorationDto) throws ExternalErrorException {
+        Response response = webTarget.path("recipes/"+valorationDto.getIdRecipe()+"/rating")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(valorationDto));
+
+        if (response.getStatus() != HttpStatus.OK.getStatusCode()) {
+            throw new ExternalErrorException("Ha ocurrido un error al añadir la valoración");
+        }
+    }
+
 
 }
