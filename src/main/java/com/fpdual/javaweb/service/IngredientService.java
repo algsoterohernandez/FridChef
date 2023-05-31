@@ -10,14 +10,27 @@ import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servicio para manejar los ingredientes.
+ */
 public class IngredientService {
 
     private final FridChefApiClient fridChefApiClient;
 
+    /**
+     * Constructor de IngredientService.
+     *
+     * @param fridChefApiClient instancia de FridChefApiClient para interactuar con la API del backend
+     */
     public IngredientService(FridChefApiClient fridChefApiClient) {
         this.fridChefApiClient = fridChefApiClient;
     }
 
+    /**
+     * Obtiene una lista de todos los ingredientes.
+     *
+     * @return lista de IngredientDto que representa todos los ingredientes
+     */
     public List<IngredientDto> findAllIngredients() {
         List<IngredientDto> ingredientDtoList = null;
         try {
@@ -28,6 +41,12 @@ public class IngredientService {
         return ingredientDtoList;
     }
 
+    /**
+     * Busca recetas por ingredientes.
+     *
+     * @param ingredientList lista de ingredientes por los que buscar recetas
+     * @return lista de RecipeDto que representa las recetas encontradas
+     */
     public List<RecipeDto> findByIngredients(List<String> ingredientList) {
         List<RecipeDto> recipeList = null;
 
@@ -39,6 +58,11 @@ public class IngredientService {
         return recipeList;
     }
 
+    /**
+     * Obtiene una lista de todas las unidades de medida.
+     *
+     * @return lista de ItemDto que representa las unidades de medida
+     */
     public List<ItemDto> getAllUnits() {
 
         List<ItemDto> items = new ArrayList<>();
@@ -54,6 +78,13 @@ public class IngredientService {
         return items;
     }
 
+    /**
+     * Elimina un ingrediente dado su ID.
+     *
+     * @param id ID del ingrediente a eliminar
+     * @return true si el ingrediente se eliminó correctamente, false en caso contrario
+     * @throws Exception si ocurre un error al eliminar el ingrediente
+     */
     public boolean deleteIngredient(int id) {
         boolean deleted;
 
@@ -69,6 +100,13 @@ public class IngredientService {
 
     }
 
+    /**
+     * Crea un nuevo ingrediente con el nombre especificado.
+     *
+     * @param name nombre del ingrediente a crear
+     * @return instancia de IngredientDto que representa el ingrediente creado
+     * @throws ExternalErrorException si ocurre un error al crear el ingrediente
+     */
     public IngredientDto createIngredient(String name) throws ExternalErrorException {
         IngredientDto ingredientDto;
 

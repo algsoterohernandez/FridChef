@@ -18,77 +18,88 @@ import java.util.Properties;
 @Setter
 @Getter
 
+/**
+ * Clase que proporciona funcionalidad para enviar correos electrónicos.
+ */
 public class SenderEmailService {
 
     private Properties mailProp, credentialProp;
+
     /**
-     * Build the sender class loading the properties from mail and credentials files.
+     * Constructor de la clase SenderEmailService.
+     *
+     * @param mailProp Propiedades relacionadas con la configuración del correo.
+     * @param credentialProp Propiedades relacionadas con las credenciales de autenticación.
      */
     public SenderEmailService(Properties mailProp, Properties credentialProp) {
 
         try {
-
             this.mailProp = mailProp;
             this.credentialProp = credentialProp;
+
+            // Cargar las propiedades de correo desde el archivo "mail.properties"
             this.mailProp.load(getClass().getClassLoader().getResourceAsStream("mail.properties"));
+
+            // Cargar las propiedades de credenciales desde el archivo "credentials.properties"
             this.credentialProp.load(getClass().getClassLoader().getResourceAsStream("credentials.properties"));
 
         } catch (IOException e) {
-
             e.printStackTrace();
         }
     }
 
     /**
-     * Send a simple email with from and recipient address, subject and a simple HTML format content.
-     * @param from from email address
-     * @param to recipient email address
-     * @param subject email subject
-     * @param content email content in html format
-     * @return a {@link boolean} indicating if the email was sent or not.
+     * Envía un correo electrónico.
+     *
+     * @param from Dirección de correo electrónico del remitente.
+     * @param to Dirección de correo electrónico del destinatario.
+     * @param subject Asunto del correo electrónico.
+     * @param content Contenido del correo electrónico.
+     * @return true si el correo electrónico se envía exitosamente, false de lo contrario.
      */
     public boolean sendEmail(String from, String to, String subject, String content) {
 
-        // Get the Session object.// and pass username and password
+        // Obtener el objeto Session y pasar las credenciales de autenticación
         Session session = createSession();
 
         boolean sent = false;
 
         try {
-            // Create a default MimeMessage object.
+            // Crear un objeto MimeMessage por defecto.
             MimeMessage message = new MimeMessage(session);
 
-            // Set From: header field of the header.
+            // Establecer el campo From: del encabezado.
             message.setFrom(new InternetAddress(from));
 
-            // Set To: header field of the header.
+            // Establecer el campo To: del encabezado.
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-            // Set Subject: header field
+            // Establecer el campo Subject: del encabezado.
             message.setSubject(subject);
 
-            // Now set the actual message
-            message.setContent(content,"text/html" );
+            // Establecer el contenido del mensaje
+            message.setContent(content, "text/html");
 
             System.out.println("sending...");
 
-            // Send message
+            // Enviar el mensaje
             Transport.send(message);
             System.out.println("Sent message successfully....");
 
             sent = true;
 
         } catch (MessagingException mex) {
-
             mex.printStackTrace();
-
         }
 
         return sent;
-
     }
 
-
+    /**
+     * Crea una instancia de Session para la configuración del correo electrónico.
+     *
+     * @return Objeto Session configurado.
+     */
     private Session createSession() {
         Session session = Session.getInstance(mailProp, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -97,7 +108,7 @@ public class SenderEmailService {
             }
         });
 
-        // Used to debug SMTP issues
+        // Usado para depurar problemas SMTP
         session.setDebug(true);
         return session;
     }
