@@ -8,13 +8,8 @@ import java.util.List;
 
 /**
  * Estructura del Usuario Dto
- *
- * Creamos un contructor vacío
  */
 @NoArgsConstructor
-/**
- * Genera los metodos: getter, setter, toString, equals, hashCode y canEqual
- */
 @Data
 
 public class UserDto {

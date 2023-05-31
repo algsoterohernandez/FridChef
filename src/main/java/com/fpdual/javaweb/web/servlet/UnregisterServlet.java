@@ -12,6 +12,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UnregisterServlet extends ParentServlet {
     private UserService userService;
 
+    /**
+     * Método de inicialización del servlet.
+     * Crea una instancia de FridChefApiClient y UserService para manejar los usuarios.
+     * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
+     */
     @Override
     public void init() {
         FridChefApiClient apiClient = new FridChefApiClient();
@@ -19,6 +24,13 @@ public class UnregisterServlet extends ParentServlet {
         super.init(apiClient);
     }
 
+    /**
+     * Método para manejar las peticiones GET al servlet.
+     * Se encarga de eliminar el usuario registrado actualmente.
+     *
+     * @param req  La solicitud HTTP recibida.
+     * @param resp La respuesta HTTP que se enviará.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
