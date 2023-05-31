@@ -6,6 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    Object success = request.getAttribute("success");
+    Object error = request.getAttribute("error");
+%>
+
 <html>
 <head>
     <title>Contacto</title>
@@ -20,12 +26,22 @@
             <%@ include file="../header/header.jsp" %>
             <div class="feedbak-content">
                 <div class="contact-form-left">
-                    <form id="contact-form" action="fridcheffpdual@gmail.com" method="POST" enctype="text/plain">
-                        <input name="name" type="text" class="feedback-input" placeholder="Nombre" />
-                        <input name="email" type="text" class="feedback-input" placeholder="Email" />
-                        <textarea name="text" class="feedback-input" placeholder="comentario"></textarea>
-                        <input type="submit" value="Enviar" form="contact-form" onclick="this.form.reset();"/>
+                    <form id="contact-form" action="/FridChef/contact" method="POST">
+                        <input id="name-contact" name="name" type="text" class="feedback-input" placeholder="Nombre" />
+                        <input id="email-contact" name="email" type="text" class="feedback-input" placeholder="Email" />
+                        <textarea id="text-contact" name="text" class="feedback-input" placeholder="Comentario"></textarea>
+                        <input type="submit" value="Enviar" form="contact-form"/>
+
                     </form>
+                    <% if(success != null) { %>
+                        <div class="email-ok">
+                            <span>Mensaje enviado</span>
+                        </div>
+                    <% }else if(error != null){ %>
+                    <div class="email-ko">
+                        <span style="color: red;"><%= (String) error %></span>
+                    </div>
+                    <% } %>
                 </div>
                 <div class="contact-form-rigth">
                     <h1>¡Contacta con nosotros!</h1>
