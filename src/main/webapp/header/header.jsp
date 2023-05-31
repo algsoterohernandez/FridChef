@@ -15,11 +15,12 @@
 <div class="header">
     <div class="top-header">
         <div class="logo">
-            <img src="./images/logo.jpg" alt="logo de FridChef">
+            <img src="./images/logo.png" alt="logo de FridChef">
+            <span>fridchef</span>
         </div>
         <div class="user-session">
             <% if (searchUser != null) { %>
-            <a href="#" class="user-logged"><%= searchUser.getName() %>
+                <a href="#" class="user-logged"><%= searchUser.getName() %>
                 <img src="./images/user-icon.png" width="10%"/>
             </a>
             <div class="user-container">
