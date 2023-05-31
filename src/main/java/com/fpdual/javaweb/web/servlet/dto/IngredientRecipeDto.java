@@ -5,29 +5,73 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
+/**
+ * Estructura del Item Dto
+ *
+ * Creamos un contructor vacío
+ */
 @NoArgsConstructor
+/**
+ * Creamos un contructor con todas las propiedades
+ */
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-@Builder
+/**
+ * Genera los metodos: getter, setter, toString, equals, hashCode y canEqual
+ */
 @Data
+/**
+ * Para la configuración de metodos y devolución de la instacia final del objeto
+ */
+@Builder
+
 public class IngredientRecipeDto {
+    /**
+     * Id en la tabla
+     */
     private int id;
+    /**
+     * Id de la receta
+     */
     private int idRecipe;
-    private String nameIngredient;
+    /**
+     * Id del ingrediente
+     */
     private int idIngredient;
+    /**
+     * Nombre del ingrediente
+     */
+    private String nameIngredient;
+    /**
+     * Cantidad del ingrediente
+     */
     private float quantity;
+    /**
+     * Unidad de medida
+     */
     private String unit;
+    /**
+     * Alergenos que puede tener el ingrediente
+     */
     private List<AllergenDto> allergens;
 
-    public IngredientRecipeDto(String idIngredient, String quantity, String unit){
+    /**
+     * Constructor con los parametros:
+     *
+     * @param idIngredient id del ingrediente
+     * @param quantity cantidad de producto
+     * @param unit unidad de medida
+     */
+    public IngredientRecipeDto(String idIngredient, String quantity, String unit) {
         this.idIngredient = Integer.parseInt(idIngredient);
         this.quantity = Float.parseFloat(quantity);
         this.unit = unit;
     }
 
+    /**
+     * Creamos el getter de los alergenos para que nos devuelva la lista.
+     * Si la lista en nula nos la devolverá vacía.
+     * @return lista de alergenos.
+     */
     public List<AllergenDto> getAllergens() {
         return this.allergens != null ? this.allergens : new ArrayList<>();
     }
