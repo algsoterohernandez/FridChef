@@ -3,15 +3,12 @@ package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.service.SenderEmailService;
-import com.fpdual.javaweb.web.servlet.dto.UserDto;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 @WebServlet(name = "ContactServlet", urlPatterns = "/contact")
