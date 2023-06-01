@@ -11,7 +11,7 @@ public class CategoryService {
     private final FridChefApiClient apiClient;
 
     public CategoryService(FridChefApiClient apiClient) {
-this.apiClient = apiClient;
+        this.apiClient = apiClient;
     }
 
     public List<CategoryDto> getAllCategories() {
