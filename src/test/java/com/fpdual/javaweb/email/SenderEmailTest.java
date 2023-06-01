@@ -1,6 +1,7 @@
 package com.fpdual.javaweb.email;
 
 
+import com.fpdual.javaweb.service.SenderEmailService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -30,7 +31,7 @@ public class SenderEmailTest {
 
 
        //Execute method
-       SenderEmail senderEmail = new SenderEmail(mailProp, credentialProp);
+        SenderEmailService senderEmail = new SenderEmailService(mailProp, credentialProp);
 
        //Asserts
         assertNotNull(senderEmail);
@@ -45,14 +46,14 @@ public class SenderEmailTest {
         doThrow(IOException.class).when(credentialProp).load(any(InputStream.class));
 
         //Asserts
-        SenderEmail email = new SenderEmail(mailProp, credentialProp);
+        SenderEmailService email = new SenderEmailService(mailProp, credentialProp);
         assertNotNull(email);
     }
 
     @Test
     public void testSendEmail_wrongEmail_throwsMessagingException() {
         //Asserts
-        boolean sended = new SenderEmail(new Properties(), new Properties()).sendEmail("hola", "hola2", "hola3 ", "hola4");
+        boolean sended = new SenderEmailService(new Properties(), new Properties()).sendEmail("hola", "hola2", "hola3 ", "hola4");
 
         assertFalse(sended);
     }

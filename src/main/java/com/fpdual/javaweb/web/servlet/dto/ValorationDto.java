@@ -2,7 +2,9 @@ package com.fpdual.javaweb.web.servlet.dto;
 
 import lombok.*;
 
-
+/**
+ * Estructura de la Valoración Dto
+ */
 @NoArgsConstructor
 @Data
 public class ValorationDto {

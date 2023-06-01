@@ -9,10 +9,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-
+/**
+ * Servlet que maneja las peticiones para cerrar la sesión del usuario.
+ */
 @WebServlet(name = "CloseSessionServlet", urlPatterns = {"/close-session"})
 public class CloseSessionServlet extends ParentServlet {
     private UserService userService;
+
+    /**
+     * Método de inicialización del servlet.
+     * Crea una instancia de FridChefApiClient y UserService para manejar los usuarios.
+     * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
+     */
     @Override
     public void init() {
         FridChefApiClient apiClient = new FridChefApiClient();
@@ -20,6 +28,14 @@ public class CloseSessionServlet extends ParentServlet {
         super.init(apiClient);
     }
 
+    /**
+     * Método que maneja las solicitudes GET al servlet.
+     * Limpia la sesión del usuario actual y redirige al inicio del sistema.
+     *
+     * @param req  el objeto HttpServletRequest que contiene la solicitud del cliente
+     * @param resp el objeto HttpServletResponse que se utilizará para enviar la respuesta al cliente
+     * @throws RuntimeException si se produce una excepción de tipo IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
@@ -30,6 +46,7 @@ public class CloseSessionServlet extends ParentServlet {
                  req.getSession().setAttribute("sessionUser",null);
             }
             resp.sendRedirect("/FridChef/home");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

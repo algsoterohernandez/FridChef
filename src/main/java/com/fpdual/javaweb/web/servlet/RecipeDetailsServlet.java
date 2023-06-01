@@ -19,6 +19,13 @@ public class RecipeDetailsServlet extends ParentServlet {
     private RecipeService recipeService;
     private FridChefApiClient apiClient;
     private ValorationService valorationService;
+
+    /**
+     * {@inheritDoc}
+     * Método de inicialización del servlet.
+     * Crea una instancia de FridChefApiClient, RecipeService y ValorationService para manejar recetas y valoraciones.
+     * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
+     */
     @Override
     public void init() {
         apiClient = new FridChefApiClient();
@@ -27,6 +34,16 @@ public class RecipeDetailsServlet extends ParentServlet {
         super.init(apiClient);
     }
 
+    /**
+     * Método que maneja las peticiones GET al servlet.
+     * Obtiene el parámetro "id" de la URL y verifica si está presente.
+     * Si el parámetro está ausente o vacío, establece el código de respuesta como "SC_BAD_REQUEST" (400) y finaliza la ejecución del método.
+     * Si el parámetro está presente, intenta convertirlo a un entero y buscar la receta correspondiente en el servicio de recetas.
+     * Si no se encuentra la receta, establece el código de respuesta como "SC_NOT_FOUND" (404) y finaliza la ejecución del método.
+     * Si se encuentra la receta, se establece como atributo en la solicitud y se redirige al archivo JSP correspondiente para mostrar los detalles de la receta.
+     * En caso de producirse una excepción del tipo ExternalErrorException, se imprime el mensaje de error y se establece el código de respuesta como "SC_NOT_FOUND" (404).
+     * En caso de producirse una excepción del tipo NumberFormatException al convertir el parámetro "id" a un entero, se establece el código de respuesta como "SC_BAD_REQUEST" (400).
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -59,6 +76,17 @@ public class RecipeDetailsServlet extends ParentServlet {
         }
 
     }
+
+    /**
+     * Método que maneja las solicitudes POST del servlet.
+     * Obtiene los parámetros necesarios de la solicitud, como el ID de la receta, la valoración y el comentario.
+     * Verifica si el ID de la receta es válido y, en caso contrario, devuelve un código de estado de error.
+     * Obtiene el usuario de la sesión y registra la valoración de la receta.
+     * Crea un objeto ValorationDto con la información de la valoración.
+     * Crea la valoración llamando al método createValoration de valorationService.
+     * Redirecciona a la página de detalles de la receta después de crear la valoración.
+     * En caso de excepción ExternalErrorException, devuelve un código de estado de recurso no encontrado.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Obtener parámetros necesarios

@@ -6,7 +6,6 @@ import com.fpdual.javaweb.service.IngredientService;
 import com.fpdual.javaweb.service.RecipeService;
 import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,6 +21,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Servlet que maneja las peticiones para agregar una receta.
+ */
 @MultipartConfig
 @WebServlet(name = "AddRecipeServlet", urlPatterns = {"/add-recipes"})
 public class AddRecipeServlet extends ParentServlet {
@@ -29,6 +31,11 @@ public class AddRecipeServlet extends ParentServlet {
     private IngredientService ingredientService;
     private FridChefApiClient apiClient;
 
+    /**
+     * Método de inicialización del servlet.
+     * Crea una instancia de FridChefApiClient y RecipeService para manejar las recetas.
+     * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
+     */
     @Override
     public void init() {
         apiClient = new FridChefApiClient();
@@ -37,6 +44,16 @@ public class AddRecipeServlet extends ParentServlet {
         super.init(apiClient);
     }
 
+    /**
+     * Método que maneja las solicitudes HTTP GET al servlet.
+     * Rellena las categorías en la solicitud y establece los atributos necesarios para la vista.
+     * Luego, realiza un reenvío a la página JSP "/recipes/add-form.jsp" para mostrar el formulario de agregar recetas.
+     *
+     * @param req  la solicitud HTTP recibida por el servlet.
+     * @param resp la respuesta HTTP que se enviará al cliente.
+     * @throws ServletException si se produce un error específico del servlet.
+     * @throws IOException      si se produce un error de entrada/salida.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
@@ -49,6 +66,14 @@ public class AddRecipeServlet extends ParentServlet {
 
     }
 
+    /**
+     * Procesa la solicitud POST del formulario para crear una nueva receta.
+     *
+     * @param req  la solicitud HTTP
+     * @param resp la respuesta HTTP
+     * @throws ServletException si ocurre un error en el servlet
+     * @throws IOException      si ocurre un error de entrada/salida
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
