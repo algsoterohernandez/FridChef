@@ -20,15 +20,18 @@
             <% if(searchUser.isAdmin()){%>
             <div class="title"><h1>Recetas creadas por usuarios:</h1></div>
                 <% for (RecipeDto recipe : recipesPending) { %>
-                <div class="list">
-                    <div class="recipe-pending">
-                        <a href="/FridChef/details-recipe?id=<%=recipe.getId()%>" class="redirect"><%=recipe.getName()%></a>
-                    </div>
-                    <div class="date">
-                        <span><%=recipe.getCreateTime().substring(0, 10)%> </span>
+                <div class="recipe-box">
+                    <a href="/FridChef/details-recipe?id=<%=recipe.getId()%>" class="redirect"/>
+                    <div class="pending-list">
+                        <div class="recipe-pending">
+                           <span><%=recipe.getName()%></span>
+                        </div>
+                        <div class="recipe-date">
+                            <span><%=recipe.getCreateTime().substring(0, 10)%> </span>
+                        </div>
                     </div>
                 </div>
-            <% } %>
+                <% } %>
             <% } %>
             <%@ include file="../footer/footer.jsp" %>
         </div>

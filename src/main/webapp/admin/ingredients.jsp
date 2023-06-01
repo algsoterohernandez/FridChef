@@ -48,7 +48,7 @@
             <div class="delete-ingredient">
                 Borrar ingredientes:
                 <form id="delete-ingredient-form" action="/FridChef/admin-ingredients" method="POST">
-                    <input list="ingredient-list" class="input-ingredient" placeholder="Selecciona un ingrediente">
+                    <input list="ingredient-list" class="input-ingredient" placeholder="Selecciona ingrediente">
                     <input type="hidden" id="idHidden" name="ingredient-id"/>
                     <datalist id="ingredient-list">
                         <% for (IngredientDto ingredient : ingredients) { %>
