@@ -23,17 +23,18 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @MultipartConfig
-@WebServlet(name="AddRecipeServlet", urlPatterns = {"/add-recipes"})
+@WebServlet(name = "AddRecipeServlet", urlPatterns = {"/add-recipes"})
 public class AddRecipeServlet extends ParentServlet {
     private RecipeService recipeService;
     private IngredientService ingredientService;
     private FridChefApiClient apiClient;
+
     @Override
     public void init() {
-            apiClient = new FridChefApiClient();
-            recipeService = new RecipeService(apiClient);
-            ingredientService = new IngredientService(apiClient);
-            super.init(apiClient);
+        apiClient = new FridChefApiClient();
+        recipeService = new RecipeService(apiClient);
+        ingredientService = new IngredientService(apiClient);
+        super.init(apiClient);
     }
 
     @Override
@@ -69,7 +70,10 @@ public class AddRecipeServlet extends ParentServlet {
                 .collect(Collectors.toList());
 
         //Obtenemos archivo de la imagen y la convertimos a un inputStream y pasamos a cadena de bytes
+
         Part imagePart = req.getPart("image");
+        String imageBase64;
+
         InputStream imageInputStream = imagePart.getInputStream();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -79,9 +83,14 @@ public class AddRecipeServlet extends ParentServlet {
             byteArrayOutputStream.write(buffer, 0, bytesRead);
         }
 
+        if (bytesRead != -1) {
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            imageBase64 = Base64.getEncoder().encodeToString(imageBytes);
+        } else {
+            imageBase64 = "null";
+        }
 
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        String imageBase64 =  Base64.getEncoder().encodeToString(imageBytes);
+
 
         //Se crea un objeto RecipeDto con los datos del formulario
         RecipeDto recipeDto = new RecipeDto();
@@ -95,18 +104,18 @@ public class AddRecipeServlet extends ParentServlet {
         recipeDto.setImageBase64(imageBase64);
 
 
-            //Se llama al service para crear la receta
-            try {
-                recipeService.registerRecipe(recipeDto);
-            } catch (ExternalErrorException e) {
-                throw new RuntimeException(e);
-            }
-
-            //Se setean los atributos para la vista
-            req.setAttribute("categories", categoryService.getAllCategories());
-            req.setAttribute("ingredients", ingredientService.findAllIngredients());
-            req.setAttribute("units", ingredientService.getAllUnits());
-            req.setAttribute("recipe_created", true);
-            req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
+        //Se llama al service para crear la receta
+        try {
+            recipeService.registerRecipe(recipeDto);
+        } catch (ExternalErrorException e) {
+            throw new RuntimeException(e);
         }
+
+        //Se setean los atributos para la vista
+        req.setAttribute("categories", categoryService.getAllCategories());
+        req.setAttribute("ingredients", ingredientService.findAllIngredients());
+        req.setAttribute("units", ingredientService.getAllUnits());
+        req.setAttribute("recipe_created", true);
+        req.getRequestDispatcher("/recipes/add-form.jsp").forward(req, resp);
+    }
 }
