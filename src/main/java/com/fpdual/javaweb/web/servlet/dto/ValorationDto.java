@@ -8,25 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class ValorationDto {
-    /**
-     * Id de la valoración
-     */
     private int id;
-    /**
-     * Id de la receta
-     */
     private int idRecipe;
-    /**
-     * Id del usuario
-     */
     private int idUser;
-
-    /**
-     * Texto del comentario
-     */
     private String comment;
-    /**
-     * Puntuación de la receta
-     */
     private double valoration;
 }

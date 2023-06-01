@@ -14,33 +14,12 @@ import java.util.List;
 @Builder
 
 public class IngredientRecipeDto {
-    /**
-     * Id en la tabla
-     */
     private int id;
-    /**
-     * Id de la receta
-     */
     private int idRecipe;
-    /**
-     * Id del ingrediente
-     */
     private int idIngredient;
-    /**
-     * Nombre del ingrediente
-     */
     private String nameIngredient;
-    /**
-     * Cantidad del ingrediente
-     */
     private float quantity;
-    /**
-     * Unidad de medida
-     */
     private String unit;
-    /**
-     * Alergenos que puede tener el ingrediente
-     */
     private List<AllergenDto> allergens;
 
     /**

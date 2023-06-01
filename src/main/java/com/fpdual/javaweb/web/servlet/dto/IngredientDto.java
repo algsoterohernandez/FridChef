@@ -14,22 +14,9 @@ import java.util.List;
  @Builder
 
 public class IngredientDto {
-
-    /**
-     * Id del ingrediente
-     */
     private int id;
-    /**
-     * Nombre del ingrediente
-     */
     private String name;
-    /**
-     * Lista de alergenos relacionados al ingrediente
-     */
     private List<AllergenDto> allergens;
-    /**
-     * Existe el ingrediente en la base de datos
-     */
     private boolean alreadyExists;
 
 }

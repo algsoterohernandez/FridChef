@@ -45,7 +45,6 @@ public class UserService {
      * Elimina un usuario del sistema.
      * @param email el correo electrónico del usuario a eliminar.
      * @return true si el usuario se eliminó correctamente, false en caso contrario.
-     * @throws Exception si ocurre un error durante la eliminación del usuario.
      */
     public boolean unregisterUser(String email){
         boolean deleted;

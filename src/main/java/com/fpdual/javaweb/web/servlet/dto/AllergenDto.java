@@ -11,12 +11,6 @@ import lombok.*;
 @Builder
 
 public class AllergenDto {
-    /**
-     * Id del alergeno
-     */
     private int id;
-    /**
-     * Nombre del alergeno
-     */
     private String name;
 }

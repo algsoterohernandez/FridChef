@@ -10,12 +10,6 @@ import lombok.*;
 @Builder
 
 public class ItemDto {
-    /**
-     * Id del item
-     */
     private String id;
-    /**
-     * Nombre del item
-     */
     private String name;
 }

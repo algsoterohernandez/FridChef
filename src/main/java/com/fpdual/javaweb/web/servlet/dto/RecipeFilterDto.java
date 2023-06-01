@@ -10,8 +10,5 @@ import java.util.List;
 @Data
 
 public class RecipeFilterDto {
-    /**
-     * Lista de ingredientes
-     */
     List<String> Ingredients;
 }

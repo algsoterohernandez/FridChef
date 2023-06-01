@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class RolUserDto {
-    /**
-     * Id del usuario e Id del Rol
-     */
     private int idUser, idRol;
 
 }

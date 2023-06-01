@@ -12,13 +12,7 @@ import lombok.*;
 @Builder
 
 public class CategoryDto {
-    /**
-     * Id de la categoría
-     */
     private int id;
-    /**
-     * Nombre de la categoría
-     */
     private String name;
 
 }

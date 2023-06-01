@@ -83,7 +83,6 @@ public class IngredientService {
      *
      * @param id ID del ingrediente a eliminar
      * @return true si el ingrediente se eliminó correctamente, false en caso contrario
-     * @throws Exception si ocurre un error al eliminar el ingrediente
      */
     public boolean deleteIngredient(int id) {
         boolean deleted;
@@ -123,5 +122,4 @@ public class IngredientService {
         return ingredientDto;
 
     }
-
 }
