@@ -28,7 +28,7 @@
             <div class="principal-container">
             <div class="feedback-content">
                 <div class="contact-form-left">
-                    <form id="contact-form" action="FridChef/contact" method="POST">
+                    <form id="contact-form" action="/FridChef/contact" method="POST">
                         <input id="name-contact" name="name" type="text" class="feedback-input" placeholder="Nombre" />
                         <input id="email-contact" name="email" type="text" class="feedback-input" placeholder="Email" />
                         <textarea id="text-contact" name="text" class="feedback-input" placeholder="Comentario"></textarea>
