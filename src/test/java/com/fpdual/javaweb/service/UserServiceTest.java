@@ -152,5 +152,4 @@ public class UserServiceTest {
         assertThrows(ExternalErrorException.class, () -> userService.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
 
     }
-
 }

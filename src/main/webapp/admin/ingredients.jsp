@@ -15,6 +15,7 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka+One|Amatic+SC">
+    <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
 </head>
@@ -30,12 +31,9 @@
             <div class="add-ingredient">
                 Añadir ingrediente:
                 <form id="add-ingredient-form" action="/FridChef/admin-ingredients" method="POST">
-                    <label for="ingredient-name">Ingrediente:</label>
-                    <input id="ingredient-name" name="ingredient-name"/>
+                    <input id="ingredient-name" name="ingredient-name" placeholder="Ingrediente"/>
                     <input type="hidden" id="method-type-add" name="method-type" value="add"/>
-                    <div class="buttons">
-                        <input type="submit" value="Añadir"/>
-                    </div>
+                    <input type="submit" value="Añadir"/>
                 </form>
                 <% if(addSucceded != null){ %>
                     <div class="message-succeded">
@@ -50,7 +48,7 @@
             <div class="delete-ingredient">
                 Borrar ingredientes:
                 <form id="delete-ingredient-form" action="/FridChef/admin-ingredients" method="POST">
-                    <input list="ingredient-list" class="input-ingredient" placeholder="Selecciona un ingrediente">
+                    <input list="ingredient-list" class="input-ingredient" placeholder="Selecciona ingrediente">
                     <input type="hidden" id="idHidden" name="ingredient-id"/>
                     <datalist id="ingredient-list">
                         <% for (IngredientDto ingredient : ingredients) { %>
@@ -60,9 +58,7 @@
                         <% } %>
                     </datalist>
                     <input type="hidden" id="method-type-delete" name="method-type" value="delete"/>
-                    <div class="buttons">
-                        <input type="submit" value="Borrar"/>
-                    </div>
+                    <input type="submit" value="Borrar"/>
                     <script>
                         // Get the hidden input field and the text input field
                         var idOcultoInput = document.querySelector('#idHidden');

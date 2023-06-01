@@ -2,8 +2,18 @@ package com.fpdual.javaweb.util;
 
 import java.security.MessageDigest;
 
+/**
+ * Clase de utiles comunes.
+ */
 public class Utils {
 
+    /**
+     * Encripta una contraseña utilizando el algoritmo de hash MD5.
+     *
+     * @param password la contraseña a encriptar.
+     * @return la contraseña encriptada como una cadena de caracteres hexadecimal.
+     *         Si ocurre alguna excepción durante el proceso de encriptación, retorna null.
+     */
     public static String encryptPassword(String password) {
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
