@@ -23,7 +23,7 @@
 <body>
 <div class="content">
   <%@ include file="../header/header.jsp" %>
-  <div ="principal-container">
+  <div class="principal-container">
     <div class ="main-form">
     <%if(searchUser != null){%>
     <h1>¡Crea tu receta ahora!</h1>
@@ -38,49 +38,49 @@
         <br/><br/>
 
         <label for="time">duración:</label>
-        <input type="number" id="time" name="time" min="0"/>
-        <select id="unit_time" name="unit_time">
+        <input type="number" id="time" name="time" min="0" required/>
+        <select id="unit_time" name="unit_time" required>
           <option value="h">h</option>
           <option value="min">min</option>
         </select>
         <br/><br/>
         <label>Dificultad:</label>
         <div class="dificultad-form">
-          <input type="radio" id="1" name="difficulty" value="1">
+          <input type="radio" id="1" name="difficulty" value="1" required>
           <label for="1">Muy fácil</label>
         </div>
         <div class="dificultad-form">
-          <input type="radio" id="2" name="difficulty" value="2">
+          <input type="radio" id="2" name="difficulty" value="2" required>
           <label for="2">Fácil</label>
         </div>
           <div class="dificultad-form">
-          <input type="radio" id="3" name="difficulty" value="3">
+          <input type="radio" id="3" name="difficulty" value="3" required>
         <label for="3">Normal</label>
         </div>
         <div class="dificultad-form">
-          <input type="radio" id="4" name="difficulty" value="4">
+          <input type="radio" id="4" name="difficulty" value="4" required>
           <label for="4">Dificil</label>
         </div>
         <div class="dificultad-form">
-          <input type="radio" id="5" name="difficulty" value="5">
+          <input type="radio" id="5" name="difficulty" value="5" required>
           <label for="5">Muy dificil</label>
         </div>
           <label for="category">Categoría:</label>
-        <select id="category" name="category">
+        <select id="category" name="category" required>
           <% for (CategoryDto category : categories) { %>
           <option value="<%=category.getId() %>"><%= category.getName() %></option>
           <% } %>
         </select>
         <br/><br/>
         <label>A continuación agregue los ingredientes utilizados en esta receta: </label>
-        <select id="ingredient" name="ingredient">
+        <select id="ingredient" name="ingredient" required>
           <% for (IngredientDto ingredient : ingredients) { %>
           <option value="<%=ingredient.getId() %>"><%= ingredient.getName()%></option>
           <% } %>
         </select>
-        <input type="text" id="quantity" name="quantity" placeholder="Indique la cantidad aquí">
+        <input type="number" id="quantity" name="quantity" placeholder="Indique la cantidad aquí" required>
 
-        <select id="unit" name="unit">
+        <select id="unit" name="unit" required>
           <% for (ItemDto unit : units) { %>
             <option value="<%=unit.getId() %>"><%= unit.getName() %></option>
           <% } %>
