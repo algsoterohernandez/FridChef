@@ -53,7 +53,7 @@ public class SenderEmailTest {
     @Test
     public void testSendEmail_wrongEmail_throwsMessagingException() {
         //Asserts
-        boolean sended = new SenderEmailService(new Properties(), new Properties()).sendEmail("hola", "hola2", "hola3 ", "hola4");
+        boolean sended = new SenderEmailService(new Properties(), new Properties()).sendEmail("hola", "hola2@gmail.com", "hola3 ", "hola4");
 
         assertFalse(sended);
     }

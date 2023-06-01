@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: a.carmona.garrido
-  Date: 5/26/2023
-  Time: 8:20 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -18,7 +11,7 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
 </head>

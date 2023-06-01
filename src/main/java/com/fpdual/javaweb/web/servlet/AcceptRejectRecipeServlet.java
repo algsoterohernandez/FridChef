@@ -55,10 +55,10 @@ public class AcceptRejectRecipeServlet extends ParentServlet {
             RecipeDto recipe = recipeService.updateRecipeStatus(recipeId, recipeStatus);
 
             if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())) {
-                resp.sendRedirect("/FridChef/details-recipe?id="+ recipeId);
+                resp.sendRedirect("/FridChef/recipe-request");
 
             } else if (recipe.getStatus().equals(RecipeStatus.DECLINED.name())) {
-                resp.sendRedirect("/FridChef/home");
+                resp.sendRedirect("/FridChef/recipe-request");
             }
 
         } catch (Exception e) {
