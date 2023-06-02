@@ -1,34 +1,43 @@
 package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.enums.RecipeStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class RecipeServiceTest {
 
+    @InjectMocks
+    private RecipeService recipeService;
     @Mock
     private FridChefApiClient apiClient;
 
-    private RecipeService recipeService;
+    private RecipeDto exampleRecipeDto;
 
     @BeforeEach
     public void setUp() {
 
         recipeService = new RecipeService(apiClient);
+
+
+        exampleRecipeDto = new RecipeDto();
+        exampleRecipeDto.setId(8);
+        exampleRecipeDto.setStatus(RecipeStatus.PENDING.getStatus());
+
     }
 
     @Test
@@ -104,5 +113,55 @@ public class RecipeServiceTest {
         // Assert: Verificación de los resultados
         verify(apiClient).findRecipeById(id);
         assertNull(result);
+    }
+
+    @Test
+    public void testFindByStatusPending_listRecipeDtoNotNull() throws ExternalErrorException {
+
+        //Prepare method dependencies
+        when(apiClient.findByStatusPending()).thenReturn(new ArrayList<>(Arrays.asList(exampleRecipeDto)));
+
+        //Execute method
+        List<RecipeDto> recipeDtoListRs = recipeService.findByStatusPending();
+
+        //Asserts
+        assertNotNull(recipeDtoListRs);
+
+    }
+
+   @Test
+    public void testFindByStatusPending_listRecipeDtoExternalErrorException() throws ExternalErrorException {
+
+        //Prepare method dependencies
+       when(apiClient.findByStatusPending()).thenThrow(ExternalErrorException.class);
+
+        //Asserts
+        assertThrows(ExternalErrorException.class, () -> recipeService.findByStatusPending());
+
+    }
+
+    @Test
+    public void testUpdateRecipeStatus_validIdStatus_recipeDtoNotNull() throws Exception {
+
+        //Prepare method dependencies
+        when(apiClient.updateRecipeStatus(anyInt(),anyString())).thenReturn(exampleRecipeDto);
+
+        //Execute method
+        RecipeDto recipeDtoRs = recipeService.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus());
+
+        //Asserts
+        assertNotNull(recipeDtoRs);
+
+    }
+
+    @Test
+    public void testUpdateRecipeStatus_validIdStatus_recipeDtoException() throws Exception {
+
+        //Prepare method dependencies
+        when(apiClient.updateRecipeStatus(anyInt(),anyString())).thenThrow(ExternalErrorException.class);
+
+        //Asserts
+        assertThrows(ExternalErrorException.class, () -> recipeService.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus()));
+
     }
 }
