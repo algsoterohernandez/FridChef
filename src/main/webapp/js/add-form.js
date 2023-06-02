@@ -1,13 +1,15 @@
 const addIngredientButton = document.querySelector('#add-ingredient');
 addIngredientButton.addEventListener('click', addIngredient)
 
+//array para almacenar los ingredientes
+let addedIngredients = [];
 function addIngredient($event) {
     $event.stopPropagation();
     $event.preventDefault();
     const ingredientSelect = (
         document.querySelector('#ingredient option:checked') ||
         document.querySelector('#ingredient option:first-of-type')
-    )
+    );
     const ingredientName = ingredientSelect.innerHTML.trim();
     const idIngredient = ingredientSelect.getAttribute('value');
     const unit = (
@@ -15,8 +17,6 @@ function addIngredient($event) {
         document.querySelector('#unit option:first-of-type')
     ).getAttribute('value');
     const quantity = document.querySelector('#quantity').value;
-<<<<<<< Updated upstream
-=======
 
     if(!Number.isInteger(parseFloat(quantity))){
         alert('La cantidad debe ser un número entero.');
@@ -32,7 +32,7 @@ function addIngredient($event) {
 
     //se limita el número de ingredientes a un máximo de 10
     if(addedIngredients.length>=10){
-        alert('Has alcanzado el número máximo de ingredientes. Si necesitas añadir algún ingrediente, puedes indicarlo en el apartado CONTACTOS!');
+        alert('Has alcanzado el número máximo de ingredientes que puedes registrar para esta receta. Si necesitas añadir algún ingrediente, puedes indicarlo en el apartado CONTACTOS!');
         return;
     }
 
@@ -45,14 +45,13 @@ function addIngredient($event) {
         return;
     }
 
->>>>>>> Stashed changes
     const html = `
         <div class="ingredient-wrapper">
             <span class="ingredient-name">${ingredientName}</span>
             <span class="ingredient-unit">${quantity}</span>
             <span class="ingredient-quantity">${unit}</span>
             <button>X</button>
-            <input type="hidden" name="ingredient[]" value="${idIngredient}">
+            <input type="hidden" class="ingredient" name="ingredient[]" value="${idIngredient}">
             <input type="hidden" name="unit[]" value="${unit}">
             <input type="hidden" name="quantity[]" value="${quantity}">
         </div>
@@ -61,14 +60,18 @@ function addIngredient($event) {
     element.querySelector('button').addEventListener('click', removeIngredient)
     const parentContainer = document.querySelector('.ingredients-container');
     parentContainer.insertBefore(element.querySelector('body').firstChild, parentContainer.lastChild);
+
+    //Agregar el ingrediente al array de ingredientes agregados
+    addedIngredients.push(parseInt(idIngredient));
 }
 
 function removeIngredient($event) {
     $event.stopPropagation();
+    const idIngredient = $event.target.parentElement.querySelector('.ingredient').getAttribute('value');
     $event.target.parentElement.remove();
-<<<<<<< Updated upstream
-}
-=======
     addedIngredients = addedIngredients.filter(id => id !== parseInt(idIngredient));
+
+
+
+
 }
->>>>>>> Stashed changes

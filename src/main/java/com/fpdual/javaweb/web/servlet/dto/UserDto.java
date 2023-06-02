@@ -19,6 +19,8 @@ public class UserDto {
     private List<RolUserDto> rolUserDto;
     private boolean isAdmin;
 
+    private List<Integer>favoriteList;
+
 
     /**
      * Este metodo sirve para controlar si el usuario ya existe en nuestra base de datos

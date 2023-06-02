@@ -440,4 +440,36 @@ public class FridChefApiClient {
         }
     }
 
+
+    public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException{
+        boolean favoriteCreated = false;
+
+        Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(null));
+
+        if(response.getStatus() == HttpStatus.OK.getStatusCode()){
+            favoriteCreated = response.readEntity(boolean.class);
+        }else{
+            throw new ExternalErrorException("Ha ocurrido un error al añadir favorito en la bd");
+        }
+        return favoriteCreated;
+
+    }
+
+    public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException{
+        boolean favoriteDeleted = false;
+
+        Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            favoriteDeleted = response.readEntity(boolean.class);
+        }else{
+            throw new ExternalErrorException("Ha ocurrido un error al eliminar favorito en la bd");
+        }
+        return favoriteDeleted;
+
+    }
 }

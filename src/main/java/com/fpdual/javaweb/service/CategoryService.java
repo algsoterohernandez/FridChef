@@ -19,7 +19,7 @@ public class CategoryService {
      * @param apiClient Cliente de la API utilizado para realizar las llamadas al backend.
      */
     public CategoryService(FridChefApiClient apiClient) {
-this.apiClient = apiClient;
+        this.apiClient = apiClient;
     }
 
     /**
