@@ -18,22 +18,30 @@
 
     <div class="contprincipal">
         <h2>Lista de recetas por categoría</h2>
-
+        <p></p>
         <% if (recipes != null && !recipes.isEmpty()) { %>
         <% for (RecipeDto recipe : recipes) { %>
         <div class="recipes-list">
             <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
-                <h2><%= recipe.getName() %></h2>
-                <h3>Ingredientes:</h3>
-                <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                <span><%=ingredient.getNameIngredient()%></span> ·
-                <% } %>
-                <p><span>Descripción:</span> <%= recipe.getDescription() %> </p>
-                <p><span>Dificultad:</span> <%= recipe.getDifficulty() %></p>
-                <p><span>Tiempo de preparación:</span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                <div class="recipe-content">
+                    <h2><%= recipe.getName() %></h2>
+                    <br/>
+                    <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                        <span><%=ingredient.getNameIngredient()%></span> ·
+                    <% } %>
+                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription() %></p>
+                    <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %>· <span><b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                </div>
+                <div class="image-content">
+                    <% if (recipe.getImageBase64() != null) { %>
+                    <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
+                    <% } else { %>
+                    <p>No hay Imagen</p>
+                    <% } %>
+                </div>
             </a>
         </div>
-
+        <p></p>
         <% } %>
         <% } else { %>
         <p>No se encontraron recetas para esta categoría. Busca en otra categoría.</p>

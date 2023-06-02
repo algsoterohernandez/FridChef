@@ -25,6 +25,9 @@ div.content {
     margin: auto;
     width: 65%;
     box-shadow: 5px 5px 15px gray;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 div.header {
@@ -43,6 +46,7 @@ h1, h2 {
 
 div.principal-container {
     width: 100%;
+    display: inline-flex;
 }
 
 /* Estilo general formularios */
@@ -79,7 +83,7 @@ input[type="button"] {
     border-radius: 5px;
     font-weight: bold;
     color: #fff;
-    background-color: #333;
+    background-color: darkslategrey;
     cursor: pointer;
 }
 
@@ -110,7 +114,8 @@ div.menu {
     display: block;
     background: #ffffff;
     text-align: center;
-    border: 1px solid #ccc;
+    border-top: 1px solid #fab641;
+    border-bottom: 1px solid #fab641;
     padding: 1px;
 }
 
@@ -250,18 +255,143 @@ div.user-session {
     display: block;
 }
 
-/* Estilos del buscador */
 
-#ingredients-container {
+
+
+/* Estilos específicos para login y registro */
+
+div.login-content,
+div.main-register-form {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    display: block;
+    color: black;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.login,
+div.register-form {
+    width: 90%;
+    margin: 30px auto 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+
+/* Buscador y listado de sus recetas */
+
+div.search-left {
+    display: inline-block;
+    width: 60%;
+    margin: auto;
+    color: black;
+    border: 1px solid darkslategrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #e8eaf1;
+    padding: 10px;
+}
+
+div.search-right {
+    display: inline-block;
+    width: 39%;
+}
+
+div.chef-image-right {
+    margin: auto;
+    display: flex;
+}
+
+div.chef-image-right img{
+    width: 75%;
+    margin: auto;
+}
+
+div.ingredients-container {
+    padding: 5px;
+    border-radius: 5px;
+    color: #333;
+    width: 95%;
     display: flex;
     flex-wrap: wrap;
     font-weight: bold;
     font-size: 16px;
 }
 
-div.option {
-    padding: 5px;
+div.recipes-list {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #636363;
+    box-shadow: 5px 5px 15px #694d19;
 }
+
+div.recipes-list a:link,
+div.recipes-list a:hover,
+div.recipes-list a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+div.recipe-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 60%;
+    padding: 0px;
+}
+
+div.image-content {
+    display: inline-block;
+    vertical-align: top;
+    width: 39%;
+}
+
+div.image-content img {
+    width: 100%;
+}
+
+div.recipe-suggestions {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #636363;
+    box-shadow: 5px 5px 15px #694d19;
+}
+
+div.recipe-suggestions a:link,
+div.recipe-suggestions a:hover,
+div.recipe-suggestions a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+div.allergen-list {
+}
+
+div.option,
+div.ingredient-wrapper {
+    padding: 5px;
+    --tw-bg-opacity: 1;
+    align-items: center;
+    background-color: #fdc86c;
+    border-radius: .5rem;
+    display: inline-flex;
+    justify-content: space-between;
+    letter-spacing: -.025em;
+    margin-bottom: .5rem;
+    margin-right: .25rem;
+    padding: .25rem .5rem;
+    text-align: center;
+}
+
+
 
 .ingredient-item {
     background-color: #f1f1f1;
@@ -290,7 +420,7 @@ div.option {
     border-radius: 5px;
     font-weight: bold;
     color: #fff;
-    background-color: #333;
+    background-color: darkslategrey;
     cursor: pointer;
 }
 
@@ -329,119 +459,6 @@ div.option {
     display: inline-block;
 }
 
-
-/* Estilos específicos para login y registro */
-
-div.login-content,
-div.main-register-form {
-    width: 60%;
-    margin: auto;
-    text-align: center;
-    display: block;
-    color: black;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-.login,
-div.register-form {
-    width: 90%;
-    margin: 30px auto 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-
-/* Buscador y listado de sus recetas */
-
-
-div.search-left {
-    display: inline-block;
-    width: 60%;
-    margin: auto;
-    color: black;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #e8eaf1;
-    padding: 10px;
-}
-
-div.search-right {
-    display: inline-block;
-    width: 39%;
-}
-
-div.chef-image-right {
-    margin: auto;
-}
-
-div.ingredients-container {
-    background-color: white;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: #333;
-    width: 95%;
-    height: 10%;
-}
-
-div.recipes-list {
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    background-color: white;
-    border: 1px solid #636363;
-    box-shadow: 5px 5px 15px #694d19;
-}
-
-div.recipes-list a:link,
-div.recipes-list a:hover,
-div.recipes-list a:visited {
-    text-decoration: none;
-    color: black;
-}
-
-div.recipe-content {
-    display: inline-block;
-    vertical-align: top;
-    width: 60%;
-    padding: 0px;
-}
-
-div.image-content {
-    display: inline-block;
-    vertical-align: top;
-    width: 39%;
-}
-
-div.image-content img {
-    height: 20%;
-}
-
-
-div.recipe-suggestions {
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    background-color: white;
-    border: 1px solid #636363;
-    box-shadow: 5px 5px 15px #694d19;
-}
-
-div.recipe-suggestions a:link,
-div.recipe-suggestions a:hover,
-div.recipe-suggestions a:visited {
-    text-decoration: none;
-    color: black;
-}
-
-div.allergen-list {
-}
-
 /* footer */
 
 div.footer {
@@ -450,7 +467,8 @@ div.footer {
     color: black;
     text-align: right;
     padding: 5px;
-    box-sizing: border-box;
+    border-top: 1px solid #fab641;
+    border-bottom: 1px solid #fab641;
 }
 
 .table-footer {
@@ -465,7 +483,7 @@ div.footer-redes {
 }
 
 div.footer-redes i {
-    color: #636363;
+    color: darkslategrey;
 }
 
 /* Estilo formulario de contacto */
@@ -478,21 +496,18 @@ div.feedback-content {
     color: black;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #e8eaf1;
 }
 
 .contact-form {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid darkslategrey;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #e8eaf1;
 }
-
-
-
 
 div.contact-form form {
     max-width: 420px;
@@ -502,6 +517,7 @@ div.contact-form form {
 div.contact-form-left {
     display: inline-block;
     width: 49%;
+    background-color: #e8eaf1;
 }
 
 div.contact-form-rigth {
@@ -509,6 +525,7 @@ div.contact-form-rigth {
     vertical-align: top;
     display: inline-block;
     width: 50%;
+    background-color: #e8eaf1;
 }
 
 .feedback-input {
@@ -517,7 +534,7 @@ div.contact-form-rigth {
     font-weight: 500;
     border-radius: 5px;
     line-height: 22px;
-    background-color: transparent;
+    background-color: white;
     border: 1px solid #ccc;
     transition: all 0.3s;
     padding: 10px;
@@ -548,6 +565,8 @@ textarea {
 div.main-form {
     border: 1px solid #ccc;
     width: 100%;
+    background-color: #e8eaf1;
+    border: 1px solid darkslategrey;
 }
 
 .dificultad-form  {
