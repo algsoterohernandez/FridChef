@@ -12,11 +12,13 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
-    <script src="js/buscador.js" defer></script>
-    <script src="js/filter.js" defer></script>
+    <script src="/js/buscador.js" defer></script>
+    <script src="/js/filter.js" defer></script>
+    <script src="/js/details-recipe.js" defer></script>
+
 </head>
 <body>
 <div class="content">
@@ -47,7 +49,8 @@
         <% } %>
     </div>
     <div class="like">
-        <button class="favorite-button" onclick="toggleFavorite()"></button>
+        <button id="favoriteButton" class="favorite-button" onclick="toggleFavorite()"></button>
+        <span class="heart"></span>
     </div>
     <div class="recipe-details">
         <h2><%=recipe.getName()%></h2>

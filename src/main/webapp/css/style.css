@@ -554,24 +554,6 @@ div.main-form {
     display: inline-block;
 }
 
-
-/*botón favorito*/
-
-.favorite-button {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.favorite-button.active {
-    background-color: #f00;
-    color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
 /*Recipe Request*/
 .recipe-box a{
     text-decoration: none;
@@ -599,4 +581,27 @@ div.main-form {
 
 .recipe-date{
     width:40%
+}
+
+/*botón favorito*/
+
+.favorite-button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.favorite-button .heart {
+    width: 24px;
+    height: 24px;
+    background-image: url('/images/corazon-vacio.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.3s ease-in-out;
+}
+
+.favorite-button.is-favorite .heart {
+    background-image: url('/images/corazon-lleno.png');
 }
