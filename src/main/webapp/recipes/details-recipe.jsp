@@ -12,12 +12,12 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="shortcut icon" href="/images/logo.jpg" type="image/icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
-    <script src="/js/buscador.js" defer></script>
-    <script src="/js/filter.js" defer></script>
-    <script src="/js/details-recipe.js" defer></script>
+    <script src="js/buscador.js" defer></script>
+    <script src="js/filter.js" defer></script>
+    <script src="js/details-recipe.js" defer></script>
 
 </head>
 <body>
