@@ -64,14 +64,16 @@ function addIngredient($event) {
     //Agregar el ingrediente al array de ingredientes agregados
     addedIngredients.push(parseInt(idIngredient));
 }
-
+function validateForm() {
+    if (addedIngredients.length < 3) {
+        alert('Debes ingresar al menos 3 ingredientes para enviar el formulario.');
+        return false;
+    }
+    return true;
+}
 function removeIngredient($event) {
     $event.stopPropagation();
     const idIngredient = $event.target.parentElement.querySelector('.ingredient').getAttribute('value');
     $event.target.parentElement.remove();
     addedIngredients = addedIngredients.filter(id => id !== parseInt(idIngredient));
-
-
-
-
 }

@@ -27,7 +27,7 @@
     <div class ="main-form">
     <%if(searchUser != null){%>
     <h1>¡Crea tu receta ahora!</h1>
-    <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data">
+    <form action="/FridChef/add-recipes" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
         <label for="title">Titulo:</label>
         <input type="text" id= "title" name="title" minlength="2" maxlength="50" required/>
