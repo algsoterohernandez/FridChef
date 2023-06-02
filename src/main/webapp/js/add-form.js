@@ -70,4 +70,5 @@ function removeIngredient($event) {
     const idIngredient = $event.target.parentElement.querySelector('.ingredient').getAttribute('value');
     $event.target.parentElement.remove();
     addedIngredients = addedIngredients.filter(id => id !== parseInt(idIngredient));
+
 }
