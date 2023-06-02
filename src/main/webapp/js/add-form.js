@@ -71,4 +71,7 @@ function removeIngredient($event) {
     $event.target.parentElement.remove();
     addedIngredients = addedIngredients.filter(id => id !== parseInt(idIngredient));
 
+
+
+
 }
