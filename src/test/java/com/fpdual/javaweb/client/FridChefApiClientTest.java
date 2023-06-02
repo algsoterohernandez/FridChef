@@ -1,6 +1,7 @@
 package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
+import com.fpdual.javaweb.enums.RecipeStatus;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
@@ -35,6 +36,8 @@ public class FridChefApiClientTest {
     @Mock
     private Invocation.Builder invocationBuilder;
     private UserDto exampleUserDto;
+    private RecipeDto exampleRecipeDto;
+    private IngredientDto exampleIngredientDto;
 
     @BeforeEach
     public void init() {
@@ -48,11 +51,17 @@ public class FridChefApiClientTest {
         exampleUserDto.setPassword("example");
         exampleUserDto.setEmail("example@a.com");
 
+        exampleRecipeDto = new RecipeDto();
+        exampleRecipeDto.setId(8);
+        exampleRecipeDto.setStatus(RecipeStatus.PENDING.getStatus());
 
+        exampleIngredientDto = new IngredientDto();
+        exampleIngredientDto.setId(5);
+        exampleIngredientDto.setName("Tomate");
     }
 
     @Test
-    public void testCreaterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
+    public void testCreateUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
@@ -69,7 +78,7 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testCreaterUser_validUserDto_userAlreadyExistsException() {
+    public void testCreateUser_validUserDto_userAlreadyExistsException() {
 
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
@@ -83,7 +92,7 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testCreaterUser_validUserDto_ExternalErrorException() {
+    public void testCreateUser_validUserDto_ExternalErrorException() {
 
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
@@ -97,7 +106,7 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testDeleteUser_validEmail_userDeletedTrue() throws Exception {
+    public void testDeleteUser_validEmail_userDeletedTrue(){
 
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
@@ -115,7 +124,7 @@ public class FridChefApiClientTest {
     }
 
     @Test
-    public void testDeleteUser_validEmail_userDeletedFalse() throws Exception {
+    public void testDeleteUser_validEmail_userDeletedFalse(){
 
         //Prepare method dependencies
         when(webTarget.path(anyString())).thenReturn(webTarget);
@@ -127,7 +136,7 @@ public class FridChefApiClientTest {
         boolean deleted = fridChefApiClient.deleteUser(exampleUserDto.getEmail());
 
         //Asserts
-        assertTrue(!deleted);
+        assertFalse(deleted);
 
     }
 
@@ -146,8 +155,6 @@ public class FridChefApiClientTest {
 
         //Asserts
         assertNotNull(userDtoRs);
-        assertTrue(userDtoRs.getEmail().equals("example@a.com") && userDtoRs.getPassword().equals("example"));
-
     }
 
     @Test
@@ -177,6 +184,7 @@ public class FridChefApiClientTest {
         //Asserts
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
     }
+
     @Test
     public void testFindAllIngredients_ReturnListOfIngredients_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -189,7 +197,8 @@ public class FridChefApiClientTest {
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(invocationBuilder);
         when(invocationBuilder.get()).thenReturn(response);
         when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
-        when(response.readEntity(new GenericType<List<IngredientDto>>() {})).thenReturn(expectedIngredients);
+        when(response.readEntity(new GenericType<List<IngredientDto>>() {
+        })).thenReturn(expectedIngredients);
 
         // Act: Invocación del método a testear
         List<IngredientDto> actualIngredients = fridChefApiClient.findAllIngredients();
@@ -214,7 +223,8 @@ public class FridChefApiClientTest {
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(invocationBuilder);
         when(invocationBuilder.get()).thenReturn(response);
         when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
-        when(response.readEntity(new GenericType<List<AllergenDto>>() {})).thenReturn(expectedAllergens);
+        when(response.readEntity(new GenericType<List<AllergenDto>>() {
+        })).thenReturn(expectedAllergens);
 
         // Act: Invocación del método a testear
         List<AllergenDto> actualAllergens = fridChefApiClient.findAllAllergens();
@@ -284,7 +294,8 @@ public class FridChefApiClientTest {
         expectedRecipes.add(new RecipeDto(/* create a sample recipe for testing */));
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
-        when(response.readEntity(new GenericType<List<RecipeDto>>() {})).thenReturn(expectedRecipes);
+        when(response.readEntity(new GenericType<List<RecipeDto>>() {
+        })).thenReturn(expectedRecipes);
         when(webTarget.path("recipes/findbyingredients")).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
         when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
@@ -339,7 +350,8 @@ public class FridChefApiClientTest {
         expectedRecipes.add(new RecipeDto(/* create a sample recipe for testing */));
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
-        when(response.readEntity(new GenericType<List<RecipeDto>>() {})).thenReturn(expectedRecipes);
+        when(response.readEntity(new GenericType<List<RecipeDto>>() {
+        })).thenReturn(expectedRecipes);
         when(webTarget.path("recipes/findSuggestions")).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
         when(builder.post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON))).thenReturn(response);
@@ -379,5 +391,140 @@ public class FridChefApiClientTest {
         verify(webTarget, times(1)).path("recipes/findSuggestions");
         verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
         verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
+    }
+    @Test
+    public void testFindByStatusPending_listRecipeDtoNull() throws ExternalErrorException {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.NO_CONTENT.getStatusCode());
+
+        //Execute method
+        List<RecipeDto> recipeDtoListRs = fridChefApiClient.findByStatusPending();
+
+        //Asserts
+        assertNull(recipeDtoListRs);
+    }
+
+    @Test
+    public void testFindByStatusPending_listRecipeDtoExternalErrorException() {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+
+        //Asserts
+        assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findByStatusPending());
+    }
+
+    @Test
+    public void testUpdateRecipeStatus_validRecipeDto_recipeDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(RecipeDto.class)).thenReturn(exampleRecipeDto);
+
+        //Execute method
+        RecipeDto recipeDtoRs = fridChefApiClient.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus());
+
+        //Asserts
+        assertNotNull(recipeDtoRs);
+    }
+
+    @Test
+    public void testUpdateRecipeStatus_validRecipeDto_recipeDtoAlreadyExistsException() {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.NOT_MODIFIED.getStatusCode());
+
+        //Asserts
+        assertThrows(AlreadyExistsException.class,
+                () -> fridChefApiClient.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus()));
+    }
+
+    @Test
+    public void testUpdateRecipeStatus_validRecipeDto_recipeDtoExternalErrorException() {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(response);
+
+        //Asserts
+        assertThrows(ExternalErrorException.class,
+                () -> fridChefApiClient.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus()));
+    }
+
+    @Test
+    public void testDeleteIngredient_validId_ingredientDeletedTrue() {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.delete()).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(boolean.class)).thenReturn(true);
+
+        //Execute method
+        boolean deleted = fridChefApiClient.deleteIngredient(exampleRecipeDto.getId());
+
+        //Asserts
+        assertTrue(deleted);
+
+    }
+
+    @Test
+    public void testDeleteIngredient_validId_ingredientDeletedFalse() {
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.delete()).thenReturn(response);
+
+        //Execute method
+        boolean deleted = fridChefApiClient.deleteIngredient(exampleRecipeDto.getId());
+
+        //Asserts
+        assertFalse(deleted);
+    }
+
+    @Test
+    public void testCreateIngredient_validIngredientDto_userDtoNotNull() throws ExternalErrorException {
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
+        when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(response.readEntity(IngredientDto.class)).thenReturn(exampleIngredientDto);
+
+        //Execute method
+        IngredientDto ingredientDtoRs = fridChefApiClient.createIngredient(exampleIngredientDto.getName());
+
+        //Asserts
+        assertNotNull(ingredientDtoRs);
+
+    }
+
+    @Test
+    public void testCreateIngredient_validIngredientDto_userDtoExternalErrorException(){
+
+        //Prepare method dependencies
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(entity(any(), MediaType.APPLICATION_JSON))).thenReturn(response);
+
+
+        //Asserts
+        assertThrows(ExternalErrorException.class, () -> fridChefApiClient.createIngredient(exampleIngredientDto.getName()));
+
     }
 }

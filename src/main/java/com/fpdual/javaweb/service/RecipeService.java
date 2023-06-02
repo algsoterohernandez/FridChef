@@ -104,6 +104,7 @@ public class RecipeService {
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
             throw eee;
+
         }
 
         return recipeDtoList;
@@ -134,15 +135,16 @@ public class RecipeService {
     /**
      * Busca una receta por su ID.
      *
-     * @param idRecipe ID de la receta a buscar.
+     * @param id ID de la receta a buscar.
      * @return RecipeDto que representa la receta encontrada.
      * @throws ExternalErrorException Si ocurre un error en la comunicación con la API externa.
      */
-    public RecipeDto findRecipe(int idRecipe) throws ExternalErrorException{
+    public RecipeDto findRecipe(int id) throws ExternalErrorException{
         RecipeDto recipeDto;
 
         try {
-            recipeDto = apiClient.findRecipeById(idRecipe);
+            recipeDto = apiClient.findRecipeById(id);
+
         } catch (ExternalErrorException e){
             System.out.println("Ha ocurrido un error al solicitar los datos de la Receta");
             throw e;
