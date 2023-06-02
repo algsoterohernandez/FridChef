@@ -15,6 +15,37 @@ function addIngredient($event) {
         document.querySelector('#unit option:first-of-type')
     ).getAttribute('value');
     const quantity = document.querySelector('#quantity').value;
+<<<<<<< Updated upstream
+=======
+
+    if(!Number.isInteger(parseFloat(quantity))){
+        alert('La cantidad debe ser un número entero.');
+        return;
+    }
+
+    //se comprueba si el ingrediente ya ha sido agregado
+    const isDuplicate = addedIngredients.includes(parseInt(idIngredient));
+    if(isDuplicate){
+        alert('El ingrediente ya ha sido agregado. Puedes agregar otro ingrediente o eliminarlo si la cantidad es errónea');
+        return;
+    }
+
+    //se limita el número de ingredientes a un máximo de 10
+    if(addedIngredients.length>=10){
+        alert('Has alcanzado el número máximo de ingredientes. Si necesitas añadir algún ingrediente, puedes indicarlo en el apartado CONTACTOS!');
+        return;
+    }
+
+    //Se comprueba si la cantidad es un número entero
+    const quantityValue = Number(quantity);
+
+    if(!Number.isInteger(quantityValue) || quantityValue.toString().includes('.') || quantityValue.toString().includes(',')){
+        alert('La cantidad debe ser un número entero');
+        document.querySelector('#quantity').value = '';
+        return;
+    }
+
+>>>>>>> Stashed changes
     const html = `
         <div class="ingredient-wrapper">
             <span class="ingredient-name">${ingredientName}</span>
@@ -35,4 +66,9 @@ function addIngredient($event) {
 function removeIngredient($event) {
     $event.stopPropagation();
     $event.target.parentElement.remove();
+<<<<<<< Updated upstream
 }
+=======
+    addedIngredients = addedIngredients.filter(id => id !== parseInt(idIngredient));
+}
+>>>>>>> Stashed changes
