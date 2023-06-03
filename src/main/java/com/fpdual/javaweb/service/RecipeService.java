@@ -112,6 +112,7 @@ public class RecipeService {
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
             throw eee;
+
         }
 
         return recipeDtoList;

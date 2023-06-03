@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="search-right">
-                        <div class="chef-image-right"><img src="./images/chef.png" width="100%"></div>
+                        <div class="chef-image-right"><img src="./images/chef.png"/></div>
                     </div>
                 </div>
             <%@ include file="footer/footer.jsp" %>

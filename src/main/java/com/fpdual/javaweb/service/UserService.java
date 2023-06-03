@@ -30,10 +30,12 @@ public class UserService {
     public UserDto registerUser(UserDto userDto) throws ExternalErrorException {
         try {
             userDto = apiClient.createUser(userDto);
+
         } catch (AlreadyExistsException uaee) {
             if (userDto != null) {
                 userDto.setAlreadyExists(true);
             }
+
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
             throw eee;

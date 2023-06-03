@@ -195,7 +195,7 @@ public class FridChefApiClient {
     public List<RecipeDto> findRecipeSuggestions(List<String> ingredientsList) throws ExternalErrorException {
         RecipeFilterDto recipeFilterDto = new RecipeFilterDto();
         recipeFilterDto.setIngredients(ingredientsList);
-        List<RecipeDto> recipeDtoList = null;
+        List<RecipeDto> recipeDtoList;
 
         Response response = webTarget.path("recipes/findSuggestions")
                 .request(MediaType.APPLICATION_JSON)
@@ -219,7 +219,7 @@ public class FridChefApiClient {
      * @throws ExternalErrorException si ocurre un error en la comunicación externa
      */
     public List<RecipeDto> findRecipesByCategory(int idCategory) throws ExternalErrorException {
-        List<RecipeDto> recipeDtoList = null;
+        List<RecipeDto> recipeDtoList;
 
         Response response = webTarget.path("category/" + idCategory + "/recipes")
                 .request(MediaType.APPLICATION_JSON)
@@ -346,7 +346,8 @@ public class FridChefApiClient {
         List<RecipeDto> recipeDtoList;
 
         Response response = webTarget.path("recipes/find-pending")
-                .request(MediaType.APPLICATION_JSON).get();
+                .request(MediaType.APPLICATION_JSON)
+                .get();
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
@@ -375,8 +376,9 @@ public class FridChefApiClient {
     public RecipeDto updateRecipeStatus(int id, String status) throws AlreadyExistsException, ExternalErrorException {
         RecipeDto rs;
 
-        Response response = webTarget.path("recipes/update-status/" + id + "/" + status).
-                request(MediaType.APPLICATION_JSON).get();
+        Response response = webTarget.path("recipes/update-status/" + id + "/" + status)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             rs = response.readEntity(RecipeDto.class);
@@ -420,7 +422,8 @@ public class FridChefApiClient {
      */
     public IngredientDto createIngredient(String name) throws ExternalErrorException {
         IngredientDto rs;
-        Invocation.Builder builder = webTarget.path("ingredients/create/" + name + "/").request(MediaType.APPLICATION_JSON);
+        Invocation.Builder builder = webTarget.path("ingredients/create/" + name + "/")
+                .request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(name, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
