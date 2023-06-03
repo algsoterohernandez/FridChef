@@ -440,6 +440,20 @@ public class FridChefApiClient {
         }
     }
 
+    public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException{
+        Response response = webTarget.path("recipes/" + idRecipe + "/rating")
+                .queryParam("limit", limit)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            List<ValorationDto> valorations = response.readEntity(new GenericType<List<ValorationDto>>(){});
+            return valorations;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error al buscar la lista de valoraciones por el id de la receta");
+        }
+    }
+
 
     public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException{
         boolean favoriteCreated = false;

@@ -6,6 +6,7 @@
 <%@ page import="com.fpdual.javaweb.enums.RecipeStatus" %>
 
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
+<% List<ValorationDto> valorations = (List<ValorationDto>) request.getAttribute("valorations");%>
 
 <html>
 <head>
@@ -100,18 +101,21 @@
                 <label for="comment">Comentario: </label><br/>
                 <textarea type="textarea" id= "comment" name="comment" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
             </div>
-            <div class="comments">
-                <h3>Comentarios</h3>
-                <% for (ValorationDto comment : recipe.getValoration()) { %>
-                <div class="comment">
-                    <p><%= comment.getIdUser() %>: <%= comment.getComment() %></p>
-                </div>
-                <% } %>
-            </div>
             <div class="buttons">
                 <input type="submit" value="Enviar">
             </div>
         </form>
+
+        <div class="comments">
+            <h3>Comentarios</h3>
+            <% for (ValorationDto valoration :valorations) { %>
+            <div class="comment">
+                <span class="user">User: <%= valoration.getNameUser() %></span>
+                <span class="user">Rate: <%= valoration.getValoration() %></span>
+                <p>Comment: <%= valoration.getComment()%></p>
+            </div>
+            <% } %>
+        </div>
     </div>
     <% } else { %>
     <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>

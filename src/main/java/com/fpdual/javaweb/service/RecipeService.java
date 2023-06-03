@@ -3,6 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
+import com.fpdual.javaweb.web.servlet.dto.ValorationDto;
 
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class RecipeService {
 
-    private final FridChefApiClient apiClient; // Cliente de la API utilizado para realizar las llamadas al backend
+    private final FridChefApiClient apiClient;// Cliente de la API utilizado para realizar las llamadas al backend
 
     /**
      * Constructor de RecipeService.
