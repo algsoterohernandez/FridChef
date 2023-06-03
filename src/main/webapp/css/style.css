@@ -573,24 +573,6 @@ div.main-form {
     display: inline-block;
 }
 
-
-/*botón favorito*/
-
-.favorite-button {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.favorite-button.active {
-    background-color: #f00;
-    color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
 /*Recipe Request*/
 .recipe-box a{
     text-decoration: none;
@@ -618,4 +600,113 @@ div.main-form {
 
 .recipe-date{
     width:40%
+}
+
+/*botón favorito*/
+
+.favorite-button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.favorite-button .heart {
+    width: 24px;
+    height: 24px;
+    background-image: url('/FridChef/images/corazon-vacio.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.3s ease-in-out;
+    display: block;
+    background-size: contain;
+}
+
+.favorite-button.is-favorite .heart {
+    background-image: url('/FridChef/images/corazon-lleno.png');
+}
+/* Estilos para el detalle de la receta */
+div.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div.buttons {
+    margin-top: 10px;
+    text-align: center;
+}
+
+div.image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div.image-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+div.ingredients {
+    margin-bottom: 20px;
+}
+
+div.like {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button.favorite-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+div.recipe-details {
+    margin-bottom: 20px;
+}
+
+div.description {
+    margin-bottom: 20px;
+}
+
+div.difficulty,
+div.category,
+div.unit-time {
+    margin-bottom: 20px;
+}
+
+div.recipe-details h2 {
+    margin-bottom: 10px;
+}
+
+div.recipe-details p {
+    margin-bottom: 5px;
+}
+
+div.buttons input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.buttons input[type="submit"]:hover {
+    background-color: #555;
+}
+
+div.buttons input[type="radio"] {
+    margin-right: 5px;
+}
+
+div.buttons label {
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+textarea#comment {
+    width: 100%;
+    resize: vertical;
 }

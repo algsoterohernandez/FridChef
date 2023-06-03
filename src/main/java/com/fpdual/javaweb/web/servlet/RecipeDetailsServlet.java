@@ -3,7 +3,9 @@ package com.fpdual.javaweb.web.servlet;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.service.RecipeService;
+import com.fpdual.javaweb.service.UserService;
 import com.fpdual.javaweb.service.ValorationService;
+import com.fpdual.javaweb.util.Utils;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import com.fpdual.javaweb.web.servlet.dto.ValorationDto;
@@ -13,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "RecipeDetailsServlet", urlPatterns = {"/details-recipe"})
 public class RecipeDetailsServlet extends ParentServlet {
@@ -46,7 +49,6 @@ public class RecipeDetailsServlet extends ParentServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         //se obtiene el parámetro de la url
         String recipeId = req.getParameter("id");
         if (recipeId == null || recipeId.isEmpty()) {
@@ -57,14 +59,19 @@ public class RecipeDetailsServlet extends ParentServlet {
             int idRecipe = Integer.parseInt(recipeId);
             this.fillCategories(req);
 
-            RecipeDto recipe = recipeService.findRecipe(idRecipe);
+            RecipeDto recipe = recipeService.findRecipeById(idRecipe);
 
             if (recipe == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
+            int valorationsLimit = 10;
+            List<ValorationDto> valorations = valorationService.findValorations(idRecipe, valorationsLimit);
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
             //Se pasan los objetos recipe y valoration al jsp
             req.setAttribute("recipe", recipe);
+            req.setAttribute("valorations", valorations);
+            req.setAttribute("isFavorite", user != null && user.isFavorite(recipe.getId()));
             //se redirecciona al jsp para mostrar el detalle
             req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
 

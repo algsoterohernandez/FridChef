@@ -1,8 +1,8 @@
 package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
-import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
+import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.GenericType;
@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.ws.rs.client.Entity.entity;
 
@@ -245,7 +246,7 @@ public class FridChefApiClient {
      */
     public RecipeDto createRecipe(RecipeDto recipeDto) throws ExternalErrorException {
 
-        RecipeDto rs;
+        RecipeDto rs = null;
         Invocation.Builder builder = webTarget.path("recipes/").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(recipeDto, MediaType.APPLICATION_JSON));
 
@@ -302,6 +303,37 @@ public class FridChefApiClient {
         } else {
             throw new ExternalErrorException("Ha ocurrido un error en la busqueda de recetas por Id");
         }
+    }
+
+    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
+        List<RecipeDto> recipeDtoList = null;
+        List<String> stringId = ids.stream().map(String::valueOf).collect(Collectors.toList());
+        Response response = webTarget.path("recipes/favorites")
+                .queryParam("ids", String.join(",", stringId))
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return recipeDtoList;
+    }
+    public List<RecipeDto> findMostRated(int limit) throws ExternalErrorException {
+        List<RecipeDto> recipeDtoList = null;
+        Response response = webTarget.path("recipes/most-rated")
+                .queryParam("limit", limit)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
+            });
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error");
+        }
+        return recipeDtoList;
     }
 
     /**
@@ -404,33 +436,6 @@ public class FridChefApiClient {
     }
 
     /**
-     * Busca las recetas favoritas del usuario.
-     * Realiza una solicitud GET a la ruta "favorite/" del web target y obtiene la lista de recetas favoritas.
-     * Si la respuesta es exitosa (código 200 OK), se lee la entidad de respuesta y se devuelve la lista de recetas.
-     * Si la respuesta indica que no hay contenido (código 204 No Content), se devuelve una lista vacía.
-     * Si la respuesta indica un error, se lanza una excepción de tipo ExternalErrorException con un mensaje descriptivo.
-     *
-     * @return La lista de recetas favoritas del usuario, o una lista vacía si no hay contenido.
-     * @throws ExternalErrorException Si ocurre un error durante la solicitud a la API externa.
-     */
-    public List<RecipeDto> findFavorites() throws ExternalErrorException {
-        List<RecipeDto> recipes;
-        Response rs = webTarget.path("favorite/")
-                .request(MediaType.APPLICATION_JSON)
-                .get();
-
-        if (rs.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipes = rs.readEntity(new GenericType<List<RecipeDto>>() {
-            });
-        } else if (rs.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
-            recipes = Collections.emptyList();
-        } else {
-            throw new ExternalErrorException("Ha ocurrido un error");
-        }
-        return recipes;
-    }
-
-    /**
      * Crea una nueva valoración para una receta.
      *
      * @param valorationDto Objeto ValorationDto que contiene los datos de la valoración.
@@ -446,36 +451,34 @@ public class FridChefApiClient {
         }
     }
 
+    public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException {
+        Response response = webTarget.path("recipes/" + idRecipe + "/rating")
+                .queryParam("limit", limit)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
 
-    public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException{
-        boolean favoriteCreated = false;
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
+            List<ValorationDto> valorations = response.readEntity(new GenericType<List<ValorationDto>>() {
+            });
+            return valorations;
+        } else {
+            throw new ExternalErrorException("Ha ocurrido un error al buscar la lista de valoraciones por el id de la receta");
+        }
+    }
 
-        Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
+    public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException {
+        Response response = webTarget.path("user/" + idUser + "/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(null));
 
-        if(response.getStatus() == HttpStatus.OK.getStatusCode()){
-            favoriteCreated = response.readEntity(boolean.class);
-        }else{
-            throw new ExternalErrorException("Ha ocurrido un error al añadir favorito en la bd");
-        }
-        return favoriteCreated;
-
+        return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 
-    public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException{
-        boolean favoriteDeleted = false;
-
-        Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
+    public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException {
+        Response response = webTarget.path("user/" + idUser + "/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
 
-        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            favoriteDeleted = response.readEntity(boolean.class);
-        }else{
-            throw new ExternalErrorException("Ha ocurrido un error al eliminar favorito en la bd");
-        }
-        return favoriteDeleted;
-
+        return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 }

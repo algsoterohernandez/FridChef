@@ -6,6 +6,8 @@
 <%@ page import="com.fpdual.javaweb.enums.RecipeStatus" %>
 
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
+<% List<ValorationDto> valorations = (List<ValorationDto>) request.getAttribute("valorations");%>
+<% Boolean isFavorite = (Boolean) request.getAttribute("isFavorite");%>
 
 <html>
 <head>
@@ -15,8 +17,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
-    <script src="js/buscador.js" defer></script>
-    <script src="js/filter.js" defer></script>
+    <script src="js/details-recipe.js" defer></script>
+
 </head>
 <body>
 <div class="content">
@@ -47,7 +49,9 @@
         <% } %>
     </div>
     <div class="like">
-        <button class="favorite-button" onclick="toggleFavorite()"></button>
+        <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
+            <span class="heart"></span>
+        </button>
     </div>
     <div class="recipe-details">
         <h2><%=recipe.getName()%></h2>
@@ -101,6 +105,17 @@
                 <input type="submit" value="Enviar">
             </div>
         </form>
+
+        <div class="comments">
+            <h3>Comentarios</h3>
+            <% for (ValorationDto valoration :valorations) { %>
+            <div class="comment">
+                <span class="user">User: <%= valoration.getNameUser() %></span>
+                <span class="user">Rate: <%= valoration.getValoration() %></span>
+                <p>Comment: <%= valoration.getComment()%></p>
+            </div>
+            <% } %>
+        </div>
     </div>
     <% } else { %>
     <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>

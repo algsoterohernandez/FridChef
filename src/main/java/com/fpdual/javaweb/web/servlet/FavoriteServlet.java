@@ -1,9 +1,9 @@
 package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.service.FavoriteService;
 import com.fpdual.javaweb.service.RecipeService;
-import com.fpdual.javaweb.service.ValorationService;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
@@ -12,72 +12,64 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name="FavoriteServlet", urlPatterns = {"/favorite"})
-public class FavoriteServlet extends ParentServlet{
+@WebServlet(name = "FavoriteServlet", urlPatterns = {"/favorite"})
+public class FavoriteServlet extends ParentServlet {
 
     private FridChefApiClient apiClient;
     private FavoriteService favoriteService;
+    private RecipeService recipeService;
 
     @Override
     public void init() {
         apiClient = new FridChefApiClient();
         favoriteService = new FavoriteService(apiClient);
+        recipeService = new RecipeService(apiClient);
         super.init(apiClient);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.fillCategories(req);
         UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+        List<RecipeDto> favoriteRecipes = new ArrayList<>();
 
-        if(user != null && user.getId() != 0) {
+        if (user != null) {
+            List<Integer> favoriteRecipeIds = user.getFavoriteList();
+            try {
+                favoriteRecipes = recipeService.findFavorites(favoriteRecipeIds);
+                req.setAttribute("favoriteRecipes", favoriteRecipes);
+                req.getRequestDispatcher("/recipes/favorite.jsp").forward(req, resp);
 
-            int idUser = user.getId();
-            String recipeId = req.getParameter("id");
-            int idRecipe = Integer.parseInt(recipeId);
-
-            if (recipeId == null || recipeId.isEmpty()) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
+            } catch (ExternalErrorException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-
-            boolean favoriteAdded = favoriteService.addFavorite(idUser, idRecipe);
-
-            if (favoriteAdded) {
-                List<Integer> favoriteList = user.getFavoriteList();
-                favoriteList.add(idRecipe);
-            }
-        }else{
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+;
     }
 
     @Override
-    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // favorite/?id_recipe=2&recipe_favorite=[add|remove]
+        String recipeFavorite = req.getParameter("recipe_favorite");
+        String idRecipe = req.getParameter("id_recipe");
         UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-
-        if(user != null && user.getId() != 0){
-
-            int idUser = user.getId();
-            String recipeId = req.getParameter("id");
-            int idRecipe = Integer.parseInt(recipeId);
-
-            if(recipeId == null || recipeId.isEmpty()){
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
+        try {
+            if (recipeFavorite.equals("add")) {
+                user = favoriteService.addFavorite(Integer.parseInt(idRecipe), user);
+            } else if (recipeFavorite.equals("remove")) {
+                user = favoriteService.removeFavorite(Integer.parseInt(idRecipe), user);
+            } else {
+                throw new InvalidParameterException("invalid recipeFavorite action");
             }
 
-            boolean favoriteRemoved = favoriteService.removeFavorite(idUser, idRecipe);
-
-            if(favoriteRemoved){
-                List<Integer> favoriteList = user.getFavoriteList();
-                favoriteList.removeIf(existingRecipeId -> recipeId.equals(idRecipe));
-            }
-        }else{
+            req.getSession().setAttribute("sessionUser", user);
+            resp.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+        } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
-
 }

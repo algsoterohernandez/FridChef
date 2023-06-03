@@ -4,6 +4,8 @@ import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.ValorationDto;
 
+import java.util.List;
+
 /**
  * Servicio para gestionar las valoraciones.
  */
@@ -30,5 +32,16 @@ public class ValorationService {
             System.out.println(e.getMessage());
             throw e; // Relanza la excepción ExternalErrorException para que sea manejada en un nivel superior
         }
+    }
+
+    public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException{
+        List<ValorationDto> valorationList;
+        try{
+            valorationList = apiClient.findValorations(idRecipe, limit);
+        }catch(ExternalErrorException e){
+            System.out.println("Ha ocurrido un error al buscar la valoración");
+            throw e;
+        }
+        return valorationList;
     }
 }

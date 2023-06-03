@@ -1,22 +1,38 @@
- function toggleFavorite() {
-        var button = document.querySelector('.favorite-button');
-        button.classList.toggle('active');
+const favoriteButton = document.getElementById("favoriteButton");
 
-        if (button.classList.contains('active')) {
-            console.log('Agregado a favoritos');
-            AgregarFavorito();
-        } else {
-            console.log('Eliminado de favoritos');
-            EliminarFavorito();
-        }
-     function AgregarFavorito() {
-            console.log('Agregar a favoritos');
-     }
+favoriteButton.addEventListener("click", function () {
+    debugger;
+    const isFavorite = favoriteButton.classList.contains('is-favorite');
+    const idRecipe = favoriteButton.getAttribute("recipe");
+    if (isFavorite) {
+        removeFromFavorites(idRecipe);
+    } else {
+        addToFavorites(idRecipe);
+    }
+});
 
-     function EliminarFavorito() {
-         console.log('Eliminar de favoritos');
-     }
+function addToFavorites(idRecipe) {
+    favoriteButton.classList.add("is-favorite");
+    request("add", idRecipe)
+}
 
- }
+function removeFromFavorites(idRecipe) {
+    favoriteButton.classList.remove("is-favorite");
+    request("remove", idRecipe)
 
+}
+
+function request(action = '', idRecipe = '') {
+    try {
+        fetch(
+            "/FridChef/favorite?id_recipe=" + idRecipe + "&recipe_favorite=" + action,
+            {
+                method: 'POST',
+            }).then(() => {
+            debugger
+        });
+    } catch (err) {
+
+    }
+}
 

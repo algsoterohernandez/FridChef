@@ -34,4 +34,8 @@ public class UserDto {
 
         return isAdmin;
     }
+
+    public boolean isFavorite(int idRecipe) {
+        return favoriteList != null && favoriteList.indexOf(idRecipe) > -1;
+    }
 }
