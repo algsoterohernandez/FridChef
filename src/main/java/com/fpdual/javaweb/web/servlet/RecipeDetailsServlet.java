@@ -59,7 +59,7 @@ public class RecipeDetailsServlet extends ParentServlet {
             int idRecipe = Integer.parseInt(recipeId);
             this.fillCategories(req);
 
-            RecipeDto recipe = recipeService.findRecipe(idRecipe);
+            RecipeDto recipe = recipeService.findRecipeById(idRecipe);
 
             if (recipe == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);

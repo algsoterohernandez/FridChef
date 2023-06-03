@@ -39,21 +39,16 @@ public class FavoriteServlet extends ParentServlet {
 
         if (user != null) {
             List<Integer> favoriteRecipeIds = user.getFavoriteList();
-            for (Integer recipeId : favoriteRecipeIds) {
-                RecipeDto recipe = null;
-                try {
-                    recipe = recipeService.findRecipe(recipeId);
-                } catch (ExternalErrorException e) {
-                    throw new RuntimeException(e);
-                }
-                if (recipe != null) {
-                    favoriteRecipes.add(recipe);
-                }
+            try {
+                favoriteRecipes = recipeService.findFavorites(favoriteRecipeIds);
+                req.setAttribute("favoriteRecipes", favoriteRecipes);
+                req.getRequestDispatcher("/recipes/favorite.jsp").forward(req, resp);
+
+            } catch (ExternalErrorException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
-
-        req.setAttribute("favoriteRecipes", favoriteRecipes);
-        req.getRequestDispatcher("/recipes/favorite.jsp").forward(req, resp);
+;
     }
 
     @Override

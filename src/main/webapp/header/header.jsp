@@ -55,6 +55,7 @@
             <% } %>
         </div>
         <a href="/FridChef/add-recipes">Agregar recetas</a>
+        <a href="/FridChef/most-rated">Mejor valoradas</a>
         <a href="/FridChef/contact">Contacto</a>
 
     </div>

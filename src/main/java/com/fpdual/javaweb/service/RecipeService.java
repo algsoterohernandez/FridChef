@@ -3,8 +3,6 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import com.fpdual.javaweb.web.servlet.dto.ValorationDto;
-
 
 import java.util.List;
 
@@ -63,11 +61,11 @@ public class RecipeService {
      * @return RecipeDto que representa la receta registrada.
      * @throws ExternalErrorException Si ocurre un error en la comunicación con la API externa.
      */
-    public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException{
-        try{
+    public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException {
+        try {
             recipeDto = apiClient.createRecipe(recipeDto);
 
-        }catch (ExternalErrorException e){
+        } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
             throw e;
         }
@@ -90,13 +88,22 @@ public class RecipeService {
         }
     }
 
+    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
+        List<RecipeDto> recipesDto = apiClient.findFavorites(ids);
+        return recipesDto;
+    }
+    public List<RecipeDto> findMostRated(int limit) throws ExternalErrorException {
+        List<RecipeDto> recipesDto = apiClient.findMostRated(limit);
+        return recipesDto;
+    }
+
     /**
      * Obtiene todas las recetas pendientes.
      *
      * @return Lista de RecipeDto con las recetas pendientes.
      * @throws ExternalErrorException Si ocurre un error en la comunicación con la API externa.
      */
-    public List<RecipeDto> findByStatusPending() throws ExternalErrorException{
+    public List<RecipeDto> findByStatusPending() throws ExternalErrorException {
         List<RecipeDto> recipeDtoList;
 
         try {
@@ -127,26 +134,6 @@ public class RecipeService {
         } catch (ExternalErrorException eee) {
             System.out.println(eee.getMessage());
             throw eee;
-        }
-
-        return recipeDto;
-    }
-
-    /**
-     * Busca una receta por su ID.
-     *
-     * @param idRecipe ID de la receta a buscar.
-     * @return RecipeDto que representa la receta encontrada.
-     * @throws ExternalErrorException Si ocurre un error en la comunicación con la API externa.
-     */
-    public RecipeDto findRecipe(int idRecipe) throws ExternalErrorException{
-        RecipeDto recipeDto;
-
-        try {
-            recipeDto = apiClient.findRecipeById(idRecipe);
-        } catch (ExternalErrorException e){
-            System.out.println("Ha ocurrido un error al solicitar los datos de la Receta");
-            throw e;
         }
 
         return recipeDto;
