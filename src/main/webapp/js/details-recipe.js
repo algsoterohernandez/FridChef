@@ -1,51 +1,39 @@
-var favoriteButton = document.getElementById("favoriteButton");
-var isFavorite = false;
+const favoriteButton = document.getElementById("favoriteButton");
 
-favoriteButton.addEventListener("click", function() {
+favoriteButton.addEventListener("click", function () {
+    debugger;
+    const isFavorite = favoriteButton.classList.contains('is-favorite');
+    const idRecipe = favoriteButton.getAttribute("recipe");
     if (isFavorite) {
-        removeFromFavorites();
+        removeFromFavorites(idRecipe);
     } else {
-        addToFavorites();
+        addToFavorites(idRecipe);
     }
 });
 
-function addToFavorites() {
+function addToFavorites(idRecipe) {
     favoriteButton.classList.add("is-favorite");
-    isFavorite = true;
-    var recipe = getRecipe(); // Obtener los datos de la receta actual, puedes adaptar esta función a tu caso
-    saveToLocalStorage(recipe); // Guardar la receta en el localStorage
+    request("add", idRecipe)
 }
 
-function removeFromFavorites() {
+function removeFromFavorites(idRecipe) {
     favoriteButton.classList.remove("is-favorite");
-    isFavorite = false;
-    var recipe = getRecipe(); // Obtener los datos de la receta actual
-    removeFromLocalStorage(recipe); // Eliminar la receta del localStorage
+    request("remove", idRecipe)
+
 }
 
-function getRecipe() {
-    // Aquí puedes obtener los datos de la receta actual, por ejemplo, el ID o cualquier otro identificador único
-    // Puedes adaptar esta función según cómo estés almacenando los datos de las recetas en tu aplicación
-    // Retorna los datos de la receta actual en un objeto
-    return {
-        id: 123, // Ejemplo de ID de receta
-        // Otros datos de la receta
-    };
-}
+function request(action = '', idRecipe = '') {
+    try {
+        fetch(
+            "/FridChef/favorite/?id_recipe" + idRecipe + "&recipe_favorite=" + action,
+            {
+                method: 'POST',
+                body: {},
+            }).then(() => {
+            debugger
+        });
+    } catch (err) {
 
-function saveToLocalStorage(recipe) {
-    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    favorites.push(recipe);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-function removeFromLocalStorage(recipe) {
-    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    var index = favorites.findIndex(function(fav) {
-        return fav.id === recipe.id;
-    });
-    if (index > -1) {
-        favorites.splice(index, 1);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
     }
 }
+

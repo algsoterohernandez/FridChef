@@ -12,11 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name="FavoriteServlet", urlPatterns = {"/favorite"})
-public class FavoriteServlet extends ParentServlet{
+@WebServlet(name = "FavoriteServlet", urlPatterns = {"/favorite"})
+public class FavoriteServlet extends ParentServlet {
 
     private FridChefApiClient apiClient;
     private FavoriteService favoriteService;
@@ -31,21 +32,21 @@ public class FavoriteServlet extends ParentServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.fillCategories(req);
-        UserDto user = (UserDto)  req.getSession().getAttribute("sessionUser");
+        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
         List<RecipeDto> favoriteRecipes = new ArrayList<>();
 
-        if(user != null){
+        if (user != null) {
             List<Integer> favoriteRecipeIds = user.getFavoriteList();
-            for(Integer recipeId : favoriteRecipeIds){
+            for (Integer recipeId : favoriteRecipeIds) {
                 RecipeDto recipe = null;
                 try {
                     recipe = recipeService.findRecipe(recipeId);
                 } catch (ExternalErrorException e) {
                     throw new RuntimeException(e);
                 }
-                if(recipe!= null){
+                if (recipe != null) {
                     favoriteRecipes.add(recipe);
                 }
             }
@@ -57,44 +58,23 @@ public class FavoriteServlet extends ParentServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.fillCategories(req);
+        // favorite/?id_recipe=2&recipe_favorite=[add|remove]
+        String recipeFavorite = req.getParameter("recipe_favorite");
+        String idRecipe = req.getParameter("id_recipe");
         UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-
-        if(user != null && user.getId() != 0) {
-            String recipeId = req.getParameter("id");
-
-            if (recipeId == null || recipeId.isEmpty()) {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
+        try {
+            if (recipeFavorite == "add") {
+                user = favoriteService.addFavorite(Integer.parseInt(idRecipe), user);
+            } else if (recipeFavorite == "remove") {
+                user = favoriteService.removeFavorite(Integer.parseInt(idRecipe), user);
+            } else {
+                throw new InvalidParameterException("invalid recipeFavorite action");
             }
 
-            int idRecipe = Integer.parseInt(recipeId);
-            user = favoriteService.addFavorite(idRecipe, user);
             req.getSession().setAttribute("sessionUser", user);
-        }else{
+            resp.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+        } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        this.fillCategories(req);
-        UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-
-        if(user != null && user.getId() != 0){
-
-            String recipeId = req.getParameter("id");
-
-            if(recipeId == null || recipeId.isEmpty()){
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
-            }
-            int idRecipe = Integer.parseInt(recipeId);
-            user = favoriteService.removeFavorite(idRecipe, user);
-            req.getSession().setAttribute("sessionUser", user);
-        }else{
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
-
 }

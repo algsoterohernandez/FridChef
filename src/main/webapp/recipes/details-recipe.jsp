@@ -7,6 +7,7 @@
 
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
 <% List<ValorationDto> valorations = (List<ValorationDto>) request.getAttribute("valorations");%>
+<% Boolean isFavorite = (Boolean) request.getAttribute("isFavorite");%>
 
 <html>
 <head>
@@ -50,7 +51,7 @@
         <% } %>
     </div>
     <div class="like">
-        <button id="favoriteButton" class="favorite-button" onclick="toggleFavorite()"></button>
+        <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>"></button>
         <span class="heart"></span>
     </div>
     <div class="recipe-details">

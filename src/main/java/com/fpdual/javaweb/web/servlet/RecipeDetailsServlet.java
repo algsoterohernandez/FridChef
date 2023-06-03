@@ -67,11 +67,11 @@ public class RecipeDetailsServlet extends ParentServlet {
             }
             int valorationsLimit = 10;
             List<ValorationDto> valorations = valorationService.findValorations(idRecipe, valorationsLimit);
-
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
             //Se pasan los objetos recipe y valoration al jsp
             req.setAttribute("recipe", recipe);
             req.setAttribute("valorations", valorations);
-
+            req.setAttribute("isFavorite", user != null && user.isFavorite(recipe.getId()));
             //se redirecciona al jsp para mostrar el detalle
             req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
 

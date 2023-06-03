@@ -456,19 +456,11 @@ public class FridChefApiClient {
 
 
     public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException{
-        boolean favoriteCreated = false;
-
         Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(null));
 
-        if(response.getStatus() == HttpStatus.OK.getStatusCode()){
-            favoriteCreated = response.readEntity(boolean.class);
-        }else{
-            throw new ExternalErrorException("Ha ocurrido un error al añadir favorito en la bd");
-        }
-        return favoriteCreated;
-
+        return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 
     public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException{

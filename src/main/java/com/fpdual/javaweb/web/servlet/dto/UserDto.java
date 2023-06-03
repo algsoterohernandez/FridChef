@@ -36,6 +36,6 @@ public class UserDto {
     }
 
     public boolean isFavorite(int idRecipe) {
-        return favoriteList.indexOf(idRecipe) > -1;
+        return favoriteList != null && favoriteList.indexOf(idRecipe) > -1;
     }
 }
