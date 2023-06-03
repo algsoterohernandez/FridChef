@@ -605,3 +605,88 @@ div.main-form {
 .favorite-button.is-favorite .heart {
     background-image: url('/images/corazon-lleno.png');
 }
+/* Estilos para el detalle de la receta */
+div.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div.buttons {
+    margin-top: 10px;
+    text-align: center;
+}
+
+div.image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div.image-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+div.ingredients {
+    margin-bottom: 20px;
+}
+
+div.like {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button.favorite-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+div.recipe-details {
+    margin-bottom: 20px;
+}
+
+div.description {
+    margin-bottom: 20px;
+}
+
+div.difficulty,
+div.category,
+div.unit-time {
+    margin-bottom: 20px;
+}
+
+div.recipe-details h2 {
+    margin-bottom: 10px;
+}
+
+div.recipe-details p {
+    margin-bottom: 5px;
+}
+
+div.buttons input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.buttons input[type="submit"]:hover {
+    background-color: #555;
+}
+
+div.buttons input[type="radio"] {
+    margin-right: 5px;
+}
+
+div.buttons label {
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+textarea#comment {
+    width: 100%;
+    resize: vertical;
+
+}

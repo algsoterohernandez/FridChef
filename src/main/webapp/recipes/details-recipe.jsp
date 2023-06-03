@@ -12,12 +12,12 @@
     <meta charset="UTF-8">
     <title>FridChef</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="shortcut icon" href="/images/logo.jpg" type="image/icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
-    <script src="/js/buscador.js" defer></script>
-    <script src="/js/filter.js" defer></script>
-    <script src="/js/details-recipe.js" defer></script>
+    <script src="js/buscador.js" defer></script>
+    <script src="js/filter.js" defer></script>
+    <script src="js/details-recipe.js" defer></script>
 
 </head>
 <body>
@@ -99,6 +99,14 @@
             <div>
                 <label for="comment">Comentario: </label><br/>
                 <textarea type="textarea" id= "comment" name="comment" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
+            </div>
+            <div class="comments">
+                <h3>Comentarios</h3>
+                <% for (ValorationDto comment : recipe.getValoration()) { %>
+                <div class="comment">
+                    <p><%= comment.getIdUser() %>: <%= comment.getComment() %></p>
+                </div>
+                <% } %>
             </div>
             <div class="buttons">
                 <input type="submit" value="Enviar">
