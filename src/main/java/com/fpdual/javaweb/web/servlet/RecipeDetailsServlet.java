@@ -49,16 +49,6 @@ public class RecipeDetailsServlet extends ParentServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            UserService userService = new UserService(apiClient);
-            String passwordMD5 = Utils.encryptPassword("noenoenoe");
-            UserDto searchUser = userService.findUser("noe@gmail.com", passwordMD5);
-            req.getSession().setAttribute("sessionUser", searchUser);
-        }catch (Exception e) {
-
-        }
-
-
         //se obtiene el parámetro de la url
         String recipeId = req.getParameter("id");
         if (recipeId == null || recipeId.isEmpty()) {
