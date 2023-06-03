@@ -14,40 +14,44 @@ public class FavoriteService {
             this.apiClient = apiClient;
     }
 
-    public boolean addFavorite(int idRecipe, int idUser) {
-        boolean favoriteAdded=false;
+    public UserDto addFavorite(int idRecipe, UserDto user) {
         try{
-            favoriteAdded = apiClient.createFavorite(idUser, idRecipe);
-
+        boolean favoriteAdded = apiClient.createFavorite(idRecipe, user.getId());
+            if(favoriteAdded){
+                user = addRecipeToFavoriteList(idRecipe, user);
+            }
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
-        return favoriteAdded;
+        return user;
     }
 
-//    private void addRecipeToFavoriteList(int idRecipe){
-//        UserDto user = new UserDto();
-//        List<Integer> favoriteList = user.getFavoriteList();
-//        favoriteList.add(idRecipe);
-//    }
+    private UserDto addRecipeToFavoriteList(int idRecipe, UserDto user){
+        List<Integer> favoriteList = user.getFavoriteList();
+        if(!favoriteList.contains(idRecipe)){
+            favoriteList.add(idRecipe);
+        }
+        user.setFavoriteList(favoriteList);
+        return user;
+    }
 
-    public boolean removeFavorite(int idRecipe, int idUser){
-        boolean favoriteRemoved = false;
+    public UserDto removeFavorite(int idRecipe, UserDto user){
         try {
-            favoriteRemoved = apiClient.deleteFavorite(idRecipe, idUser);
-//        if(favoriteRemoved){
-//            removeRecipeToFavoriteList(int idRecipe);
-//        }
+        boolean favoriteRemoved = apiClient.deleteFavorite(idRecipe, user.getId());
+            if(favoriteRemoved){
+                user = removeRecipeToFavoriteList(idRecipe, user);
+            }
         }catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
-        return favoriteRemoved;
+        return user;
     }
 
-//    private void removeRecipeToFavoriteList(int idRecipe){
-//        UserDto user = new UserDto();
-//        List<Integer> favoriteList = user.getFavoriteList();
-//        favoriteList.removeIf(recipeId -> recipeId.equals(idRecipe));
-//    }
+    private UserDto removeRecipeToFavoriteList(int idRecipe, UserDto user){
+        List<Integer> favoriteList = user.getFavoriteList();
+        favoriteList.removeIf(recipeId -> recipeId.equals(idRecipe));
+        user.setFavoriteList(favoriteList);
+        return user;
+    }
 
 }

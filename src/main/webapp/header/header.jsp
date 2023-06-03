@@ -24,7 +24,7 @@
                 <img src="./images/user-icon.png" width="10%"/>
             </a>
             <div class="user-container">
-                <li><a href="#">Recetas Favoritas</a></li>
+                <li><a href="/FridChef/favorite">Recetas Favoritas</a></li>
                 <%if (searchUser.isAdmin()) {%>
                 <li><a href="/FridChef/recipe-request">Solicitudes</a></li>
                 <li><a href="/FridChef/admin-ingredients">Gestionar ingredientes</a></li>

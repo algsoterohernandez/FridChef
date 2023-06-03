@@ -458,18 +458,10 @@ public class FridChefApiClient {
     }
 
     public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException{
-        boolean favoriteDeleted = false;
-
         Response response = webTarget.path("user/"+idUser+"/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
 
-        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            favoriteDeleted = response.readEntity(boolean.class);
-        }else{
-            throw new ExternalErrorException("Ha ocurrido un error al eliminar favorito en la bd");
-        }
-        return favoriteDeleted;
-
+        return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 }
