@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
-    <script src="js/buscador.js" defer></script>
-    <script src="js/filter.js" defer></script>
     <script src="js/details-recipe.js" defer></script>
 
 </head>
@@ -51,8 +49,9 @@
         <% } %>
     </div>
     <div class="like">
-        <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>"></button>
-        <span class="heart"></span>
+        <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
+            <span class="heart"></span>
+        </button>
     </div>
     <div class="recipe-details">
         <h2><%=recipe.getName()%></h2>

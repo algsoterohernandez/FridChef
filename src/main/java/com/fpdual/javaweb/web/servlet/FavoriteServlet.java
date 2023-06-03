@@ -63,9 +63,9 @@ public class FavoriteServlet extends ParentServlet {
         String idRecipe = req.getParameter("id_recipe");
         UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
         try {
-            if (recipeFavorite == "add") {
+            if (recipeFavorite.equals("add")) {
                 user = favoriteService.addFavorite(Integer.parseInt(idRecipe), user);
-            } else if (recipeFavorite == "remove") {
+            } else if (recipeFavorite.equals("remove")) {
                 user = favoriteService.removeFavorite(Integer.parseInt(idRecipe), user);
             } else {
                 throw new InvalidParameterException("invalid recipeFavorite action");

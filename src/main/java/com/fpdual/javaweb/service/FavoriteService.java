@@ -15,9 +15,11 @@ public class FavoriteService {
 
     public UserDto addFavorite(int idRecipe, UserDto user) {
         try {
-            boolean favoriteAdded = apiClient.createFavorite(idRecipe, user.getId());
-            if (favoriteAdded) {
-                user = addRecipeToFavoriteList(idRecipe, user);
+            if (!user.isFavorite(idRecipe)) {
+                boolean favoriteAdded = apiClient.createFavorite(idRecipe, user.getId());
+                if (favoriteAdded) {
+                    user = addRecipeToFavoriteList(idRecipe, user);
+                }
             }
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
@@ -36,9 +38,11 @@ public class FavoriteService {
 
     public UserDto removeFavorite(int idRecipe, UserDto user) {
         try {
-            boolean favoriteRemoved = apiClient.deleteFavorite(idRecipe, user.getId());
-            if (favoriteRemoved) {
-                user = removeRecipeToFavoriteList(idRecipe, user);
+            if (user.isFavorite(idRecipe)) {
+                boolean favoriteRemoved = apiClient.deleteFavorite(idRecipe, user.getId());
+                if (favoriteRemoved) {
+                    user = removeRecipeToFavoriteList(idRecipe, user);
+                }
             }
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
@@ -49,7 +53,7 @@ public class FavoriteService {
     private UserDto removeRecipeToFavoriteList(int idRecipe, UserDto user) {
         List<Integer> favoriteList = user.getFavoriteList();
         if (favoriteList.contains(idRecipe)) {
-            favoriteList.remove(idRecipe);
+            favoriteList.remove(favoriteList.indexOf(idRecipe));
             user.setFavoriteList(favoriteList);
         }
         return user;

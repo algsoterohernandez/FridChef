@@ -25,10 +25,9 @@ function removeFromFavorites(idRecipe) {
 function request(action = '', idRecipe = '') {
     try {
         fetch(
-            "/FridChef/favorite/?id_recipe" + idRecipe + "&recipe_favorite=" + action,
+            "/FridChef/favorite?id_recipe=" + idRecipe + "&recipe_favorite=" + action,
             {
                 method: 'POST',
-                body: {},
             }).then(() => {
             debugger
         });
