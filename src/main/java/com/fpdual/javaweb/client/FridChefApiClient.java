@@ -234,7 +234,6 @@ public class FridChefApiClient {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
         return recipeDtoList;
-
     }
 
     /**
@@ -250,7 +249,7 @@ public class FridChefApiClient {
         Invocation.Builder builder = webTarget.path("recipes/").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(recipeDto, MediaType.APPLICATION_JSON));
 
-        if (response.getStatus() == 200) {
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             rs = response.readEntity(RecipeDto.class);
         } else {
             throw new ExternalErrorException("Ha ocurrido un error al enviar la solicitud de receta");
@@ -305,6 +304,13 @@ public class FridChefApiClient {
         }
     }
 
+    /**
+     * Busca las recetas favoritas correspondientes a una lista de identificadores.
+     *
+     * @param ids Lista de identificadores de las recetas favoritas a buscar.
+     * @return Lista de objetos RecipeDto que representan las recetas favoritas encontradas.
+     * @throws ExternalErrorException Si ocurre un error al realizar la búsqueda de las recetas favoritas.
+     */
     public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
         List<RecipeDto> recipeDtoList = null;
         List<String> stringId = ids.stream().map(String::valueOf).collect(Collectors.toList());

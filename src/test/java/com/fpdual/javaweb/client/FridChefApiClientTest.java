@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -527,4 +528,289 @@ public class FridChefApiClientTest {
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.createIngredient(exampleIngredientDto.getName()));
 
     }
+
+
+    /**
+     * Caso de prueba para el método {@link FridChefApiClient#findRecipesByCategory(int)}.
+     * Verifica que el método devuelve una lista de DTO de recetas cuando se proporciona un ID de categoría válido.
+     * El resultado esperado es una lista no vacía de DTO de recetas.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testFindRecipesByCategory_validIdCategory_returnNonEmptyRecipeDtoList() throws ExternalErrorException{
+        // Configuración del test
+        int idCategory = 1;
+
+       List<RecipeDto> expectedRecipes = new ArrayList<>();
+
+       //simulacion respueta con Mockito
+       Response responseMock = Mockito.mock(Response.class);
+       when (webTarget.path(any(String.class))).thenReturn(webTarget);
+       when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+       when(builder.get()).thenReturn(responseMock);
+
+       //configuracion del comportamiento de la respuesta simulada
+       when (responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+       when(responseMock.readEntity(new GenericType<List<RecipeDto>>(){})).thenReturn(expectedRecipes);
+
+       //ejecucion del método bajo prueba
+       List<RecipeDto> result = fridChefApiClient.findRecipesByCategory(idCategory);
+
+       //verificacion del resultado
+       assertEquals(expectedRecipes, result);
+    }
+
+    /**
+     * Caso de prueba para el método {@link FridChefApiClient#findRecipesByCategory(int)}.
+     * Verifica que el método devuelve una lista vacía de DTO de recetas cuando se proporciona un ID de categoría válido,
+     * pero no hay recetas disponibles para esa categoría.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testFindRecipeByCategory_validIdCategory_returnEmptyRecipeDtoList()throws ExternalErrorException{
+        // Configuración del test
+        int idCategory = 1;
+        //simulacion respueta con Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.NO_CONTENT.getStatusCode());
+
+        // Ejecucion del método bajo prueba
+        List<RecipeDto> result = fridChefApiClient.findRecipesByCategory(idCategory);
+
+        // Verificación del resultado
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Caso de prueba para el método {@link FridChefApiClient#findRecipesByCategory(int)}.
+     * Verifica que el método lanza una excepción de tipo ExternalErrorException cuando se proporciona un ID de categoría válido,
+     * pero ocurre un error interno en el servidor.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testFindRecipeByCategory_validIdCategory_returnThrowExternalErrorException() throws ExternalErrorException{
+        // Configuración del test
+        int idCategory = 1;
+
+        // Simulacion respuesta con Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        // Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class, () -> {
+            fridChefApiClient.findRecipesByCategory(idCategory);
+        });
+    }
+
+    /**
+     * Caso de prueba para el método {@link FridChefApiClient#createRecipe(RecipeDto)}.
+     * Verifica que el método createRecipe devuelve un RecipeDto cuando se proporciona un RecipeDto válido.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testCreateRecipe_validRecipeDto_returnRecipeDto() throws ExternalErrorException{
+        //Configuracion del test
+        RecipeDto recipeDto = new RecipeDto();
+        RecipeDto expectedRecipeDto = new RecipeDto();
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path("recipes/")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(RecipeDto.class)).thenReturn(expectedRecipeDto);
+
+        //Ejecucion del metodo bajo prueba
+        RecipeDto result = fridChefApiClient.createRecipe(recipeDto);
+
+        //Verificacion del resultado
+        assertEquals(expectedRecipeDto, result);
+    }
+
+    /**
+     * Caso de prueba para el método {@link FridChefApiClient#createRecipe(RecipeDto)}.
+     * Verifica que el método createRecipe lanza una ExternalErrorException cuando ocurre un error interno en el servidor.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testCreateRecipe_validRecipeDto_returnThrowExternalErrorException() throws ExternalErrorException{
+        //Configuracion del test
+        RecipeDto recipeDto = new RecipeDto();
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path("recipes/")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class,() ->{
+            fridChefApiClient.createRecipe(recipeDto);
+        });
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findCategories()}.
+     * Verifica que se devuelva una lista de CategoryDto válida cuando la respuesta es exitosa.
+     *
+     * @throws ExternalErrorException si ocurre un error externo.
+     */
+    @Test
+    public void testFindCategories_validResponse_returnCategoryDtoList() throws ExternalErrorException{
+        //Configuracion del test
+        List<CategoryDto> expectedCategories = new ArrayList<>();
+        expectedCategories.add(new CategoryDto());
+        expectedCategories.add(new CategoryDto());
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path("category/")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(new GenericType<List<CategoryDto>>(){})).thenReturn(expectedCategories);
+
+        //Ejecucion del metodo bajo prueba
+        List<CategoryDto>result = fridChefApiClient.findCategories();
+        //Verificacion del resultado
+        assertEquals(expectedCategories, result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findCategories()}.
+     * Verifica que se devuelva una lista vacía de CategoryDto cuando la respuesta es sin contenido.
+     *
+     * @throws ExternalErrorException si ocurre un error externo.
+     */
+    @Test
+    public void testFindCategories_noContent_returnEmptyCategoryDtoList()throws ExternalErrorException{
+        //Configuración y simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path("category/")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.NO_CONTENT.getStatusCode());
+
+        //Ejecucion del metodo bajo prueba
+        List<CategoryDto> result = fridChefApiClient.findCategories();
+
+        //Verificacion del resultado
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findCategories()}.
+     * Verifica que se lance una excepción ExternalErrorException cuando la respuesta es un error interno del servidor.
+     *
+     * @throws ExternalErrorException si ocurre un error externo.
+     */
+    @Test
+    public void testFindCategories_internalServerError_returnThrowExternalErrorException() throws ExternalErrorException{
+        //Configuración y simulación respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path("category/")).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class, () ->{
+            fridChefApiClient.findCategories();
+        });
+    }
+
+    /**
+     * Prueba unitaria para verificar que el método {@link FridChefApiClient#findFavorites(List<Integer>)}
+     * devuelve una lista válida de RecipeDto cuando se proporcionan IDs válidos.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testFindFavorites_validIds_returnRecipeDtoList() throws ExternalErrorException{
+        //Configuracion del test
+        List<Integer> ids = List.of(1,2,3);
+        List<RecipeDto>expectedRecipes = new ArrayList<>();
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(new GenericType<List<RecipeDto>>(){})).thenReturn(expectedRecipes);
+
+        //Ejecucion del metodo bajo prueba
+        List<RecipeDto> result = fridChefApiClient.findFavorites(ids);
+
+        //Verificacion del resultado
+        assertEquals(expectedRecipes, result);
+    }
+
+    /**
+     * Prueba unitaria para verificar que el método {@link FridChefApiClient#findFavorites(List<Integer>)}
+     * lanza una excepción ExternalErrorException cuando ocurre un error interno en el servidor.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
+     */
+    @Test
+    public void testFindFavorite_internalServerError_returnThrowExternalError()throws ExternalErrorException{
+        //Configuracion del test
+        List<Integer> ids = List.of(1,2,3);
+        List<RecipeDto>expectedRecipes = new ArrayList<>();
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class, () ->{
+            fridChefApiClient.findFavorites(ids);
+        });
+
+
+
+    }
+
+
+    //Configuracion del test
+    //Simulacion respuesta utilizando Mockito
+    //Configuracion del comportamiento de la respuesta simulada
+    //Ejecucion del metodo bajo prueba
+    //Verificacion del resultado
 }
