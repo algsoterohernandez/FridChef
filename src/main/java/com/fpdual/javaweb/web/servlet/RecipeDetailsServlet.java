@@ -68,10 +68,18 @@ public class RecipeDetailsServlet extends ParentServlet {
             int valorationsLimit = 10;
             List<ValorationDto> valorations = valorationService.findValorations(idRecipe, valorationsLimit);
             UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
-            //Se pasan los objetos recipe y valoration al jsp
+
+            //Se pasa el atributo "valoration_created" al jsp
+            String valorationCreated = (String) req.getParameter("valoration_created");
+            if(valorationCreated != null){
+                req.setAttribute("valorationCreated", valorationCreated.equals("1"));
+            }
+
+            //Se pasan los parámetros del detalle
             req.setAttribute("recipe", recipe);
             req.setAttribute("valorations", valorations);
             req.setAttribute("isFavorite", user != null && user.isFavorite(recipe.getId()));
+
             //se redirecciona al jsp para mostrar el detalle
             req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
 
@@ -81,7 +89,6 @@ public class RecipeDetailsServlet extends ParentServlet {
         }catch (NumberFormatException e){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
     }
 
     /**
@@ -121,15 +128,14 @@ public class RecipeDetailsServlet extends ParentServlet {
             valorationDto.setValoration(valoration);
             valorationDto.setComment(comment);
 
-            // Crear la valoración
-            valorationService.createValoration(valorationDto);
+            // Se crea la valoración
+            boolean valorationCreated = valorationService.createValoration(valorationDto);
+            String valorationParameter = valorationCreated ? "1" : "0";
+            resp.sendRedirect("/FridChef/details-recipe?valoration_created=" + valorationParameter +"&id=" + idRecipe);
 
-            // Redireccionar a la página de detalles de la receta
-            resp.sendRedirect("/FridChef/details-recipe?id=" + idRecipe);
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-
     }
 }
