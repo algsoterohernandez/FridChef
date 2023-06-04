@@ -441,13 +441,15 @@ public class FridChefApiClient {
      * @param valorationDto Objeto ValorationDto que contiene los datos de la valoración.
      * @throws ExternalErrorException Si ocurre un error al añadir la valoración.
      */
-    public void createValoration(ValorationDto valorationDto) throws ExternalErrorException {
+    public Boolean createValoration(ValorationDto valorationDto) throws ExternalErrorException {
         Response response = webTarget.path("recipes/" + valorationDto.getIdRecipe() + "/rating")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(valorationDto));
 
         if (response.getStatus() != HttpStatus.OK.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error al añadir la valoración");
+        }else{
+            return true;
         }
     }
 

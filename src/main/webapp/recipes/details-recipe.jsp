@@ -8,6 +8,7 @@
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
 <% List<ValorationDto> valorations = (List<ValorationDto>) request.getAttribute("valorations");%>
 <% Boolean isFavorite = (Boolean) request.getAttribute("isFavorite");%>
+<% Boolean valorationCreated = (Boolean) request.getAttribute("valorationCreated");%>
 
 <html>
 <head>
@@ -121,6 +122,15 @@
     <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>
     <%}%>
 </div>
+ <%if (valorationCreated != null) { %>
+    <script>
+        <% if (valorationCreated) { %>
+            alert('Su valoración se ha enviada correctamente.')
+        <% } else { %>
+            alert('Se ha producido un error al crear su valoración, intentelo de nuevo.')
+        <% }  %>
+    </script>
+<% } %>
 <%@ include file="../footer/footer.jsp" %>
 </body>
 </html>
