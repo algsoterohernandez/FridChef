@@ -202,8 +202,7 @@ public class FridChefApiClient {
                 .post(entity(recipeFilterDto, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
-            });
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
         } else {
             throw new ExternalErrorException("Ha ocurrido un error al buscar las recetas sugeridas");
         }
@@ -221,20 +220,22 @@ public class FridChefApiClient {
     public List<RecipeDto> findRecipesByCategory(int idCategory) throws ExternalErrorException {
         List<RecipeDto> recipeDtoList;
 
+        //Se realiza la solicitud GET al servicio web para buscar las recetas por categoría
         Response response = webTarget.path("category/" + idCategory + "/recipes")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
+        /*Se verifica la respuesta, Si el estado es OK, se lee la entidad que contiene las recetas encontradas
+        Si el estado es NO_CONTENT, se genera lista vacía y sino se indica que se ha generado una excepción externa*/
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
-            });
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
         } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
             recipeDtoList = new ArrayList<>();
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
+        //Se devuelve la lista de recetas obtenidas, nulo o lista vacía.
         return recipeDtoList;
-
     }
 
     /**
@@ -245,16 +246,21 @@ public class FridChefApiClient {
      * @throws ExternalErrorException Si ocurre un error al enviar la solicitud de receta al backend.
      */
     public RecipeDto createRecipe(RecipeDto recipeDto) throws ExternalErrorException {
-
         RecipeDto rs = null;
+
+        /*Se construye el objeto Invocation.Builder para realizar la solicitud POST al servicio web,
+        se envía la solicitud POST con la entidad recipeDto y se envía la solicitud*/
         Invocation.Builder builder = webTarget.path("recipes/").request(MediaType.APPLICATION_JSON);
         Response response = builder.post(entity(recipeDto, MediaType.APPLICATION_JSON));
 
-        if (response.getStatus() == 200) {
+        /*Se verifica la resuesta, si el estado es OK, la respuesta que contiene la receta creada, de lo contrario
+         lanza una exceoción indicando que ha ocurrido un error externo*/
+        if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             rs = response.readEntity(RecipeDto.class);
         } else {
             throw new ExternalErrorException("Ha ocurrido un error al enviar la solicitud de receta");
         }
+        //Se devuelve la receta creada o si se produjo la excepción entonces devolverá nulo.
         return rs;
     }
 
@@ -270,18 +276,23 @@ public class FridChefApiClient {
      */
     public List<CategoryDto> findCategories() throws ExternalErrorException {
         List<CategoryDto> categories = null;
+
+        //Se realiza la solicitud GET al servicio web para obtener las categorías y se verifica el estado de la respuesta
         Response response = webTarget.path("category/")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
+        /*Si el estado es OK, se lee la entidad que contiene las categorías, si devuelve NO_CONTENT,
+        no se encontraron categorías y envía lista vacía, sino se indica que ha ocurrido un error externo*/
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            categories = response.readEntity(new GenericType<List<CategoryDto>>() {
-            });
+            categories = response.readEntity(new GenericType<List<CategoryDto>>() {});
         } else if (response.getStatus() == HttpStatus.NO_CONTENT.getStatusCode()) {
             categories = Collections.emptyList();
         } else if (response.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
+
+        //Se devuelve la lista de categorias obtenidas, si se producen excepciones podrá ser nulo o lista vacía.
         return categories;
     }
 
@@ -305,34 +316,61 @@ public class FridChefApiClient {
         }
     }
 
+    /**
+     * Busca las recetas favoritas correspondientes a una lista de identificadores.
+     *
+     * @param ids Lista de identificadores de las recetas favoritas a buscar.
+     * @return Lista de objetos RecipeDto que representan las recetas favoritas encontradas.
+     * @throws ExternalErrorException Si ocurre un error al realizar la búsqueda de las recetas favoritas.
+     */
     public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
+        //Se inicializa la lista de recetas vacía
         List<RecipeDto> recipeDtoList = null;
+
+        //Se convierten los ids de Integer a String para que se puedan pasar por la url
         List<String> stringId = ids.stream().map(String::valueOf).collect(Collectors.toList());
+
+        //Se realiza una solicitud GET al servicio web para obtener las recetas favoritas y se verifica la respuesta
         Response response = webTarget.path("recipes/favorites")
                 .queryParam("ids", String.join(",", stringId))
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
+        /*Si el estado es OK, la respuesta que contiene la lista de recetas, sino genera excepción error externo */
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
-            });
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
+
+        //Se devuelve la lista de recetas obtenidas o nulo si se produjo la excepción.
         return recipeDtoList;
     }
+
+    /**
+     * Busca las recetas mejor valoradas.
+     *
+     * @param limit el límite de recetas a obtener
+     * @return una lista de objetos RecipeDto que representan las recetas mejor valoradas
+     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda
+     */
     public List<RecipeDto> findMostRated(int limit) throws ExternalErrorException {
         List<RecipeDto> recipeDtoList = null;
+
+        //Se realiza una solicitud GET al servicio web para obtener las recetas mejor valoradas y se verifica la respuesta
         Response response = webTarget.path("recipes/most-rated")
                 .queryParam("limit", limit)
                 .request(MediaType.APPLICATION_JSON)
                 .get();
+
+        /*Si el estado es OK, se lee la entidad de respuesta que contiene la lista de recetas, en caso contrario se
+          indica que ha ocurrido un error externo */
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {
-            });
+            recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }
+        //Devuelve la lista de recetas obtenida que puede ser nula si se produjo el error.
         return recipeDtoList;
     }
 
@@ -442,10 +480,13 @@ public class FridChefApiClient {
      * @throws ExternalErrorException Si ocurre un error al añadir la valoración.
      */
     public Boolean createValoration(ValorationDto valorationDto) throws ExternalErrorException {
+        //Se construye url y se llama al servicio web con el id de la receta proporcionada por el ValorationDto
         Response response = webTarget.path("recipes/" + valorationDto.getIdRecipe() + "/rating")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(valorationDto));
 
+        /*Se verifica el estado de la respuesta recibida del servicio web,si no es OK, se lanzará la excepción
+          error externo, de lo contrario se devuelve true para indicar que la valoración se creó correctamente*/
         if (response.getStatus() != HttpStatus.OK.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error al añadir la valoración");
         }else{
@@ -453,14 +494,25 @@ public class FridChefApiClient {
         }
     }
 
+    /**
+     * Obtiene la lista de valoraciones para una receta específica.
+     *
+     * @param idRecipe el ID de la receta
+     * @param limit    el límite de valoraciones a obtener
+     * @return la lista de valoraciones para la receta
+     * @throws ExternalErrorException si ocurre un error externo al buscar la lista de valoraciones
+     */
     public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException {
+        //Se construye la url y se llama al servicio web con el id de la receta y el límite proporcionados
         Response response = webTarget.path("recipes/" + idRecipe + "/rating")
                 .queryParam("limit", limit)
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 
+        /*Se verifica el estado de la respuesta recibida, si el estado es OK, entonces se lee el la respuesta y se crea la lista
+        * de valorationDto, en caso contrario se lanzará la excepción indicando que ha habido un error externo*/
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
-            List<ValorationDto> valorations = response.readEntity(new GenericType<List<ValorationDto>>() {
+            List<ValorationDto> valorations = response.readEntity(new GenericType<List<ValorationDto>>(){
             });
             return valorations;
         } else {
@@ -468,19 +520,39 @@ public class FridChefApiClient {
         }
     }
 
+    /**
+     * Agrega una receta a la lista de favoritos de un usuario.
+     *
+     * @param idRecipe el ID de la receta a agregar como favorita
+     * @param idUser   el ID del usuario
+     * @return true si la receta se agregó como favorita correctamente, false en caso contrario
+     * @throws ExternalErrorException si ocurre un error externo al agregar la receta como favorita
+     */
     public boolean createFavorite(int idRecipe, int idUser) throws ExternalErrorException {
+        //Se construye la url para llamar al servicio web con los id de la receta y el usuario proporcionados
         Response response = webTarget.path("user/" + idUser + "/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(null));
 
+        //Se verifica el estado de la respuesta y se devuelve true si es OK y sino devuelve false
         return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 
+    /**
+     * Elimina una receta de la lista de favoritos de un usuario.
+     *
+     * @param idRecipe el ID de la receta a eliminar de la lista de favoritos
+     * @param idUser   el ID del usuario
+     * @return true si la receta se eliminó de la lista de favoritos correctamente, false en caso contrario
+     * @throws ExternalErrorException si ocurre un error externo al eliminar la receta de la lista de favoritos
+     */
     public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException {
+        //Se contruye la url para llamar al servicio web con los id de la receta y el usuario proporcionado
         Response response = webTarget.path("user/" + idUser + "/favorite/" + idRecipe)
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
 
+        //Se verifica el estado de la respuesta recibida del servicio web y se devuelve true si es OK y sino devuelve false
         return response.getStatus() == HttpStatus.OK.getStatusCode();
     }
 }
