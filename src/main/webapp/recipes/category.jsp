@@ -47,7 +47,6 @@
         <p>No se encontraron recetas para esta categoría. Busca en otra categoría.</p>
         <% } %>
     </div>
-
     <%@ include file="/footer/footer.jsp" %>
 </div>
 </body>

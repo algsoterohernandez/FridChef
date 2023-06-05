@@ -20,7 +20,7 @@
     <%@ include file="../header/header.jsp" %>
     <div class="contprincipal">
         <h2>Las recetas mejor valoradas:</h2>
-
+        <p></p>
         <% if (!recipes.isEmpty()) { %>
             <%for (RecipeDto recipe : recipes){%>
                 <div class="recipes-list">
@@ -43,6 +43,7 @@
                         <% } %>
                     </div>
                 </div>
+        <p></p>
             <%}%>
         <%}else{%>
             <p>No hay recetas en este momento disponibles</p>
