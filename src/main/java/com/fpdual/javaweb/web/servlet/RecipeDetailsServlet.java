@@ -59,15 +59,17 @@ public class RecipeDetailsServlet extends ParentServlet {
             int idRecipe = Integer.parseInt(recipeId);
             this.fillCategories(req);
 
-            RecipeDto recipe = recipeService.findRecipeById(idRecipe);
+            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
+            boolean onlyAccepted = user == null || !user.isAdmin();
+            RecipeDto recipe = recipeService.findRecipeById(idRecipe, onlyAccepted);
 
             if (recipe == null) {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
             int valorationsLimit = 10;
+
             List<ValorationDto> valorations = valorationService.findValorations(idRecipe, valorationsLimit);
-            UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
 
             //Se pasa el atributo "valoration_created" al jsp
             String valorationCreated = (String) req.getParameter("valoration_created");

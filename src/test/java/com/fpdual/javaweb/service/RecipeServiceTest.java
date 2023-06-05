@@ -89,13 +89,13 @@ public class RecipeServiceTest {
                 .name("Recipe 1")
                 .build();
 
-        when(apiClient.findRecipeById(id)).thenReturn(expectedRecipe);
+        when(apiClient.findRecipeById(id, true)).thenReturn(expectedRecipe);
 
         // Act: Invocación del método a testear
-        RecipeDto result = recipeService.findRecipeById(id);
+        RecipeDto result = recipeService.findRecipeById(id, true);
 
         // Assert: Verificación de los resultados
-        verify(apiClient).findRecipeById(id);
+        verify(apiClient).findRecipeById(id, true);
         assertEquals(expectedRecipe, result);
     }
 
@@ -105,13 +105,13 @@ public class RecipeServiceTest {
         int id = 1;
         ExternalErrorException expectedException = new ExternalErrorException("Error");
 
-        when(apiClient.findRecipeById(id)).thenThrow(expectedException);
+        when(apiClient.findRecipeById(id, true)).thenThrow(expectedException);
 
         // Act: Invocación del método a testear
-        RecipeDto result = recipeService.findRecipeById(id);
+        RecipeDto result = recipeService.findRecipeById(id, true);
 
         // Assert: Verificación de los resultados
-        verify(apiClient).findRecipeById(id);
+        verify(apiClient).findRecipeById(id, true);
         assertNull(result);
     }
 
