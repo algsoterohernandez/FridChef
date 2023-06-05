@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,6 +80,96 @@ public class RecipeServiceTest {
         assertEquals(expectedSuggestions, actualSuggestions);
         verify(apiClient, times(1)).findRecipeSuggestions(ingredientList);
     }
+
+    @Test
+    public void testFindAllRecipesByCategoryId_validIntidCategory_returnRecipeDtoList() throws ExternalErrorException {
+        //Configuracion del test y simulacion respuesta utilizando Mockito
+        int idCategory = 1;
+        List<RecipeDto> expectedRecipeList = Arrays.asList(
+                RecipeDto.builder().id(1).name("Arroz frito").build(),
+                RecipeDto.builder().id(2).name("pasta carbonara").build(),
+                RecipeDto.builder().id(3).name("lentejas").build()
+        );
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(apiClient.findRecipesByCategory(idCategory)).thenReturn(expectedRecipeList);
+
+        //Ejecucion del metodo bajo prueba
+        List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
+
+        //Verificacion del resultado
+        assertEquals(expectedRecipeList, actualRecipeList);
+        verify(apiClient, times(1)).findRecipesByCategory(idCategory);
+    }
+
+    @Test
+    public void testFindAllRecipesByCategoryId_emptyList_returnEmptyRecipeDtoList() throws ExternalErrorException {
+        //Configuracion del test y simulacion respuesta utilizando Mockito
+        int idCategory = 1;
+        List<RecipeDto> expectedRecipeList = Collections.emptyList();
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(apiClient.findRecipesByCategory(idCategory)).thenReturn(expectedRecipeList);
+
+        //Ejecucion del metodo bajo prueba
+        List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
+
+        //Verificacion del resultado
+        assertEquals(expectedRecipeList, actualRecipeList);
+        verify(apiClient, times(1)).findRecipesByCategory(idCategory);
+    }
+
+    @Test
+    public void testFindAllRecipesByCategoryId_catchesExternalErrorException() throws ExternalErrorException {
+        //Configuracion del test y simulacion respuesta utilizando Mockito
+        int idCategory = 1;
+        ExternalErrorException expectedException = new ExternalErrorException("Error al obtener las recetas por esa categoría");
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(apiClient.findRecipesByCategory(idCategory)).thenThrow(expectedException);
+
+        // Ejecución del método bajo prueba
+        List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
+
+        // Verificación del resultado
+        assertNull(actualRecipeList);
+        verify(apiClient, times(1)).findRecipesByCategory(idCategory);
+    }
+
+    @Test
+    public void testRegisterRecipe_validRecipeDto_returnRegisteredRecipeDto() throws ExternalErrorException {
+        // Configuración del test y simulación de respuesta utilizando Mockito
+        RecipeDto recipeDto = RecipeDto.builder()
+                .name("pizza hawaiana")
+                .description("deliciosa pizza con piña para el niño y la niña")
+                .build();
+
+        RecipeDto expectedRegisteredRecipeDto = RecipeDto.builder()
+                .id(1)
+                .name("pizza hawaiana")
+                .description("deliciosa pizza con piña para el niño y la niña")
+                .build();
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(apiClient.createRecipe(recipeDto)).thenReturn(expectedRegisteredRecipeDto);
+
+        // Ejecución del método bajo prueba
+        RecipeDto actualRegisteredRecipeDto = recipeService.registerRecipe(recipeDto);
+
+        // Verificación del resultado
+        assertNotNull(actualRegisteredRecipeDto);
+        assertEquals(expectedRegisteredRecipeDto, actualRegisteredRecipeDto);
+        verify(apiClient, times(1)).createRecipe(recipeDto);
+    }
+
+
+    //Configuracion del test
+    //Simulacion respuesta utilizando Mockito
+    //Configuracion del comportamiento de la respuesta simulada
+    //Ejecucion del metodo bajo prueba
+    //Verificacion del resultado
+
+
 
     @Test
     void testFindRecipeById_Success() throws ExternalErrorException {
