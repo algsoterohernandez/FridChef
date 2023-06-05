@@ -46,11 +46,15 @@ public class RecipeService {
      */
     public List<RecipeDto> findAllRecipesByCategoryId(int idCategory) {
         List<RecipeDto> recipeDtoList = null;
+        /*Intenta obtener las recetas llamando al método de la apiclient
+        * y se capturará e imprimirá en consola el error si se produce una excepción durante la obtención
+        * de las recetas*/
         try {
             recipeDtoList = apiClient.findRecipesByCategory(idCategory);
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
         }
+        //Devuelve la lista de recetas encontradas, será nulo si se produjo el error externo
         return recipeDtoList;
     }
 
@@ -63,12 +67,16 @@ public class RecipeService {
      */
     public RecipeDto registerRecipe(RecipeDto recipeDto) throws ExternalErrorException {
         try {
+            /*Intenta crear la receta llamando al método createRecipe del apiClient
+            * si se produce una excepción ExternalErrorException durante la creación de la receta
+            * y se imprime un mensaje en la consola y relanza la excepción*/
             recipeDto = apiClient.createRecipe(recipeDto);
 
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());
             throw e;
         }
+        //Devuelve el objeto RecipeDto que representa la receta registrada
         return recipeDto;
     }
 
@@ -89,13 +97,33 @@ public class RecipeService {
         }
     }
 
+    /**
+     * Busca las recetas favoritas correspondientes a los IDs proporcionados.
+     *
+     * @param ids los IDs de las recetas favoritas a buscar
+     * @return una lista de objetos RecipeDto que representan las recetas favoritas encontradas
+     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las recetas favoritas
+     */
     public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
-        List<RecipeDto> recipesDto = apiClient.findFavorites(ids);
-        return recipesDto;
+        //Realiza la búsqueda de las recetas favoritas llamando al método del apiClient
+        List<RecipeDto> recipes = apiClient.findFavorites(ids);
+
+        //Devuelve la lista de recetas favoritas encontradas
+        return recipes;
     }
+
+    /**
+     * Busca las recetas más valoradas hasta el límite especificado.
+     *
+     * @param limit el número máximo de recetas a obtener
+     * @return una lista de objetos RecipeDto que representan las recetas más valoradas
+     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las recetas más valoradas
+     */
     public List<RecipeDto> findMostRated(int limit) throws ExternalErrorException {
-        List<RecipeDto> recipesDto = apiClient.findMostRated(limit);
-        return recipesDto;
+        //Realiza la busqueda de las recetas más valoradas llamando al método del apiclient
+        List<RecipeDto> recipesMostRated = apiClient.findMostRated(limit);
+        //Devuelve la lista de las recetas mejor valoradas encontradas
+        return recipesMostRated;
     }
 
     /**
