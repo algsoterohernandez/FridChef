@@ -10,7 +10,7 @@ import java.util.List;
  * Servicio para gestionar las valoraciones.
  */
 public class ValorationService {
-    private final FridChefApiClient apiClient; // Cliente de la API utilizado para interactuar con el backend
+    private final FridChefApiClient apiClient;
 
     /**
      * Constructor de la clase ValorationService.
@@ -27,22 +27,39 @@ public class ValorationService {
      */
     public boolean createValoration(ValorationDto valorationDto) throws ExternalErrorException {
         boolean createdValoration = true;
+
+        /*Llama al método createValoration del cliente de la API para crear la valoración
+        y devolverá true o false en función de su respuesta, si se captura alguna excepción
+        el resultado será false para indicar que no se ha creado la valoración*/
         try {
-          apiClient.createValoration(valorationDto); // Llama al método createValoration del cliente de la API para crear la valoración
+          apiClient.createValoration(valorationDto);
         } catch (ExternalErrorException e) {
             createdValoration = false;
         }
         return createdValoration;
     }
 
+    /**
+     * Busca las valoraciones de una receta especificada por su ID.
+     *
+     * @param idRecipe el ID de la receta para la cual se desean obtener las valoraciones.
+     * @param limit el límite de valoraciones a obtener.
+     * @return una lista de objetos {@link ValorationDto} que representan las valoraciones encontradas.
+     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las valoraciones.
+     */
     public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException{
         List<ValorationDto> valorationList;
+
+        /*Sel llama al método del apiClient para obtener las valoraciones,
+        * En caso de que se genere un error, este será capturado, se emitirá
+        * un mensaje a la consola y se relanzará la excepción */
         try{
             valorationList = apiClient.findValorations(idRecipe, limit);
         }catch(ExternalErrorException e){
             System.out.println("Ha ocurrido un error al buscar la valoración");
             throw e;
         }
+        //Se devolverá la lista de valoraciones, en caso de no encontrar valoraciones, devolverá lista vacía
         return valorationList;
     }
 }
