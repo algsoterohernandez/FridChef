@@ -9,6 +9,7 @@ import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -596,7 +597,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindRecipeByCategory_validIdCategory_returnThrowExternalErrorException() throws ExternalErrorException{
+    public void testFindRecipeByCategory_validIdCategory_returnThrowExternalErrorException() {
         // Configuración del test
         int idCategory = 1;
 
@@ -651,7 +652,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testCreateRecipe_validRecipeDto_returnThrowExternalErrorException() throws ExternalErrorException{
+    public void testCreateRecipe_validRecipeDto_returnThrowExternalErrorException() {
         //Configuracion del test
         RecipeDto recipeDto = new RecipeDto();
 
@@ -730,7 +731,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo.
      */
     @Test
-    public void testFindCategories_internalServerError_returnThrowExternalErrorException() throws ExternalErrorException{
+    public void testFindCategories_internalServerError_returnThrowExternalErrorException() {
         //Configuración y simulación respuesta utilizando Mockito
         Response responseMock = Mockito.mock(Response.class);
         when(webTarget.path("category/")).thenReturn(webTarget);
@@ -783,7 +784,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindFavorite_internalServerError_returnThrowExternalError()throws ExternalErrorException{
+    public void testFindFavorite_internalServerError_returnThrowExternalError(){
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
@@ -807,6 +808,494 @@ public class FridChefApiClientTest {
 
     }
 
+    /**
+     * Prueba unitaria para verificar que el método {@link FridChefApiClient#findMostRated(int)}.
+     * Prueba el método con un límite válido y espera una lista de RecipeDto como resultado.
+     *
+     * @throws ExternalErrorException si ocurre un error externo
+     */
+    @Test
+    public void testFindMostRated_validLimit_returnRecipeDtoList() throws ExternalErrorException{
+        //Configuracion del test
+        int limit = 10;
+        List<RecipeDto> expectedRecipes = new ArrayList<>();
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(new GenericType<List<RecipeDto>>(){})).thenReturn(expectedRecipes);
+
+        //Ejecucion del metodo bajo prueba
+        List<RecipeDto> result = fridChefApiClient.findMostRated(limit);
+
+        //Verificacion del resultado
+        assertEquals(expectedRecipes, result);
+    }
+
+    /**
+     * Prueba unitaria para verificar que el método {@link FridChefApiClient#findMostRated(int)}.
+     * Prueba el método cuando ocurre un error interno del servidor y espera que se lance una ExternalErrorException.
+     *
+     * @throws ExternalErrorException siempre se lanza para indicar un error externo
+     */
+    @Test
+    public void testFindMostRated_internalServerError_returnThrowExternalErrorException() throws ExternalErrorException{
+        //Configuracion del test
+        int limit = 10;
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class, () ->{
+            fridChefApiClient.findMostRated(limit);
+        });
+
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createValoration(ValorationDto)} cuando se espera que la valoración sea exitosa.
+     * Con este método se verifica que el método createValoration(ValorationDto) devuelva true cuando la respuesta del servidor
+     * tiene un estado exitoso.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateValoration_validValorationDto_returnTrue() throws ExternalErrorException{
+        //Configuracion del test
+        ValorationDto valorationDto = new ValorationDto();
+        valorationDto.setIdRecipe(1);
+
+        //simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+
+        //Ejecucion del metodo bajo prueba
+        Boolean result = fridChefApiClient.createValoration(valorationDto);
+
+        //Verificacion del resultado
+        assertTrue(result);
+
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createValoration(ValorationDto)} cuando se espera que la valoración falle.
+     * Con este método se verifica que el método createValoration(ValorationDto) lance una ExternalErrorException
+     * cuando la respuesta del servidor indica un error interno.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateValoration_validValorationDto_returnFalse() throws ExternalErrorException{
+        //Configuracion del test
+        ValorationDto valorationDto = new ValorationDto();
+        valorationDto.setIdRecipe(1);
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        //Ejecución y validación implícitas al llamar al método dentro del lambda de "assertThrows"
+        assertThrows(ExternalErrorException.class, () ->{
+            fridChefApiClient.createValoration(valorationDto);
+        });
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findValorations(int, int)} cuando se espera obtener una lista de valoraciones válida.
+     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
+     * cuando la respuesta del servidor indica éxito.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testFindValorations_validIdValidLimit_returnValorationList() throws ExternalErrorException{
+        //Configuracion del test
+        int idRecipe = 1;
+        int limit = 10;
+
+        //Creación de la lista simulada de ValorationDto
+        List<ValorationDto>valorations = new ArrayList<>();
+        valorations.add(new ValorationDto());
+        valorations.add(new ValorationDto());
+
+        //Simulacion respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        //Configuracion del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(any(GenericType.class))).thenReturn(valorations);
+
+        // Configuración del comportamiento del builder
+        when(builder.get()).thenReturn(responseMock);
+
+        //Ejecucion del metodo bajo prueba
+        List<ValorationDto> result = fridChefApiClient.findValorations(idRecipe,limit);
+
+        //Verificacion del resultado
+        assertNotNull(result);
+        assertEquals(2, result.size());
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findValorations(int, int)}
+     * cuando se espera obtener una lista de valoraciones válida con un límite alto.
+     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
+     * cuando la respuesta del servidor indica éxito y el límite es alto.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testFindValorations_validIdHighLimit_returnValorationList() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int limit = 1000; // Límite alto
+
+        // Creación de la lista simulada de ValorationDto
+        List<ValorationDto> valorations = new ArrayList<>();
+        valorations.add(new ValorationDto());
+        valorations.add(new ValorationDto());
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(any(GenericType.class))).thenReturn(valorations);
+
+        // Ejecución del método bajo prueba
+        List<ValorationDto> result = fridChefApiClient.findValorations(idRecipe, limit);
+
+        // Verificación del resultado
+        assertNotNull(result);
+        assertEquals(2, result.size());
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findValorations(int, int)}
+     * cuando se espera obtener una lista de valoraciones válida con un límite bajo.
+     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
+     * cuando la respuesta del servidor indica éxito y el límite es bajo.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testFindValorations_validIdLowLimit_returnValorationList() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int limit = 1; // Límite bajo
+
+        // Creación de la lista simulada de ValorationDto
+        List<ValorationDto> valorations = new ArrayList<>();
+        valorations.add(new ValorationDto());
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+        when(responseMock.readEntity(any(GenericType.class))).thenReturn(valorations);
+
+        // Ejecución del método bajo prueba
+        List<ValorationDto> result = fridChefApiClient.findValorations(idRecipe, limit);
+
+        // Verificación del resultado
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#findValorations(int, int)}
+     * cuando se recibe una respuesta de error del servidor.
+     * Con este método se verifica que el método findValorations(int, int) lance una ExternalErrorException
+     * cuando la respuesta del servidor indica un error interno.
+     */
+    @Test
+    public void testFindValorations_errorResponse_throwExternalErrorException() {
+        // Configuración del test
+        int idRecipe = 1;
+        int limit = 10;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.queryParam(any(String.class), any())).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.get()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba y verificación de la excepción
+        assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findValorations(idRecipe, limit));
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createFavorite(int, int)} cuando se espera obtener un resultado exitoso.
+     * Con este método se verifica que el método createFavorite(int, int) devuelva true
+     * cuando la respuesta del servidor indica éxito.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateFavorite_validParameter_returnTrue() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.createFavorite(idRecipe, idUser);
+
+        // Verificación del resultado
+        assertTrue(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createFavorite(int, int)} cuando el ID de la receta no existe.
+     * Con este método se verifica que el método createFavorite(int, int) devuelva false
+     * cuando la respuesta del servidor indica que el ID de la receta no existe.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateFavorite_nonExistingRecipeId_returnFalse() throws ExternalErrorException {
+        // Configuración del test
+        int nonExistingId = 9999; // ID de receta inexistente
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.createFavorite(nonExistingId, idUser);
+
+        // Verificación del resultado
+        assertFalse(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createFavorite(int, int)} cuando el ID del usuario no existe.
+     * Con este método se verifica que el método createFavorite(int, int) devuelva false
+     * cuando la respuesta del servidor indica que el ID del usuario no existe.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateFavorite_nonExistingUserId_returnFalse() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int nonExistingId = 9999; // ID de usuario inexistente
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.createFavorite(idRecipe, nonExistingId);
+
+        // Verificación del resultado
+        assertFalse(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#createFavorite(int, int)} cuando se recibe una respuesta de error del servidor.
+     * Con este método se verifica que el método createFavorite(int, int) lance una ExternalErrorException
+     * cuando la respuesta del servidor indica un error interno.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testCreateFavorite_errorResponse_throwExternalErrorException() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.post(any(Entity.class))).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba y verificación de la excepción
+        boolean result = fridChefApiClient.createFavorite(idRecipe, idUser);
+
+        //Verificación del resultado
+        assertFalse(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#deleteFavorite(int, int)} cuando se espera obtener un resultado exitoso.
+     * Con este método se verifica que el método deleteFavorite(int, int) devuelva true
+     * cuando la respuesta del servidor indica éxito.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testDeleteFavorite_validParameter_returnTrue() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.delete()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.deleteFavorite(idRecipe, idUser);
+
+        // Verificación del resultado
+        assertTrue(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#deleteFavorite(int, int)} cuando el ID de la receta no existe.
+     * Con este método se verifica que el método deleteFavorite(int, int) devuelva false
+     * cuando la respuesta del servidor indica que el ID de la receta no existe.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testDeleteFavorite_nonExistingRecipeId_returnFalse() throws ExternalErrorException {
+        // Configuración del test
+        int nonExistingId = 9999; // ID de receta inexistente
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.delete()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.deleteFavorite(nonExistingId, idUser);
+
+        // Verificación del resultado
+        assertFalse(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#deleteFavorite(int, int)} cuando el ID del usuario no existe.
+     * Con este método se verifica que el método deleteFavorite(int, int) devuelva false
+     * cuando la respuesta del servidor indica que el ID del usuario no existe.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testDeleteFavorite_nonExistingUserId_returnFalse() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int nonExistingId = 9999; // ID de usuario inexistente
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.delete()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.deleteFavorite(idRecipe, nonExistingId);
+
+        // Verificación del resultado
+        assertFalse(result);
+    }
+
+    /**
+     * Prueba unitaria para el método {@link FridChefApiClient#deleteFavorite(int, int)} cuando se recibe una respuesta de error del servidor.
+     * Con este método se verifica que el método deleteFavorite(int, int) lance una ExternalErrorException
+     * cuando la respuesta del servidor indica un error interno.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
+    @Test
+    public void testDeleteFavorite_errorResponse_throwExternalErrorException() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        int idUser = 1;
+
+        // Simulación de respuesta utilizando Mockito
+        Response responseMock = Mockito.mock(Response.class);
+        when(webTarget.path(any(String.class))).thenReturn(webTarget);
+        when(webTarget.request(any(String.class))).thenReturn(builder);
+        when(builder.delete()).thenReturn(responseMock);
+
+        // Configuración del comportamiento de la respuesta simulada
+        when(responseMock.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
+
+        // Ejecución del método bajo prueba
+        boolean result = fridChefApiClient.deleteFavorite(idRecipe, idUser);
+
+        // Verificación del resultado
+        assertFalse(result);
+    }
 
     //Configuracion del test
     //Simulacion respuesta utilizando Mockito
