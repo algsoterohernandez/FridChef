@@ -29,6 +29,12 @@ public class CategoryServiceTest {
         categoryService = new CategoryService(fridChefApiClient);
     }
 
+    /**
+     * Prueba unitaria para el método {@link CategoryService#getAllCategories()}
+     * cuando se recibe una respuesta válida y se verifica que el método retorne las categorías esperadas.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
     @Test
     public void testGetAllCategories_validResponse_returnCategories() throws ExternalErrorException {
         // Configuración del test
@@ -50,6 +56,12 @@ public class CategoryServiceTest {
         assertTrue(expectedCategories.contains(new CategoryDto(2, "pastas")));
     }
 
+    /**
+     * Prueba unitaria para el método {@link CategoryService#getAllCategories()}
+     * cuando se produce una excepción externa y se verifica que el método retorne una lista vacía en caso de capturar una {@link ExternalErrorException}.
+     *
+     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
+     */
     @Test
     void testGetAllCategories_externalErrorException_throwExternalErrorException() throws ExternalErrorException {
         // Configuración y simulacion de respuesta utilizando Mockito
