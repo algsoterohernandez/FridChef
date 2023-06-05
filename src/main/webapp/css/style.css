@@ -13,6 +13,7 @@ body {
     line-height: 1;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 div {
@@ -45,8 +46,8 @@ h1, h2 {
 }
 
 div.principal-container {
-    width: 100%;
     display: inline-flex;
+    flex: 1;
 }
 
 /* Estilo general formularios */

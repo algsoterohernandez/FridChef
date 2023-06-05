@@ -121,6 +121,7 @@
     <% } else { %>
     <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>
     <%}%>
+    <%@ include file="../footer/footer.jsp" %>
 </div>
  <%if (valorationCreated != null) { %>
     <script>
@@ -131,6 +132,6 @@
         <% }  %>
     </script>
 <% } %>
-<%@ include file="../footer/footer.jsp" %>
+
 </body>
 </html>
