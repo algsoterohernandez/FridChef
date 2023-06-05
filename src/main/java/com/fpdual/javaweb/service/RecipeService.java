@@ -76,11 +76,12 @@ public class RecipeService {
      * Busca una receta por su ID.
      *
      * @param id ID de la receta a buscar.
+     * @param onlyAccepted filtrar por las recetas con status ACCEPTED o no
      * @return RecipeDto que representa la receta encontrada.
      */
-    public RecipeDto findRecipeById(int id) {
+    public RecipeDto findRecipeById(int id, boolean onlyAccepted) {
         try {
-            RecipeDto recipeDto = apiClient.findRecipeById(id);
+            RecipeDto recipeDto = apiClient.findRecipeById(id, onlyAccepted);
             return recipeDto;
         } catch (ExternalErrorException e) {
             System.out.println(e.getMessage());

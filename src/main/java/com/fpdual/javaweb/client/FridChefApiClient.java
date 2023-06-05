@@ -300,11 +300,13 @@ public class FridChefApiClient {
      * Busca una receta por su ID.
      *
      * @param id el ID de la receta a buscar.
+     * @param rol el rol del usuario de la sesion
      * @return el objeto RecipeDto que representa la receta encontrada.
      * @throws ExternalErrorException si ocurre un error en la búsqueda de la receta por ID.
      */
-    public RecipeDto findRecipeById(int id) throws ExternalErrorException {
+    public RecipeDto findRecipeById(int id, boolean onlyAccepted) throws ExternalErrorException {
         Response response = webTarget.path("recipes/" + id)
+                .queryParam("only_accepted", onlyAccepted ? "1" : "0")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
 

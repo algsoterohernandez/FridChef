@@ -252,7 +252,7 @@ public class FridChefApiClientTest {
         when(builder.get()).thenReturn(response);
 
         // Act: Invocación del método a testear
-        RecipeDto actualRecipe = fridChefApiClient.findRecipeById(id);
+        RecipeDto actualRecipe = fridChefApiClient.findRecipeById(id, true);
 
         // Assert: Verificación de los resultados
         assertEquals(expectedRecipe, actualRecipe);
@@ -274,7 +274,7 @@ public class FridChefApiClientTest {
         // Assert: Verificación de que se lanza la excepción esperada
         assertThrows(ExternalErrorException.class, () -> {
             // Act: Invocación del método a testear
-            fridChefApiClient.findRecipeById(id);
+            fridChefApiClient.findRecipeById(id, true);
         });
 
         // Assert: Verificación de que se llamaron a los métodos adecuados
