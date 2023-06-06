@@ -50,9 +50,11 @@
         <% } %>
     </div>
     <div class="like">
+        <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
         <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
             <span class="heart"></span>
         </button>
+        <% } %>
     </div>
     <div class="recipe-details">
         <h2><%=recipe.getName()%></h2>

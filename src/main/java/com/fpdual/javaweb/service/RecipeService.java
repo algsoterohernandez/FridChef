@@ -1,6 +1,7 @@
 package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.exceptions.BadRequestException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 
@@ -104,7 +105,7 @@ public class RecipeService {
      * @return una lista de objetos RecipeDto que representan las recetas favoritas encontradas
      * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las recetas favoritas
      */
-    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
+    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException, BadRequestException {
         //Realiza la búsqueda de las recetas favoritas llamando al método del apiClient
         List<RecipeDto> recipes = apiClient.findFavorites(ids);
 

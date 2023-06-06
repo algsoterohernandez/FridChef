@@ -7,7 +7,6 @@ import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
-import lombok.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -256,7 +255,6 @@ public class FridChefApiClientTest {
         // Assert: Verificación de los resultados
         assertEquals(expectedRecipe, actualRecipe);
     }
-
 
     @Test
     public void testFindRecipeById_Error() {
