@@ -4,7 +4,14 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% List<RecipeDto> favoriteRecipes = (List<RecipeDto>) request.getAttribute("favoriteRecipes"); %>
+<%
+    Object favoriteRecipes = request.getAttribute("favoriteRecipes");
+    List<RecipeDto> favoriteRecipesList = null;
+
+    if (favoriteRecipes != null){
+        favoriteRecipesList = (List<RecipeDto>) favoriteRecipes;
+    }
+%>
 
 <html>
 <head>
@@ -20,8 +27,8 @@
             <%@ include file="../header/header.jsp" %>
             <div class="contprincipal">
                 <h2>Tus recetas favoritas:</h2>
-                <% if (!favoriteRecipes.isEmpty()) { %>
-                    <%for (RecipeDto recipe : favoriteRecipes){%>
+                <% if (favoriteRecipesList!=null) { %>
+                    <%for (RecipeDto recipe : favoriteRecipesList){%>
                         <div class="recipes-list">
                             <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
                                 <div class="recipe-content">
