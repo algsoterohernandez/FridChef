@@ -9,7 +9,7 @@
 <% ArrayList<IngredientDto> ingredients = (ArrayList<IngredientDto>) request.getAttribute("ingredients");%>
 <% ArrayList<ItemDto> units = (ArrayList<ItemDto>) request.getAttribute("units");%>
 <% Boolean recipeCreated = (Boolean) request.getAttribute("recipe_created");%>
-
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -19,6 +19,7 @@
   <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
   <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
   <script src="js/add-form.js" defer></script>
+  <script src="https://cdn.tiny.cloud/1/cgglq0fhrr2su9nfa8klypftb0itcslkhxnr3j4ygjs2r0s7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 <div class="content">
@@ -34,7 +35,7 @@
         <br/><br/>
 
         <label for="description">Elaboración: </label><br/>
-        <textarea type="textarea" id= "description" name="description" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
+        <textarea type="textarea" id="description" name="description" minlength="10" maxlength="5000" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..."></textarea>
         <br/><br/>
 
         <label for="time">duración:</label>
@@ -89,7 +90,7 @@
         <div class="ingredients-container" id="ingredients-container"></div>
         <br/>
         <label for="image">Agrega una imagen:</label>
-        <input accept="image/png, imagen/jpeg" type="file" id="image" name="image">
+        <input accept="image/png, imagen/jpeg" type="file" id="image" name="image" required/>
         <br/>
       <div class="buttons">
         <input type="submit" value="Enviar">
@@ -108,6 +109,17 @@
   alert('Receta creada correctamente, esperando a ser revisada y aprobada')
 </script>
 <% } %>
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        height: 300, // Altura del editor
+        menubar: false, // Desactivar la barra de menú
+        plugins: 'lists',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | align ',
+        // Otras opciones de configuración que desees agregar
+    });
+</script>
 </body>
 </html>
 

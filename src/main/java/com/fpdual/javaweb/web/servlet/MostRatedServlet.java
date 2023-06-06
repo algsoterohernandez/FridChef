@@ -2,17 +2,14 @@ package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
-import com.fpdual.javaweb.service.FavoriteService;
 import com.fpdual.javaweb.service.RecipeService;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
-import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
