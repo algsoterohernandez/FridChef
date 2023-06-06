@@ -741,7 +741,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindFavorites_validIds_returnRecipeDtoList() throws ExternalErrorException{
+    public void testFindFavorites_validIds_returnRecipeDtoList()throws ExternalErrorException, BadRequestException{
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
@@ -771,7 +771,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindFavorite_internalServerError_returnThrowExternalError(){
+    public void testFindFavorite_internalServerError_returnThrowExternalError()throws ExternalErrorException, BadRequestException{
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
@@ -832,7 +832,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException siempre se lanza para indicar un error externo
      */
     @Test
-    public void testFindMostRated_internalServerError_returnThrowExternalErrorException() throws ExternalErrorException{
+    public void testFindMostRated_internalServerError_returnThrowExternalErrorException(){
         //Configuracion del test
         int limit = 10;
 
@@ -891,7 +891,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
      */
     @Test
-    public void testCreateValoration_validValorationDto_returnFalse() throws ExternalErrorException{
+    public void testCreateValoration_validValorationDto_returnFalse(){
         //Configuracion del test
         ValorationDto valorationDto = new ValorationDto();
         valorationDto.setIdRecipe(1);
