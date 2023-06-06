@@ -95,10 +95,7 @@ public class AddRecipeServlet extends ParentServlet {
                 .collect(Collectors.toList());
 
         //Obtenemos archivo de la imagen y la convertimos a un inputStream y pasamos a cadena de bytes
-
         Part imagePart = req.getPart("image");
-        String imageBase64;
-
         InputStream imageInputStream = imagePart.getInputStream();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -108,14 +105,8 @@ public class AddRecipeServlet extends ParentServlet {
             byteArrayOutputStream.write(buffer, 0, bytesRead);
         }
 
-        if (bytesRead != -1) {
-            byte[] imageBytes = byteArrayOutputStream.toByteArray();
-            imageBase64 = Base64.getEncoder().encodeToString(imageBytes);
-        } else {
-            imageBase64 = "null";
-        }
-
-
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        String imageBase64 =  Base64.getEncoder().encodeToString(imageBytes);
 
         //Se crea un objeto RecipeDto con los datos del formulario
         RecipeDto recipeDto = new RecipeDto();

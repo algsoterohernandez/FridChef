@@ -29,15 +29,15 @@ public class AllergenServiceTest {
 
     @BeforeEach
     public void setUp() {
-         allergenService = new AllergenService(fridChefApiClient);
+        allergenService = new AllergenService(fridChefApiClient);
     }
 
     @Test
     public void testFindAllAllergens_returnListOfAllergens_whenSuccessful() throws ExternalErrorException {
         // Arrange
         List<AllergenDto> allergenList = Arrays.asList(
-                new AllergenDto(1,"gluten"),
-                new AllergenDto(2,"pescado")
+                new AllergenDto(1, "gluten"),
+                new AllergenDto(2, "pescado")
         );
 
         when(fridChefApiClient.findAllAllergens()).thenReturn(allergenList);
@@ -49,6 +49,7 @@ public class AllergenServiceTest {
         assertEquals(allergenList, actualAllergens);
         verify(fridChefApiClient, times(1)).findAllAllergens();
     }
+
 
     @ExtendWith(MockitoExtension.class)
     public static class SenderEmailServiceTest {
@@ -64,10 +65,10 @@ public class AllergenServiceTest {
             doNothing().when(credentialProp).load(any(InputStream.class));
 
 
-           //Execute method
+            //Execute method
             SenderEmailService senderEmail = new SenderEmailService(mailProp, credentialProp);
 
-           //Asserts
+            //Asserts
             assertNotNull(senderEmail);
 
         }

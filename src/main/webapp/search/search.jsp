@@ -53,7 +53,7 @@
                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                     <span><b><%=ingredient.getNameIngredient()%></b></span> ·
                     <% } %>
-                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription() %> </p>
+                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription().substring(0, Math.min(recipe.getDescription().length(), 200)) %> ...</p>
                     <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %> · <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                 </div>
                 <div class="image-content">
@@ -93,17 +93,17 @@
                     <h2><%= recipeSuggestion.getName() %></h2>
                     <br/>
                         <% for (IngredientRecipeDto ingredient : recipeSuggestion.getIngredients()) { %>
-                            <b><span><%=ingredient.getNameIngredient()%></span> ·</b>
-                            <% recipeAllergens.addAll(ingredient.getAllergens());%>
+                    <b><span><%=ingredient.getNameIngredient()%></span> ·</b>
+                        <% recipeAllergens.addAll(ingredient.getAllergens());%>
                         <% } %>
-                    <p><span><b>Descripción:</b></span><%= recipeSuggestion.getDescription() %></p>
+                    <p><span><b>Descripción:</b></span> <%= recipeSuggestion.getDescription().substring(0, Math.min(recipeSuggestion.getDescription().length(), 200)) %> ...</p>
                     <p><span><b>Dificultad:</b></span> <%= recipeSuggestion.getDifficulty() %> ·
                         <span><b>Tiempo de preparación:</b></span> <%= recipeSuggestion.getTime() %> <%= recipeSuggestion.getUnitTime() %>
                     </p>
                     <p><b>Alergenos:</b>
-                    <% for(AllergenDto allergen : recipeAllergens) {%>
+                        <% for(AllergenDto allergen : recipeAllergens) {%>
                         <span class="recipe-allergen"><%=allergen.getName()%></span> ·
-                    <% } %>
+                        <% } %>
                     </p>
             </div>
             <div class="image-content">
@@ -118,9 +118,8 @@
         <p></p>
         <% } %>
         <% } %>
-
-        <%@ include file="../footer/footer.jsp" %>
     </div>
+    <%@ include file="../footer/footer.jsp" %>
 </div>
 </body>
 </html>

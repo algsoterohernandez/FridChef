@@ -65,7 +65,6 @@ public class CategoryServiceTest {
     @Test
     void testGetAllCategories_externalErrorException_throwExternalErrorException() throws ExternalErrorException {
         // Configuración y simulacion de respuesta utilizando Mockito
-        List<CategoryDto> expectedCategories = new ArrayList<>();
         when(fridChefApiClient.findCategories()).thenThrow(ExternalErrorException.class);
 
         //Ejecución del método bajo prueba

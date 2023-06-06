@@ -31,7 +31,7 @@
                             <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                             <span><b><%=ingredient.getNameIngredient()%></b></span> ·
                             <% } %>
-                            <p><span><b>Descripción:</b></span> <%= recipe.getDescription() %> </p>
+                            <p><span><b>Descripción:</b></span> <%= recipe.getDescription().substring(0, Math.min(recipe.getDescription().length(), 200)) %> ...</p>
                             <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %> · <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                         </div>
                     </a>

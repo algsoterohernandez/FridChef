@@ -46,10 +46,10 @@
         <div class="dropdown">
             <a href="#">Recetas</a>
             <% if (categoryList != null) { %>
-            <div class="dropdown-content">
+            <div class="dropdown-content"><b>·</b>
                 <% for (CategoryDto category : categoryList) {%>
-                <a href="/FridChef/category?id_category=<%= category.getId()%>"><%= category.getName()%>
-                </a>
+                    <a href="/FridChef/category?id_category=<%= category.getId()%>"><%= category.getName()%>
+                </a><b>·</b>
                 <% } %>
             </div>
             <% } %>

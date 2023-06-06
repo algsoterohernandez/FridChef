@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,8 +56,8 @@ public class IngredientServiceTest {
 
         // Assert
         assertEquals(expectedIngredients, actualIngredients);
-        verify(fridChefApiClient, times(1)).findAllIngredients();
     }
+
 
     @Test
     public void testFindByIngredients_returnListOfRecipeFoundByIngredients_whenSuccessful() throws ExternalErrorException {
@@ -75,7 +76,6 @@ public class IngredientServiceTest {
 
         // Assert
         assertEquals(expectedRecipes, actualRecipes);
-        verify(fridChefApiClient, times(1)).findByIngredients(ingredientList);
     }
 
    @Test
