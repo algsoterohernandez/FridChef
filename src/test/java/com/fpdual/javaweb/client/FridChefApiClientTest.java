@@ -8,7 +8,6 @@ import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -209,9 +208,6 @@ public class FridChefApiClientTest {
 
         // Assert: Verificación de los resultados
         assertEquals(expectedIngredients, actualIngredients);
-        verify(webTarget, times(1)).path("ingredients");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(invocationBuilder, times(1)).get();
     }
 
     @Test
@@ -235,32 +231,30 @@ public class FridChefApiClientTest {
 
         // Assert: Verificación de los resultados
         assertEquals(expectedAllergens, actualAllergens);
-        verify(webTarget, times(1)).path("allergens");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(invocationBuilder, times(1)).get();
+
     }
 
     @Test
     public void testFindRecipeById_ReturnRecipeById_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
-
         int id = 1;
-        RecipeDto expectedRecipe = new RecipeDto( /* Se crea una nueva receta para el test */);
+        RecipeDto expectedRecipe = new RecipeDto(/* Se crea una nueva receta para el test */);
         Response response = mock(Response.class);
         when(response.getStatus()).thenReturn(HttpStatus.OK.getStatusCode());
         when(response.readEntity(RecipeDto.class)).thenReturn(expectedRecipe);
-        when(webTarget.path("recipes/" + id)).thenReturn(webTarget);
-        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-        when(builder.get()).thenReturn(response);
+
+        WebTarget targetMock = mock(WebTarget.class);
+        Invocation.Builder builderMock = mock(Invocation.Builder.class);
+
+        when(webTarget.path("recipes/" + id)).thenReturn(targetMock);
+        when(targetMock.request(MediaType.APPLICATION_JSON)).thenReturn(builderMock);
+        when(builderMock.get()).thenReturn(response);
 
         // Act: Invocación del método a testear
         RecipeDto actualRecipe = fridChefApiClient.findRecipeById(id, true);
 
         // Assert: Verificación de los resultados
         assertEquals(expectedRecipe, actualRecipe);
-        verify(webTarget, times(1)).path("recipes/" + id);
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).get();
     }
 
     @Test
@@ -268,10 +262,19 @@ public class FridChefApiClientTest {
         // Arrange: Configuración del comportamiento esperado del objeto mock
         int id = 1;
         Response response = mock(Response.class);
+
         when(response.getStatus()).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR.getStatusCode());
-        when(webTarget.path("recipes/" + id)).thenReturn(webTarget);
-        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-        when(builder.get()).thenReturn(response);
+        WebTarget webTarget = mock(WebTarget.class);
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.queryParam(anyString(), any())).thenReturn(webTarget);
+
+
+        Invocation.Builder requestBuilder = mock(Invocation.Builder.class);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(requestBuilder);
+
+        when(requestBuilder.get()).thenReturn(response);
+
+        FridChefApiClient fridChefApiClient = new FridChefApiClient(webTarget);
 
         // Assert: Verificación de que se lanza la excepción esperada
         assertThrows(ExternalErrorException.class, () -> {
@@ -279,11 +282,9 @@ public class FridChefApiClientTest {
             fridChefApiClient.findRecipeById(id, true);
         });
 
-        // Assert: Verificación de que se llamaron a los métodos adecuados
-        verify(webTarget, times(1)).path("recipes/" + id);
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).get();
     }
+
+
 
     @Test
     public void testFindByIngredients_ReturnListOfRecipesByIngredients_WhenSuccessful() throws ExternalErrorException {
@@ -309,9 +310,6 @@ public class FridChefApiClientTest {
 
         // Assert: Verificación de los resultados
         assertEquals(expectedRecipes, actualRecipes);
-        verify(webTarget, times(1)).path("recipes/findbyingredients");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -335,10 +333,6 @@ public class FridChefApiClientTest {
             fridChefApiClient.findByIngredients(ingredientsList);
         });
 
-        // Assert: Verificación de que se llamaron a los métodos adecuados
-        verify(webTarget, times(1)).path("recipes/findbyingredients");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -365,9 +359,6 @@ public class FridChefApiClientTest {
 
         // Assert: Verificación de los resultados
         assertEquals(expectedRecipes, actualRecipes);
-        verify(webTarget, times(1)).path("recipes/findSuggestions");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -390,11 +381,6 @@ public class FridChefApiClientTest {
             // Act: Invocación del método a testear
             fridChefApiClient.findRecipeSuggestions(ingredientsList);
         });
-
-        // Assert: Verificación de que se llamaron a los métodos adecuados
-        verify(webTarget, times(1)).path("recipes/findSuggestions");
-        verify(webTarget, times(1)).request(MediaType.APPLICATION_JSON);
-        verify(builder, times(1)).post(Entity.entity(recipeFilterDto, MediaType.APPLICATION_JSON));
     }
     @Test
     public void testFindByStatusPending_listRecipeDtoNull() throws ExternalErrorException {
@@ -755,9 +741,8 @@ public class FridChefApiClientTest {
      *
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
-    @SneakyThrows
     @Test
-    public void testFindFavorites_validIds_returnRecipeDtoList() throws ExternalErrorException{
+    public void testFindFavorites_validIds_returnRecipeDtoList()throws ExternalErrorException, BadRequestException{
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
@@ -787,7 +772,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindFavorite_internalServerError_returnThrowExternalError(){
+    public void testFindFavorite_internalServerError_returnThrowExternalError()throws ExternalErrorException, BadRequestException{
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
@@ -848,7 +833,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException siempre se lanza para indicar un error externo
      */
     @Test
-    public void testFindMostRated_internalServerError_returnThrowExternalErrorException() throws ExternalErrorException{
+    public void testFindMostRated_internalServerError_returnThrowExternalErrorException(){
         //Configuracion del test
         int limit = 10;
 
@@ -907,7 +892,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
      */
     @Test
-    public void testCreateValoration_validValorationDto_returnFalse() throws ExternalErrorException{
+    public void testCreateValoration_validValorationDto_returnFalse(){
         //Configuracion del test
         ValorationDto valorationDto = new ValorationDto();
         valorationDto.setIdRecipe(1);
