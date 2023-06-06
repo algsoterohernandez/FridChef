@@ -2,6 +2,7 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
+import com.fpdual.javaweb.exceptions.BadRequestException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
@@ -300,7 +301,7 @@ public class FridChefApiClient {
      * Busca una receta por su ID.
      *
      * @param id el ID de la receta a buscar.
-     * @param rol el rol del usuario de la sesion
+     * @param onlyAccepted solo las recetas aceptadas del usuario de la sesion
      * @return el objeto RecipeDto que representa la receta encontrada.
      * @throws ExternalErrorException si ocurre un error en la búsqueda de la receta por ID.
      */
@@ -325,7 +326,7 @@ public class FridChefApiClient {
      * @return Lista de objetos RecipeDto que representan las recetas favoritas encontradas.
      * @throws ExternalErrorException Si ocurre un error al realizar la búsqueda de las recetas favoritas.
      */
-    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException {
+    public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException, BadRequestException {
         //Se inicializa la lista de recetas vacía
         List<RecipeDto> recipeDtoList = null;
 
@@ -341,6 +342,10 @@ public class FridChefApiClient {
         /*Si el estado es OK, la respuesta que contiene la lista de recetas, sino genera excepción error externo */
         if (response.getStatus() == HttpStatus.OK.getStatusCode()) {
             recipeDtoList = response.readEntity(new GenericType<List<RecipeDto>>() {});
+
+        } else if (response.getStatus() == HttpStatus.BAD_REQUEST.getStatusCode()) {
+            throw new BadRequestException ("No existen recetas favoritas.");
+
         } else {
             throw new ExternalErrorException("Ha ocurrido un error");
         }

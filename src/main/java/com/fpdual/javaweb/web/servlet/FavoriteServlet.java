@@ -1,6 +1,7 @@
 package com.fpdual.javaweb.web.servlet;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.exceptions.BadRequestException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.service.FavoriteService;
 import com.fpdual.javaweb.service.RecipeService;
@@ -32,7 +33,7 @@ public class FavoriteServlet extends ParentServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
         this.fillCategories(req);
         UserDto user = (UserDto) req.getSession().getAttribute("sessionUser");
         List<RecipeDto> favoriteRecipes = new ArrayList<>();
@@ -44,15 +45,18 @@ public class FavoriteServlet extends ParentServlet {
                 req.setAttribute("favoriteRecipes", favoriteRecipes);
                 req.getRequestDispatcher("/recipes/favorite.jsp").forward(req, resp);
 
-            } catch (ExternalErrorException e) {
+            } catch (BadRequestException e) {
+                req.setAttribute("error", "No se ha podido cargar esta página. Vuelva a intentarlo más tarde.");
+                req.getRequestDispatcher("/recipes/favorite.jsp").forward(req, resp);
+
+            } catch (ExternalErrorException eeee) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
         }
-;
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         // favorite/?id_recipe=2&recipe_favorite=[add|remove]
         String recipeFavorite = req.getParameter("recipe_favorite");
         String idRecipe = req.getParameter("id_recipe");

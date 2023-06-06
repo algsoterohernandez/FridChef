@@ -2,11 +2,13 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.enums.RecipeStatus;
+import com.fpdual.javaweb.exceptions.BadRequestException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.*;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -753,6 +755,7 @@ public class FridChefApiClientTest {
      *
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
+    @SneakyThrows
     @Test
     public void testFindFavorites_validIds_returnRecipeDtoList() throws ExternalErrorException{
         //Configuracion del test
