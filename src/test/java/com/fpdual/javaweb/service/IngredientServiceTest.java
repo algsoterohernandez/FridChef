@@ -125,8 +125,6 @@ public class IngredientServiceTest {
     /**
      * Caso de prueba para el método deleteIngredient.
      * Debería lanzar una excepción al eliminar un ingrediente.
-     *
-     * @throws Exception Si ocurre un error al llamar al cliente API.
      */
     @Test
     public void testDeleteIngredient_validId_ingredientDtoException(){

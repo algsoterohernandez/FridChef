@@ -4,6 +4,7 @@ import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.service.RecipeService;
 import com.fpdual.javaweb.service.ValorationService;
+import com.fpdual.javaweb.web.servlet.dto.CategoryDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import com.fpdual.javaweb.web.servlet.dto.ValorationDto;
@@ -81,11 +82,19 @@ public class RecipeDetailsServlet extends ParentServlet {
             if(valorationCreated != null){
                 req.setAttribute("valorationCreated", valorationCreated.equals("1"));
             }
+            List<CategoryDto> categories = categoryService.getAllCategories();
+            CategoryDto category = categories.stream()
+                    .filter(cat -> recipe.getId() == cat.getId())
+                    .findAny()
+                    .orElse(null);
 
             //Se pasan los parámetros del detalle
             req.setAttribute("recipe", recipe);
+
+            req.setAttribute("category", category);
             req.setAttribute("valorations", valorations);
             req.setAttribute("isFavorite", user != null && user.isFavorite(recipe.getId()));
+
 
             //se redirecciona al jsp para mostrar el detalle
             req.getRequestDispatcher("/recipes/details-recipe.jsp").forward(req, resp);
