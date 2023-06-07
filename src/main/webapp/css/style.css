@@ -48,6 +48,7 @@ h1, h2 {
 div.principal-container {
     display: inline-flex;
     flex: 1;
+
 }
 
 /* Estilo general formularios */
@@ -170,6 +171,11 @@ div.user-session a:visited {
     text-decoration: none;
 }
 
+div.user-logged {
+    text-align: center;
+    display: block;
+}
+
 /* MENU DESPLEGABLE */
 
 .dropdown {
@@ -290,7 +296,7 @@ div.register-form {
 
 
 div.search-left {
-    display: inline-block;
+    display: inline-flex;
     width: 60%;
     margin: auto;
     color: black;
@@ -300,14 +306,18 @@ div.search-left {
     padding: 10px;
 }
 
+div.buscador {
+    padding: 0px;
+}
+
 div.search-right {
-    display: inline-block;
+    display: inline-flex;
     width: 39%;
 }
 
 div.chef-image-right {
     margin: auto;
-    display: flex;
+    display: inline-flex;
 }
 
 div.chef-image-right img{
@@ -327,9 +337,9 @@ div.ingredients-container {
 }
 
 div.recipes-list {
-    display: inline-block;
     vertical-align: top;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -360,9 +370,9 @@ div.image-content img {
 }
 
 div.recipe-suggestions {
-    display: inline-block;
     vertical-align: top;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -688,7 +698,7 @@ div.recipe-details p {
 }
 
 div.buttons input[type="submit"] {
-    background-color: #333;
+    background-color: darkslategrey;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
