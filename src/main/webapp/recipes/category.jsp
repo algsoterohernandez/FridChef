@@ -15,11 +15,12 @@
     <body>
         <div class="content">
             <%@ include file="/header/header.jsp" %>
-            <div class="principal-container">
+            <div class="contprincipal">
+                <h2>Lista de recetas por categoría</h2>
+                <br/>
                 <% if (recipes != null && !recipes.isEmpty()) { %>
                     <% for (RecipeDto recipe : recipes) { %>
-                    <h2>Lista de recetas por categoría</h2>
-                    <br/>
+                        <br/>
                         <div class="recipes-list">
                             <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
                                 <div class="recipe-content">
@@ -42,10 +43,12 @@
                         </div>
                     <% } %>
                 <% } else { %>
-                    <p>No se encontraron recetas para esta categoría. Busca en otra categoría.</p>
+                    <div class="principal-container">
+                        <p>No se encontraron recetas para esta categoría. Busca en otra categoría.</p>
+                    </div>
                 <% } %>
             </div>
-               <%@ include file="/footer/footer.jsp" %>
+            <%@ include file="/footer/footer.jsp" %>
         </div>
     </body>
 </html>
