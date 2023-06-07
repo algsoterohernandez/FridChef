@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.List;
 
 /**
- * Estructura del Receta Dto
+ * Estructura del RecipeDto
  */
 @NoArgsConstructor
 @AllArgsConstructor

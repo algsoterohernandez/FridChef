@@ -26,7 +26,7 @@ public class CategoryService {
      * Obtiene todas las categorías.
      *
      * @return Una lista de objetos CategoryDto que representa todas las categorías disponibles.
-     *         Si se produce un error al obtener las categorías, se imprimirá el mensaje de error y se devolverá una lista vacía.
+     * Si se produce un error al obtener las categorías, se imprimirá el mensaje de error y se devolverá una lista vacía.
      */
     public List<CategoryDto> getAllCategories() {
         List<CategoryDto> categories = new ArrayList<>();

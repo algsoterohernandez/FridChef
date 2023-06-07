@@ -2,7 +2,7 @@ package com.fpdual.javaweb.web.servlet.dto;
 
 import lombok.*;
 /**
- * Estructura del Item Dto
+ * Estructura del ItemDto
  */
 @NoArgsConstructor
 @AllArgsConstructor

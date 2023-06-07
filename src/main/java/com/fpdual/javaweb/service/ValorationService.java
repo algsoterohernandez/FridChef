@@ -41,6 +41,8 @@ public class ValorationService {
 
     /**
      * Busca las valoraciones de una receta especificada por su ID.
+     * En caso de que se genere un error, este será capturado, se emitirá
+     * un mensaje a la consola y se relanzará la excepción
      *
      * @param idRecipe el ID de la receta para la cual se desean obtener las valoraciones.
      * @param limit el límite de valoraciones a obtener.
@@ -50,9 +52,6 @@ public class ValorationService {
     public List<ValorationDto> findValorations(int idRecipe, int limit) throws ExternalErrorException{
         List<ValorationDto> valorationList;
 
-        /*Sel llama al método del apiClient para obtener las valoraciones,
-        * En caso de que se genere un error, este será capturado, se emitirá
-        * un mensaje a la consola y se relanzará la excepción */
         try{
             valorationList = apiClient.findValorations(idRecipe, limit);
         }catch(ExternalErrorException e){

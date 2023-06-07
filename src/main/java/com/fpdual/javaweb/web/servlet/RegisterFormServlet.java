@@ -62,7 +62,7 @@ public class RegisterFormServlet extends ParentServlet {
      * @param req  La solicitud HTTP.
      * @param resp La respuesta HTTP.
      * @throws ServletException Si ocurre un error en el servlet.
-     * @throws IOException      Si ocurre un error de E/S.
+     * @throws IOException Si ocurre un error de E/S.
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

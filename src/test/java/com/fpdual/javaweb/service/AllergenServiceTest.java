@@ -32,6 +32,12 @@ public class AllergenServiceTest {
         allergenService = new AllergenService(fridChefApiClient);
     }
 
+    /**
+     * Prueba unitaria para el método findAllAllergens().
+     * Debe devolver una lista de objetos AllergenDto cuando la llamada al cliente FridChefApiClient tiene éxito.
+     *
+     * @throws ExternalErrorException si ocurre un error durante la comunicación externa.
+     */
     @Test
     public void testFindAllAllergens_returnListOfAllergens_whenSuccessful() throws ExternalErrorException {
         // Arrange
@@ -48,50 +54,5 @@ public class AllergenServiceTest {
         // Assert
         assertEquals(allergenList, actualAllergens);
         verify(fridChefApiClient, times(1)).findAllAllergens();
-    }
-
-
-    @ExtendWith(MockitoExtension.class)
-    public static class SenderEmailServiceTest {
-
-        @Mock
-        private Properties mailProp, credentialProp;
-
-        @Test
-        public void testSenderConstructor_notNull() throws IOException {
-
-            //Prepare method dependencies
-            doNothing().when(mailProp).load(any(InputStream.class));
-            doNothing().when(credentialProp).load(any(InputStream.class));
-
-
-            //Execute method
-            SenderEmailService senderEmail = new SenderEmailService(mailProp, credentialProp);
-
-            //Asserts
-            assertNotNull(senderEmail);
-
-        }
-
-        @Test
-        public void testSenderConstructor_iOException() throws IOException {
-
-            //Prepare method dependencies
-            doNothing().when(mailProp).load(any(InputStream.class));
-            doThrow(IOException.class).when(credentialProp).load(any(InputStream.class));
-
-            //Asserts
-            SenderEmailService email = new SenderEmailService(mailProp, credentialProp);
-            assertNotNull(email);
-        }
-
-        @Test
-        public void testSendEmail_wrongEmail_throwsMessagingException() {
-            //Asserts
-            boolean sended = new SenderEmailService(new Properties(), new Properties()).sendEmail("hola", "hola2", "hola3 ", "hola4");
-
-            assertFalse(sended);
-        }
-
     }
 }

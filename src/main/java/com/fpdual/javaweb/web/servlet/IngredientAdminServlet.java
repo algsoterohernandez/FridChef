@@ -75,18 +75,15 @@ public class IngredientAdminServlet extends ParentServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean succeeded = false;
-
             this.fillCategories(req);
-
 
             if (req.getParameter("method-type").equals("add")) {
 
-                AddIngredient(req, resp);
+                AddIngredient(req);
 
             } else if (req.getParameter("method-type").equals("delete")) {
 
-                DeleteIngredient(req, resp);
+                DeleteIngredient(req);
 
             }
         List<IngredientDto> ingredients = ingredientService.findAllIngredients();
@@ -99,11 +96,8 @@ public class IngredientAdminServlet extends ParentServlet {
      * Método privado que agrega un nuevo ingrediente.
      *
      * @param req  el objeto HttpServletRequest que representa la solicitud HTTP.
-     * @param resp el objeto HttpServletResponse que representa la respuesta HTTP.
-     * @throws ServletException si ocurre un error durante el procesamiento de la solicitud.
-     * @throws IOException      si ocurre un error de E/S durante el procesamiento de la solicitud.
      */
-    private void AddIngredient(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void AddIngredient(HttpServletRequest req) {
 
         try {
             String ingredientName = req.getParameter("ingredient-name");
@@ -132,11 +126,8 @@ public class IngredientAdminServlet extends ParentServlet {
      * Método privado que elimina un ingrediente existente.
      *
      * @param req  el objeto HttpServletRequest que representa la solicitud HTTP.
-     * @param resp el objeto HttpServletResponse que representa la respuesta HTTP.
-     * @throws ServletException si ocurre un error durante el procesamiento de la solicitud.
-     * @throws IOException      si ocurre un error de E/S durante el procesamiento de la solicitud.
      */
-    private void DeleteIngredient(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void DeleteIngredient(HttpServletRequest req) {
 
         try
         {
@@ -156,5 +147,4 @@ public class IngredientAdminServlet extends ParentServlet {
         }
 
     }
-
 }

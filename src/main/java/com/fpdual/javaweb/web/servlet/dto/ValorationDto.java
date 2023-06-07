@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Estructura de la Valoración Dto
+ * Estructura de la ValorationDto
  */
 @NoArgsConstructor
 @Data

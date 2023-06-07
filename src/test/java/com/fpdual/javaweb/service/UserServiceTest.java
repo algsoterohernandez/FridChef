@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+/**
+ * Clase de pruebas unitarias para la clase UserService.
+ */
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
@@ -38,6 +41,10 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el constructor de UserService.
+     * Debe devolver una instancia no nula de UserService.
+     */
     @Test
     public void testUserServiceConstructor() {
 
@@ -45,6 +52,14 @@ public class UserServiceTest {
         assertNotNull(userService);
 
     }
+
+    /**
+     * Prueba unitaria para el método registerUser().
+     * Debe devolver un UserDto no nulo cuando la llamada al cliente FridChefApiClient tiene éxito.
+     *
+     * @throws ExternalErrorException   si ocurre un error durante la comunicación externa.
+     * @throws AlreadyExistsException   si el usuario ya existe.
+     */
 
     @Test
     public void testRegisterUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
@@ -61,6 +76,13 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método registerUser().
+     * Debe lanzar AlreadyExistsException cuando el usuario ya existe.
+     *
+     * @throws ExternalErrorException   si ocurre un error durante la comunicación externa.
+     * @throws AlreadyExistsException   si el usuario ya existe.
+     */
     @Test
     public void testRegisterUser_validUserDto_userDtoAlreadyExistsException() throws ExternalErrorException, AlreadyExistsException {
 
@@ -76,6 +98,13 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método registerUser().
+     * Debe lanzar ExternalErrorException cuando ocurre un error durante la comunicación externa.
+     *
+     * @throws ExternalErrorException   si ocurre un error durante la comunicación externa.
+     * @throws AlreadyExistsException   si el usuario ya existe.
+     */
     @Test
     public void testRegisterUser_validUserDto_userDtoExternalErrorException() throws ExternalErrorException, AlreadyExistsException {
 
@@ -87,6 +116,10 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método unregisterUser().
+     * Debe devolver true cuando se elimina el usuario correctamente.
+     */
     @Test
     public void testUnregisterUser_validEmail_userDeletedTrue()  {
 
@@ -101,6 +134,10 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método unregisterUser().
+     * Debe devolver false cuando no se puede eliminar el usuario.
+     */
     @Test
     public void testUnregisterUser_validEmail_userDeletedFalse()  {
 
@@ -115,6 +152,12 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método unregisterUser().
+     * Debe lanzar una excepción cuando ocurre un error durante la eliminación del usuario.
+     *
+     * @throws Exception si ocurre un error durante la eliminación del usuario.
+     */
     @Test
     public void testUnregisterUser_validEmail_userException(){
 
@@ -126,6 +169,12 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método findUser().
+     * Debe devolver un UserDto no nulo cuando la llamada al cliente FridChefApiClient tiene éxito.
+     *
+     * @throws Exception si ocurre un error durante la búsqueda del usuario.
+     */
     @Test
     public void testFindUser_validUserDto_userDtoNotNull() throws Exception {
 
@@ -142,6 +191,12 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método findUser().
+     * Debe lanzar ExternalErrorException cuando ocurre un error durante la búsqueda del usuario.
+     *
+     * @throws Exception si ocurre un error durante la búsqueda del usuario.
+     */
     @Test
     public void testFindUser_validUserDto_userDtoExternalErrorException() throws Exception {
 

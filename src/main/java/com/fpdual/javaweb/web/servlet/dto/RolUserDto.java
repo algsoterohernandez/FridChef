@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Estructura del Rol Dto
+ * Estructura del RolUserDto
  */
 @NoArgsConstructor
 @Data
