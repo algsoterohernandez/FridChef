@@ -4,9 +4,8 @@
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.RecipeDto" %>
 <%@ page import="com.fpdual.javaweb.web.servlet.dto.IngredientRecipeDto" %>
 <%@ page import="com.fpdual.javaweb.enums.RecipeStatus" %>
-<%@ page import="java.util.Locale" %>
-<%@ page import="jdk.jfr.Category" %>
 
+<% CategoryDto category = (CategoryDto) request.getAttribute("category");%>
 <% RecipeDto recipe = (RecipeDto) request.getAttribute("recipe");%>
 <% List<ValorationDto> valorations = (List<ValorationDto>) request.getAttribute("valorations");%>
 <% Boolean isFavorite = (Boolean) request.getAttribute("isFavorite");%>
@@ -30,7 +29,7 @@
             <div class="title"><%= recipe.getName() %></div>
             <div class="category">
                 <h2>Categoria</h2>
-                <!--<p></p>-->
+                <%=category.getName()%>
             </div>
             <div class="difficulty">
                     <h2>Dificultad</h2>
