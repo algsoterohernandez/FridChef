@@ -5,6 +5,10 @@
     src: url('../css/epilepsja.otf') format('opentype');
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background: url("https://www.recetasderechupete.com/wp-content/themes/derechupete/img/patterns_rdr2.png");
     font-family: Amatic SC, serif;
@@ -40,9 +44,20 @@ div.header {
     padding: 0px;
 }
 
-h1, h2 {
+h1, h2, h3 {
     color: darkslategrey;
     margin: 0px;
+    font-family: Amatic SC, serif;
+}
+
+p {
+    font-family: Jost;
+    font-size: 16px;
+}
+
+ol {
+    font-family: Jost;
+    font-size: 16px;
 }
 
 div.principal-container {
@@ -263,8 +278,6 @@ div.user-session {
 }
 
 
-
-
 /* Estilos específicos para login y registro */
 
 div.login-content,
@@ -294,7 +307,6 @@ div.register-form {
 /* Buscador y listado de sus recetas */
 
 
-
 div.search-left {
     display: inline-flex;
     width: 60%;
@@ -320,7 +332,7 @@ div.chef-image-right {
     display: inline-flex;
 }
 
-div.chef-image-right img{
+div.chef-image-right img {
     width: 75%;
     margin: auto;
 }
@@ -405,7 +417,6 @@ div.ingredient-wrapper {
 }
 
 
-
 .ingredient-item {
     background-color: #f1f1f1;
     border: 1px solid #ccc;
@@ -472,6 +483,10 @@ div.ingredient-wrapper {
     display: inline-block;
 }
 
+div.no-results {
+    text-align: center;
+}
+
 /* footer */
 
 div.footer {
@@ -492,7 +507,7 @@ div.footer {
 div.footer-redes {
     margin: auto;
     padding: 1px;
-    text-align:center;
+    text-align: center;
 }
 
 div.footer-redes i {
@@ -582,24 +597,24 @@ div.main-form {
     border: 1px solid darkslategrey;
 }
 
-.dificultad-form  {
+.dificultad-form {
     display: inline-block;
 }
 
 /*Recipe Request*/
-.recipe-box a{
+.recipe-box a {
     text-decoration: none;
     color: #444444;
     padding: 0%;
 }
 
-.recipe-box a:visited{
+.recipe-box a:visited {
     text-decoration: none;
 }
 
-.pending-list{
-    width:100%;
-    display:flex;
+.pending-list {
+    width: 100%;
+    display: flex;
     padding: 0%;
     border-color: #444444;
     border-top: solid;
@@ -607,12 +622,12 @@ div.main-form {
     border-width: thin;
 }
 
-.recipe-pending{
-    width:60%
+.recipe-pending {
+    width: 60%
 }
 
-.recipe-date{
-    width:40%
+.recipe-date {
+    width: 40%
 }
 
 /*botón favorito*/
@@ -639,6 +654,7 @@ div.main-form {
 .favorite-button.is-favorite .heart {
     background-image: url('/FridChef/images/corazon-lleno.png');
 }
+
 /* Estilos para el detalle de la receta */
 div.title {
     text-align: center;

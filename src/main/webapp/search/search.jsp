@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FridChef</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC|Jost">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
     <div class="contprincipal">
         <div class="search">
             <div class="search-left">
-
+                <div class="buscador">
                     <h1>En mi nevera tengo...</h1>
                     <input list="ingrediente1" id="add-ingredient" name="ingredientes"  placeholder="Ingrediente">
                     <datalist id="ingrediente1">
@@ -39,11 +39,13 @@
                     <button type="button" id="search-button">Buscar</button>
                     <form action="search" method="post" id="form">
                     </form>
-
+                </div>
             </div>
         </div>
         <% if (recipesList.isEmpty()) { %>
-        <p>No se han encontrado recetas con estos ingredientes</p>
+        <div class="no-results">
+            <h2>No se han encontrado recetas con estos ingredientes</h2>
+        </div>
         <% } else {
             for (RecipeDto recipe : recipesList) {
         %>
@@ -72,10 +74,12 @@
             }
         %>
         <% if (recipeSuggestions.isEmpty()) { %>
-        <p>¡Prueba con otros ingredientes!</p>
+        <div class="no-results">
+            <h3>¡Prueba con otros ingredientes!</h3>
+        </div>
         <% } else { %>
         <div class="allergen-list">
-            <span>Con algunos ingredientes más, podrías cocinar todo esto!</span>
+            <span><h3>Con algunos ingredientes más, podrías cocinar todo esto!</h3></span>
             <p></p>
             <label for="allergen-filter-options">Mostrar recetas que no contengan:</label>
             <select id="allergen-filter-options">

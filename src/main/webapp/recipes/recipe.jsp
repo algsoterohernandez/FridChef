@@ -11,7 +11,8 @@
     <head>
         <meta charset="UTF-8">
         <title>FridChef</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC|Jost">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
         <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
         <script src="js/buscador.js" defer></script>
