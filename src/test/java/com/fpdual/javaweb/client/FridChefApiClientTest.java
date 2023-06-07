@@ -246,7 +246,8 @@ public class FridChefApiClientTest {
         WebTarget targetMock = mock(WebTarget.class);
         Invocation.Builder builderMock = mock(Invocation.Builder.class);
 
-        when(webTarget.path("recipes/" + id)).thenReturn(targetMock);
+        when(webTarget.path("recipes/" + id)).thenReturn(webTarget);
+        when(webTarget.queryParam(anyString(), any())).thenReturn(targetMock);
         when(targetMock.request(MediaType.APPLICATION_JSON)).thenReturn(builderMock);
         when(builderMock.get()).thenReturn(response);
 
