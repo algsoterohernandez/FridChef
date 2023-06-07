@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FridChef</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Fredoka One|Amatic SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC|Jost">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="/images/logo.jpg" type="image/icon">
     <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script>
@@ -27,6 +27,7 @@
             <%@ include file="../header/header.jsp" %>
             <div class="contprincipal">
                 <h2>Tus recetas favoritas:</h2>
+                <br/>
                 <% if (favoriteRecipesList!=null) { %>
                     <%for (RecipeDto recipe : favoriteRecipesList){%>
                         <div class="recipes-list">
@@ -37,7 +38,7 @@
                                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
                                     <span><b><%=ingredient.getNameIngredient()%></b></span> ·
                                     <% } %>
-                                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription() %> </p>
+                                    <p><span><b>Descripción:</b></span> <%= recipe.getDescription().substring(0, Math.min(recipe.getDescription().length(), 200)) %> ...</p>
                                     <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %> · <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                                 </div>
                             </a>
