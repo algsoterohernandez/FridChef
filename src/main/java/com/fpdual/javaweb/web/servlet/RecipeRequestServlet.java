@@ -40,6 +40,7 @@ public class RecipeRequestServlet extends ParentServlet{
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+        this.fillCategories(req);
 
         try {
 
