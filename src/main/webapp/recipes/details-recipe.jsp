@@ -71,10 +71,10 @@
             <h2>Categoria</h2>
             <p><%= recipe.getIdCategory() %></p>
         </div>
-        <div class="unit-time">
+        <!--<div class="unit-time">
             <h2>Unidades</h2>
             <p><%= recipe.getUnitTime() %></p>
-        </div>
+        </div>-->
         <div>
             <h3>Esta receta está valorada con <%= recipe.getValoration() %> puntos</h3>
         </div>
@@ -84,7 +84,7 @@
             <p>Fecha de creación: <%= recipe.getCreateTime() %> </p>
         </div>
     </div>
-    <div>
+    <div class="valoration">
         <h3>Valora esta receta:</h3>
         <form action="/FridChef/details-recipe?id=<%=recipe.getId()%>" method="post">
             <div>

@@ -628,7 +628,7 @@ div.main-form {
 .favorite-button .heart {
     width: 24px;
     height: 24px;
-    background-image: url('/images/corazon-vacio.png');
+    background-image: url('/FridChef/images/corazon-vacio.png');
     background-repeat: no-repeat;
     background-position: center;
     transition: background-image 0.3s ease-in-out;
@@ -637,7 +637,7 @@ div.main-form {
 }
 
 .favorite-button.is-favorite .heart {
-    background-image: url('/images/corazon-lleno.png');
+    background-image: url('/FridChef/images/corazon-lleno.png');
 }
 /* Estilos para el detalle de la receta */
 
@@ -743,7 +743,9 @@ div.main-form {
     color: #666;
     line-height: 1.5;
 }
-
+.valoration{
+    display: inline-block;
+}
 .difficulty h2, .category h2, .unit-time h2 {
     font-size: 20px;
     margin-bottom: 10px;
@@ -779,40 +781,6 @@ div.main-form {
     color: #666;
     margin: 5px 0;
     line-height: 1.5;
-}
-
-.buttons {
-    margin-top: 20px;
-}
-
-.buttons a {
-    display: inline-block;
-    margin-right: 10px;
-    padding: 8px 16px;
-    background-color: #ff5851;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.buttons a:hover {
-    background-color: #ff0000;
-}
-
-
-.buttons input[type="submit"] {
-    background-color: #ff5252;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.buttons input[type="submit"]:hover {
-    background-color: #ff0000;
 }
 
 /* Responsive Styles */

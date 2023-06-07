@@ -1,7 +1,6 @@
 const favoriteButton = document.getElementById("favoriteButton");
 
 favoriteButton.addEventListener("click", function () {
-    debugger;
     const isFavorite = favoriteButton.classList.contains('is-favorite');
     const idRecipe = favoriteButton.getAttribute("recipe");
     if (isFavorite) {
