@@ -156,7 +156,6 @@ public class UserServiceTest {
      * Prueba unitaria para el método unregisterUser().
      * Debe lanzar una excepción cuando ocurre un error durante la eliminación del usuario.
      *
-     * @throws Exception si ocurre un error durante la eliminación del usuario.
      */
     @Test
     public void testUnregisterUser_validEmail_userException(){
