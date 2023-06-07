@@ -2,6 +2,7 @@ package com.fpdual.javaweb.client;
 
 import com.fpdual.javaweb.enums.HttpStatus;
 import com.fpdual.javaweb.enums.RecipeStatus;
+import com.fpdual.javaweb.exceptions.BadRequestException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.web.servlet.dto.*;
@@ -742,7 +743,7 @@ public class FridChefApiClientTest {
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
      */
     @Test
-    public void testFindFavorites_validIds_returnRecipeDtoList()throws ExternalErrorException, BadRequestException{
+    public void testFindFavorites_validIds_returnRecipeDtoList()throws ExternalErrorException, BadRequestException {
         //Configuracion del test
         List<Integer> ids = List.of(1,2,3);
         List<RecipeDto>expectedRecipes = new ArrayList<>();
