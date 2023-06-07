@@ -1,7 +1,6 @@
 package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
-import com.fpdual.javaweb.exceptions.AlreadyExistsException;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +39,12 @@ public class IngredientServiceTest {
 
     }
 
+    /**
+     * Caso de prueba para el método findAllIngredients.
+     * Debería devolver una lista de ingredientes obtenida del cliente API.
+     *
+     * @throws ExternalErrorException Si ocurre un error externo al llamar al cliente API.
+     */
     @Test
     public void testFindAllIngredients_returnListOfIngredients_whenSuccessful() throws ExternalErrorException {
         // Arrange
@@ -58,7 +62,12 @@ public class IngredientServiceTest {
         assertEquals(expectedIngredients, actualIngredients);
     }
 
-
+    /**
+     * Caso de prueba para el método findByIngredients.
+     * Debería devolver una lista de recetas encontradas por los ingredientes especificados.
+     *
+     * @throws ExternalErrorException Si ocurre un error externo al llamar al cliente API.
+     */
     @Test
     public void testFindByIngredients_returnListOfRecipeFoundByIngredients_whenSuccessful() throws ExternalErrorException {
         // Arrange
@@ -78,6 +87,10 @@ public class IngredientServiceTest {
         assertEquals(expectedRecipes, actualRecipes);
     }
 
+    /**
+     * Caso de prueba para el método deleteIngredient.
+     * Debería eliminar un ingrediente y devolver true.
+     */
    @Test
     public void testDeleteIngredient_validId_ingredientDtoTrue()  {
 
@@ -92,6 +105,10 @@ public class IngredientServiceTest {
 
     }
 
+    /**
+     * Caso de prueba para el método deleteIngredient.
+     * Debería eliminar un ingrediente y devolver false.
+     */
     @Test
     public void testDeleteIngredient_validId_ingredientDtoFalse()  {
 
@@ -103,9 +120,14 @@ public class IngredientServiceTest {
 
         //Asserts
         assertFalse(deleted);
-
     }
 
+    /**
+     * Caso de prueba para el método deleteIngredient.
+     * Debería lanzar una excepción al eliminar un ingrediente.
+     *
+     * @throws Exception Si ocurre un error al llamar al cliente API.
+     */
     @Test
     public void testDeleteIngredient_validId_ingredientDtoException(){
 
@@ -117,6 +139,12 @@ public class IngredientServiceTest {
 
     }
 
+    /**
+     * Caso de prueba para el método createIngredient.
+     * Debería crear un nuevo ingrediente y devolver el objeto IngredientDto resultante.
+     *
+     * @throws ExternalErrorException Si ocurre un error externo al llamar al cliente API.
+     */
     @Test
     public void testCreateIngredient_validName_ingredientDtoNotNull() throws ExternalErrorException {
 
@@ -132,6 +160,12 @@ public class IngredientServiceTest {
 
     }
 
+    /**
+     * Caso de prueba para el método createIngredient.
+     * Debería lanzar una excepción de tipo ExternalErrorException al crear un ingrediente.
+     *
+     * @throws ExternalErrorException Si ocurre un error externo al llamar al cliente API.
+     */
     @Test
     public void testCreateIngredient_validName_ingredientDtoExternalErrorException() throws ExternalErrorException {
 
@@ -140,7 +174,6 @@ public class IngredientServiceTest {
 
         //Asserts
         assertThrows(ExternalErrorException.class, () -> ingredientService.createIngredient(exampleIngredientDto.getName()));
-
     }
 
 }

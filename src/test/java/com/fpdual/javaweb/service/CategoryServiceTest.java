@@ -30,7 +30,6 @@ public class CategoryServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link CategoryService#getAllCategories()}
      * cuando se recibe una respuesta válida y se verifica que el método retorne las categorías esperadas.
      *
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
@@ -57,7 +56,6 @@ public class CategoryServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link CategoryService#getAllCategories()}
      * cuando se produce una excepción externa y se verifica que el método retorne una lista vacía en caso de capturar una {@link ExternalErrorException}.
      *
      * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.

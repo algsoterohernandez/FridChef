@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.List;
 
 /**
- * Estructura del Ingrediente Dto
+ * Estructura del IngredienteDto
  *
  */
  @NoArgsConstructor

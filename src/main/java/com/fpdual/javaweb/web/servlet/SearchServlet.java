@@ -81,5 +81,4 @@ public class SearchServlet extends ParentServlet {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/search/search.jsp");
         dispatcher.forward(req, resp);
     }
-
 }

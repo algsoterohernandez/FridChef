@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Genera los metodos: getter, setter, toString, equals, hashCode y canEqual
+ * Estructura de FavoriteDto
  */
 @Data
 
@@ -17,9 +17,4 @@ public class FavoriteDto {
     private int idRecipe;
     private int idUser;
     private String createTime;
-
-    public FavoriteDto(int idRecipe, int idUser) {
-        this.idRecipe = idRecipe;
-        this.idUser = idUser;
-    }
 }

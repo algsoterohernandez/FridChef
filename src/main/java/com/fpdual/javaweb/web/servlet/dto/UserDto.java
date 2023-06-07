@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * Estructura del Usuario Dto
+ * Estructura del UsuarioDto
  */
 @NoArgsConstructor
 @Data

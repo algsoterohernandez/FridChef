@@ -15,6 +15,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet que maneja las solicitudes para mostrar los detalles de una receta.
+ */
+
 @WebServlet(name = "RecipeDetailsServlet", urlPatterns = {"/details-recipe"})
 public class RecipeDetailsServlet extends ParentServlet {
     private RecipeService recipeService;
@@ -22,7 +26,6 @@ public class RecipeDetailsServlet extends ParentServlet {
     private ValorationService valorationService;
 
     /**
-     * {@inheritDoc}
      * Método de inicialización del servlet.
      * Crea una instancia de FridChefApiClient, RecipeService y ValorationService para manejar recetas y valoraciones.
      * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
@@ -44,10 +47,14 @@ public class RecipeDetailsServlet extends ParentServlet {
      * Si se encuentra la receta, se establece como atributo en la solicitud y se redirige al archivo JSP correspondiente para mostrar los detalles de la receta.
      * En caso de producirse una excepción del tipo ExternalErrorException, se imprime el mensaje de error y se establece el código de respuesta como "SC_NOT_FOUND" (404).
      * En caso de producirse una excepción del tipo NumberFormatException al convertir el parámetro "id" a un entero, se establece el código de respuesta como "SC_BAD_REQUEST" (400).
+     *
+     * @param req HttpServletRequest: El objeto de solicitud HTTP.
+     * @param resp HttpServletResponse: El objeto de respuesta HTTP.
+     * @throws ServletException si ocurre un error en el servlet.
+     * @throws IOException si ocurre un error de entrada/salida.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //se obtiene el parámetro de la url
         String recipeId = req.getParameter("id");
         if (recipeId == null || recipeId.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -100,9 +107,13 @@ public class RecipeDetailsServlet extends ParentServlet {
      * Crea la valoración llamando al método createValoration de valorationService.
      * Redirecciona a la página de detalles de la receta después de crear la valoración.
      * En caso de excepción ExternalErrorException, devuelve un código de estado de recurso no encontrado.
+     *
+     * @param req HttpServletRequest: El objeto de solicitud HTTP.
+     * @param resp HttpServletResponse: El objeto de respuesta HTTP.
+     * @throws IOException si ocurre un error de entrada/salida.
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // Obtener parámetros necesarios
         String recipeId = req.getParameter("id");
         int idRecipe = Integer.parseInt(recipeId);

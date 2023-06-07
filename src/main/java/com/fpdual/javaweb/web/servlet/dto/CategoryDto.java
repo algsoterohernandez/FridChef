@@ -3,7 +3,7 @@ package com.fpdual.javaweb.web.servlet.dto;
 import lombok.*;
 
 /**
- * Estructura de Category Dto
+ * Estructura de CategoryDto
  *
  */
 @NoArgsConstructor

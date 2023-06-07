@@ -107,9 +107,6 @@ public class SenderEmailService {
                         credentialProp.getProperty(CredentialsConstants.PASSWD));
             }
         });
-
-        // Usado para depurar problemas SMTP
-        session.setDebug(true);
         return session;
     }
 }

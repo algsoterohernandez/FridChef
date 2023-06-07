@@ -3,7 +3,7 @@ package com.fpdual.javaweb.web.servlet.dto;
 import lombok.*;
 
 /**
- * Estructura del Alergeno Dto
+ * Estructura del AlergenoDto
  */
 @NoArgsConstructor
 @AllArgsConstructor

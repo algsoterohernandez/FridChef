@@ -23,6 +23,10 @@ public class FavoriteService {
 
     /**
      * Agrega una receta a la lista de favoritos de un usuario.
+     * Para ello, Se verifica si el idReceta ya está en la lista de favoritos del usuario.
+     * Si no se encuentra en la lista entonces llama al método de la API para agregar
+     * el idReceta como favorita y si esta se ha añadido correctamente entonces
+     * se actualiza la lista de favoritos del usuario con el nuevo idReceta
      *
      * @param idRecipe ID de la receta a agregar
      * @param user     instancia de UserDto que representa al usuario
@@ -30,10 +34,6 @@ public class FavoriteService {
      */
     public UserDto addFavorite(int idRecipe, UserDto user) {
         try {
-            /*Se verifica si el idReceta ya está en la lista de favoritos del usuario.
-            si no se encuentra en la lista entonces llama al método de la API para agregar
-            el idReceta como favorita y si esta se ha añadido correctamente entonces
-            se actualiza la lista de favoritos del usuario con el nuevo idReceta*/
             if (!user.isFavorite(idRecipe)) {
                 boolean favoriteAdded = apiClient.createFavorite(idRecipe, user.getId());
 
@@ -50,17 +50,15 @@ public class FavoriteService {
     }
 
     /**
-     * Agrega una receta a la lista de favoritos de un usuario.
+     * Se comprueba si el id de la receta está ya en la lista, Si no está se agrega a la lista
+     * de favoritos del usuario  y se setea para actualizar la "nueva lista" con el valor
+     * agregado al UserDto
      *
      * @param idRecipe ID de la receta a agregar
      * @param user     instancia de UserDto que representa al usuario
      * @return instancia de UserDto actualizada con la receta agregada a la lista de favoritos
      */
     private UserDto addRecipeToFavoriteList(int idRecipe, UserDto user) {
-        /*Se obtiene la lista actual de favoritos del usuario y se comprueba
-        si el id de la receta está ya en la lista, Si no está se agrega a la lista
-        de favoritos del usuario  y se setea para actualizar la "nueva lista" con el valor
-        agregado al UserDto*/
         List<Integer> favoriteList = user.getFavoriteList();
         if (!favoriteList.contains(idRecipe)) {
             favoriteList.add(idRecipe);
@@ -72,16 +70,16 @@ public class FavoriteService {
 
     /**
      * Elimina una receta de la lista de favoritos de un usuario.
+     * Se verifica si el idReceta ya está en la lista de favoritos del usuario.
+     * si se encuentra en la lista entonces llama al método de la API para eliminar
+     * el idReceta de favorito y si esta se ha eliminado correctamente entonces
+     * se actualiza la lista de favoritos del usuario sin el idReceta
      *
      * @param idRecipe ID de la receta a eliminar
      * @param user     instancia de UserDto que representa al usuario
      * @return instancia de UserDto actualizada con la receta eliminada de la lista de favoritos
      */
     public UserDto removeFavorite(int idRecipe, UserDto user) {
-        /*Se verifica si el idReceta ya está en la lista de favoritos del usuario.
-        si se encuentra en la lista entonces llama al método de la API para eliminar
-        el idReceta de favorito y si esta se ha eliminado correctamente entonces
-        se actualiza la lista de favoritos del usuario sin el idReceta*/
         try {
             if (user.isFavorite(idRecipe)) {
                 boolean favoriteRemoved = apiClient.deleteFavorite(idRecipe, user.getId());
@@ -98,16 +96,16 @@ public class FavoriteService {
     }
 
     /**
-     * Elimina una receta de la lista de favoritos de un usuario.
+     * Se obtiene la lista actual de favoritos del usuario y se comprueba
+     * si el id de la receta está en la lista, Si está se elimina de la lista
+     * de favoritos del usuario  y se setea para actualizar la "nueva lista" sin el idRecipe al UserDto
      *
      * @param idRecipe ID de la receta a eliminar
      * @param user     instancia de UserDto que representa al usuario
      * @return instancia de UserDto actualizada con la receta eliminada de la lista de favoritos
      */
     private UserDto removeRecipeToFavoriteList(int idRecipe, UserDto user) {
-        /*Se obtiene la lista actual de favoritos del usuario y se comprueba
-        si el id de la receta está en la lista, Si está se elimina de la lista
-        de favoritos del usuario  y se setea para actualizar la "nueva lista" sin el idRecipe al UserDto*/
+
         List<Integer> favoriteList = user.getFavoriteList();
         if (favoriteList.contains(idRecipe)) {
             favoriteList.remove(favoriteList.indexOf(idRecipe));

@@ -3,7 +3,7 @@ package com.fpdual.javaweb.web.servlet.dto;
 import lombok.*;
 import java.util.List;
 /**
- * Estructura de Recepta filtro Dto
+ * Estructura de RecepipeFilterDto
  */
 @NoArgsConstructor
 @Data

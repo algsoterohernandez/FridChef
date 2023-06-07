@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Estructura del Item Dto
+ * Estructura del IngredientRecipeDto
  */
 @NoArgsConstructor
 @AllArgsConstructor

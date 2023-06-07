@@ -1,15 +1,22 @@
 package com.fpdual.javaweb.util;
 
+import com.fpdual.javaweb.service.ValorationService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Clase de pruebas unitarias para la clase UtilsTest
+ */
 @ExtendWith(MockitoExtension.class)
 
 public class UtilsTest {
 
+    /**
+     * Prueba unitaria para el método encryptPassword().
+     * Debe devolver una cadena encriptada no nula cuando se le pasa una cadena válida.
+     */
     @Test
     public void testEncryptPassword_validString_encryptedString() {
         //Execute method
@@ -21,6 +28,10 @@ public class UtilsTest {
 
     }
 
+    /**
+     * Prueba unitaria para el método encryptPassword().
+     * Debe devolver un valor nulo cuando se le pasa una cadena nula.
+     */
     @Test
     public void testEncryptPassword_nullString_nullResponse() {
 
@@ -29,5 +40,4 @@ public class UtilsTest {
         assertNull(encrypted);
 
     }
-
 }

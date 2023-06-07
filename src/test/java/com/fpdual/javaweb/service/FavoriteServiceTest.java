@@ -29,7 +29,6 @@ public class FavoriteServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link FavoriteService#addFavorite(int, UserDto)}
      * cuando se intenta agregar una receta a favoritos que aún no está en la lista y se verifica
      * que la receta se agrega correctamente.
      *
@@ -54,14 +53,11 @@ public class FavoriteServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link FavoriteService#removeFavorite(int, UserDto)}
      * cuando se intenta agregar una receta de favoritos que ya está en la lista y se verifica
      * que la lista de favoritos no se modifica.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
      */
     @Test
-    public void testAddFavorite_recipeInList_favoriteListUnchanged() throws ExternalErrorException {
+    public void testAddFavorite_recipeInList_favoriteListUnchanged(){
         // Configuración del test
         int idRecipe = 1;
         UserDto user = new UserDto();
@@ -76,7 +72,6 @@ public class FavoriteServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link FavoriteService#removeFavorite(int, UserDto)}
      * cuando se intenta eliminar una receta de favoritos que está en la lista y se verifica
      * que la receta se elimina correctamente.
      *
@@ -104,14 +99,11 @@ public class FavoriteServiceTest {
     }
 
     /**
-     * Prueba unitaria para el método {@link FavoriteService#removeFavorite(int, UserDto)}
      * cuando se intenta eliminar una receta de favoritos que no está en la lista y se verifica
      * que la lista de favoritos no se modifica.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
      */
     @Test
-    public void testRemoveFavorite_recipeInList_favoriteListUnchanged() throws ExternalErrorException {
+    public void testRemoveFavorite_recipeInList_favoriteListUnchanged() {
         // Configuración del test
         int idRecipe = 1;
         UserDto user = new UserDto();
