@@ -5,6 +5,10 @@
     src: url('../css/epilepsja.otf') format('opentype');
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background: url("https://www.recetasderechupete.com/wp-content/themes/derechupete/img/patterns_rdr2.png");
     font-family: Amatic SC, serif;
@@ -40,14 +44,26 @@ div.header {
     padding: 0px;
 }
 
-h1, h2 {
+h1, h2, h3 {
     color: darkslategrey;
     margin: 0px;
+    font-family: Amatic SC, serif;
+}
+
+p {
+    font-family: Jost;
+    font-size: 16px;
+}
+
+ol {
+    font-family: Jost;
+    font-size: 16px;
 }
 
 div.principal-container {
     display: inline-flex;
     flex: 1;
+
 }
 
 /* Estilo general formularios */
@@ -170,6 +186,11 @@ div.user-session a:visited {
     text-decoration: none;
 }
 
+div.user-logged {
+    text-align: center;
+    display: block;
+}
+
 /* MENU DESPLEGABLE */
 
 .dropdown {
@@ -243,6 +264,7 @@ div.user-session {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    right: 18%;
 }
 
 .user-container a {
@@ -255,8 +277,6 @@ div.user-session {
 .user-session:hover .user-container {
     display: block;
 }
-
-
 
 
 /* Estilos específicos para login y registro */
@@ -288,9 +308,8 @@ div.register-form {
 /* Buscador y listado de sus recetas */
 
 
-
 div.search-left {
-    display: inline-block;
+    display: inline-flex;
     width: 60%;
     margin: auto;
     color: black;
@@ -300,17 +319,21 @@ div.search-left {
     padding: 10px;
 }
 
+div.buscador {
+    padding: 0px;
+}
+
 div.search-right {
-    display: inline-block;
+    display: inline-flex;
     width: 39%;
 }
 
 div.chef-image-right {
     margin: auto;
-    display: flex;
+    display: inline-flex;
 }
 
-div.chef-image-right img{
+div.chef-image-right img {
     width: 75%;
     margin: auto;
 }
@@ -327,9 +350,9 @@ div.ingredients-container {
 }
 
 div.recipes-list {
-    display: inline-block;
     vertical-align: top;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -360,9 +383,9 @@ div.image-content img {
 }
 
 div.recipe-suggestions {
-    display: inline-block;
     vertical-align: top;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     background-color: white;
     border: 1px solid #636363;
     box-shadow: 5px 5px 15px #694d19;
@@ -393,7 +416,6 @@ div.ingredient-wrapper {
     padding: .25rem .5rem;
     text-align: center;
 }
-
 
 
 .ingredient-item {
@@ -462,6 +484,10 @@ div.ingredient-wrapper {
     display: inline-block;
 }
 
+div.no-results {
+    text-align: center;
+}
+
 /* footer */
 
 div.footer {
@@ -482,8 +508,15 @@ div.footer {
 div.footer-redes {
     margin: auto;
     padding: 1px;
-    text-align:center;
+    text-align: center;
 }
+
+div.footer-redes a:link,
+div.footer-redes a:visited{
+    text-decoration: none;
+    color: #444444;
+}
+
 
 div.footer-redes i {
     color: darkslategrey;
@@ -572,24 +605,24 @@ div.main-form {
     border: 1px solid darkslategrey;
 }
 
-.dificultad-form  {
+.dificultad-form {
     display: inline-block;
 }
 
 /*Recipe Request*/
-.recipe-box a{
+.recipe-box a {
     text-decoration: none;
     color: #444444;
     padding: 0%;
 }
 
-.recipe-box a:visited{
+.recipe-box a:visited {
     text-decoration: none;
 }
 
-.pending-list{
-    width:100%;
-    display:flex;
+.pending-list {
+    width: 100%;
+    display: flex;
     padding: 0%;
     border-color: #444444;
     border-top: solid;
@@ -597,12 +630,12 @@ div.main-form {
     border-width: thin;
 }
 
-.recipe-pending{
-    width:60%
+.recipe-pending {
+    width: 60%
 }
 
-.recipe-date{
-    width:40%
+.recipe-date {
+    width: 40%
 }
 
 /*botón favorito*/
@@ -630,6 +663,7 @@ div.main-form {
 .favorite-button.is-favorite .heart {
     background-image: url('/images/corazon-lleno.png');
 }
+
 /* Estilos para el detalle de la receta */
 div.title {
     text-align: center;
@@ -689,7 +723,7 @@ div.recipe-details p {
 }
 
 div.buttons input[type="submit"] {
-    background-color: #333;
+    background-color: darkslategrey;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;

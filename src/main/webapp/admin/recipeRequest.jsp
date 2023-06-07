@@ -10,7 +10,7 @@
     <head>
         <meta charset="UTF-8">
         <title>FridChef</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic SC|Jost">
         <script src="https://kit.fontawesome.com/b481faf5db.js" crossorigin="anonymous"></script><link rel="stylesheet" href="css/style.css">
         <link rel="shortcut icon" href="images/logo.jpg" type="image/icon">
     </head>
@@ -18,19 +18,19 @@
         <div class="content">
             <%@ include file="../header/header.jsp" %>
             <% if(searchUser.isAdmin()){%>
-            <div class="title"><h1>Recetas creadas por usuarios:</h1></div>
+                <div class="title"><h1>Recetas creadas por usuarios:</h1></div>
                 <% for (RecipeDto recipe : recipesPending) { %>
-                <div class="recipe-box">
-                    <a href="/FridChef/details-recipe?id=<%=recipe.getId()%>" class="redirect"/>
-                    <div class="pending-list">
-                        <div class="recipe-pending">
-                           <span><%=recipe.getName()%></span>
-                        </div>
-                        <div class="recipe-date">
-                            <span><%=recipe.getCreateTime().substring(0, 10)%> </span>
+                    <div class="recipe-box">
+                        <a href="/FridChef/details-recipe?id=<%=recipe.getId()%>" class="redirect"/>
+                        <div class="pending-list">
+                            <div class="recipe-pending">
+                               <span><%=recipe.getName()%></span>
+                            </div>
+                            <div class="recipe-date">
+                                <span><%=recipe.getCreateTime().substring(0, 10)%> </span>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <% } %>
             <% } %>
             <%@ include file="../footer/footer.jsp" %>
