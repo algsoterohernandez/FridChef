@@ -484,6 +484,13 @@ div.footer-redes {
     text-align:center;
 }
 
+div.footer-redes a:link,
+div.footer-redes a:visited{
+    text-decoration: none;
+    color: #444444;
+}
+
+
 div.footer-redes i {
     color: darkslategrey;
 }
