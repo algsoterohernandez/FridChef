@@ -98,12 +98,14 @@
       </div>
   </form>
     </div>
+      <%}else{%>
+      <p>Oh vaya! Parece que aún no has entrado en tu sesión para poder crear una receta. Inicia sesión para tener acceso a todos los servicios de nuestra web!</p>
+      <%}%>
+  </div>
+  </div>
+    <%@ include file="../footer/footer.jsp" %>
 </div>
-<%@ include file="../footer/footer.jsp" %>
-</div>
-<%}else{%>
-<p>Oh vaya! Parece que aún no has entrado en tu sesión para poder crear una receta</p>
-<%}%>
+
 <% if (recipeCreated) { %>
 <script>
   alert('Receta creada correctamente, esperando a ser revisada y aprobada')
