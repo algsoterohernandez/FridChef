@@ -50,7 +50,7 @@ h1, h2, h3 {
     font-family: Amatic SC, serif;
 }
 
-p {
+p, span {
     font-family: Jost;
     font-size: 16px;
 }
@@ -109,9 +109,26 @@ input[type="button"] {
     background-color: #555;
 }
 
-.buttos a:link,ronnie
+.buttons a:link,
 .buttons a:visited{
     text-decoration: none;
+}
+.buttons-position{
+    padding: 0% 0% 0% 80%;
+    margin: 0%;
+}
+
+.buttons-request a:link,
+.buttons a:visited{
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: darkslategrey;
+    cursor: pointer;
 }
 
 textarea {

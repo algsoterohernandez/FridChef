@@ -30,9 +30,11 @@
                     <div class="main-form">
                         <div class="title"><h1><%= recipe.getName() %></h1></div>
                         <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
-                            <div class="buttons">
-                                <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
-                                <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
+                            <div class="buttons-position">
+                                <div class="buttons-request">
+                                    <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
+                                    <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
+                                </div>
                             </div>
                         <% } %>
                         <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
@@ -42,7 +44,6 @@
                                 </button>
                             </div>
                         <% } %>
-
                         <div class="image-position">
                             <div clas="text-description">
                                 <% if(category != null) { %>
