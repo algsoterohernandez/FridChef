@@ -32,7 +32,7 @@ div.content {
     box-shadow: 5px 5px 15px gray;
     display: flex;
     flex-direction: column;
-    min-height: 450px;
+    min-height: 100%;
 }
 
 div.header {
@@ -44,7 +44,7 @@ div.header {
     padding: 0px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: darkslategrey;
     margin: 0px;
     font-family: Amatic SC, serif;
@@ -54,8 +54,9 @@ p {
     font-family: Jost;
     font-size: 16px;
 }
+
 .span-ing,
-.span-cat{
+.span-cat {
     font-family: Jost;
     font-size: 16px;
 }
@@ -115,16 +116,17 @@ input[type="button"] {
 }
 
 .buttons a:link,
-.buttons a:visited{
+.buttons a:visited {
     text-decoration: none;
 }
-.buttons-position{
+
+.buttons-position {
     padding: 0% 0% 0% 80%;
     margin: 0%;
 }
 
 .buttons-request a:link,
-.buttons a:visited{
+.buttons a:visited {
     text-decoration: none;
     margin-right: 10px;
     padding: 10px 10px;
@@ -538,7 +540,7 @@ div.footer-redes {
 }
 
 div.footer-redes a:link,
-div.footer-redes a:visited{
+div.footer-redes a:visited {
     text-decoration: none;
     color: #444444;
 }
@@ -661,7 +663,9 @@ div.main-form {
 }
 
 .recipe-date {
-    width: 40%
+    width: 100%;
+    padding: 0px;
+    text-align: right;
 }
 
 /*botón favorito*/
@@ -690,9 +694,19 @@ div.main-form {
 }
 
 /* Estilos para el detalle de la receta */
+
 div.title {
+    margin: auto;
+    width: 100%;
+    display: inline-flex;
     text-align: center;
-    margin:0%;
+    border-bottom: 1px solid darkslategrey;
+}
+
+div.image-description {
+    display: inline-flex;
+    width: 100%;
+    border-bottom: 1px solid darkslategrey;
 }
 
 div.buttons {
@@ -702,7 +716,7 @@ div.buttons {
 
 div.image {
     text-align: center;
-    margin-bottom: 20px;
+    margin: auto;
 }
 
 div.image-content img {
@@ -716,8 +730,8 @@ div.ingredients {
 
 div.like {
     text-align: right;
-    margin: 0%;
-    padding: 0% 15% 0% 0%;
+    margin: auto;
+    padding: 0% 0% 0% 60%;
 }
 
 button.favorite-button {
@@ -730,11 +744,8 @@ div.recipe-details {
     margin-bottom: 20px;
 }
 
-div.description {
-    margin-bottom: 20px;
-}
 
-div.difficulty-duration{
+div.difficulty-duration {
     display: flex;
 }
 
@@ -742,45 +753,49 @@ div.ingredients,
 div.difficulty,
 div.duration,
 div.category,
-div.unit-time {
-    padding-bottom: 3%;
+div.unit-time,
+div.duration {
+    padding-top: 5px;
     margin: 0%;
 }
 
-div.difficulty{
+div.difficulty {
     padding-right: 20%;
 }
 
-div.image-position{
+div.image-position {
     display: flex;
     padding-bottom: 0%;
     margin: 0%;
 }
 
-div.text-image img{
+div.text-image img {
     width: 100%;
     padding-top: 15%;
     padding-left: 20%;
 }
 
-div.image-recipe{
+div.image-recipe {
     width: 80%;
     padding: 0%;
     margin: 0%;
 }
 
-div.description-date{
+div.description-date {
     padding: 0px 40px;
+    border-bottom: 1px solid darkslategrey;
 }
-div.description{
-    padding-top: 0%;
+
+div.description {
+    padding-top: 10px;
     padding-bottom: 0%;
     margin: 0%;
 }
 
-div.opinion{
-   padding: 0px 40px;
+div.opinion {
+    padding: 0px 40px;
 }
+
 div.recipe-details h2 {
     margin-bottom: 10px;
 }
@@ -826,12 +841,15 @@ textarea#comment {
     display: flex;
     /* the hidden clearer */
 }
+
 .star-cb-group * {
     font-size: 1rem;
 }
+
 .star-cb-group > input {
     display: none;
 }
+
 .star-cb-group > input + label {
     /* only enough room for the star */
     display: inline-block;
@@ -841,6 +859,7 @@ textarea#comment {
     white-space: nowrap;
     cursor: pointer;
 }
+
 .star-cb-group > input + label:before {
     display: inline-block;
     text-indent: -9999px;
@@ -848,26 +867,31 @@ textarea#comment {
     color: #888;
     font-size: 30px;
 }
+
 .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
     content: "★";
     color: #e52;
     text-shadow: 0 0 1px #333;
     font-size: 30px;
 }
+
 .star-cb-group > .star-cb-clear + label {
     text-indent: -9999px;
     width: 0.5em;
     margin-left: -0.5em;
 }
+
 .star-cb-group > .star-cb-clear + label:before {
     width: 0.5em;
 }
+
 .star-cb-group:hover > input + label:before {
     content: "☆";
     color: #888;
     text-shadow: none;
     font-size: 30px;
 }
+
 .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
     content: "★";
     color: #e52;
@@ -890,57 +914,71 @@ textarea#comment {
     background: transparent;
 }
 
-.valoration-rate{
+.valoration-rate {
     display: flex;
     height: 100px;
 }
-.valoration-title{
-    width:25%;
+
+.valoration-title {
+    width: 25%;
     padding: 0%;
     height: 100px;
 }
-.valoration-fieldset{
-    width:60%;
+
+.valoration-fieldset {
+    width: 60%;
     height: 100px;
     margin: 0px;
     padding: 0%;
 }
-.valoration{
-    padding:0%;
+
+.valoration {
+    padding: 0%;
 }
 
-.title-comment{
+.title-comment {
     font-family: Amatic SC, serif;
     font-size: x-large;
     font-weight: bolder;
-    pading-botton:2%
+    pading-botton: 2%
 }
 
-.content-comment{
+.content-comment {
     font-family: Amatic SC, serif;
     font-size: x-large;
     padding-right: 5%;
-    pading-botton:2%
+    pading-botton: 2%
 }
 
-.text-image{
+.text-image {
     width: 30%
 }
 
-.text-description{
+.text-description {
     width: 50%
 }
 
-.empty-image-div{
+.empty-image-div {
     width: 10%
 }
 
-.comment{
+.comment {
     margin: 1px;
     background-color: white;
 }
 
-.comments-title{
+.comments-title {
     margin-bottom: 15px;
-    padding:0%;
+    padding: 0%;
+}
+
+/* Estilo para la visualización del ranking*/
+
+div.ranking-style {
+    display: flex;
+    padding: 0px;
+}
+
+div.ranking-style p {
+    padding-left: 20px;
 }
