@@ -32,7 +32,7 @@ div.content {
     box-shadow: 5px 5px 15px gray;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 450px;
 }
 
 div.header {
@@ -723,6 +723,7 @@ div.duration,
 div.category,
 div.unit-time {
     padding-bottom: 3%;
+    margin: 0%;
 }
 
 div.difficulty{
@@ -732,16 +733,19 @@ div.difficulty{
 div.image-position{
     display: flex;
     padding-bottom: 0%;
+    margin: 0%;
 }
 
-div.text-image{
-    width: 45%;
-    padding: 0%;
-    margin: 0%;
+div.text-image img{
+    width: 100%;
+    padding-top: 15%;
+    padding-left: 20%;
 }
 
 div.image-recipe{
     width: 80%;
+    padding: 0%;
+    margin: 0%;
 }
 
 div.description-date{
@@ -899,9 +903,23 @@ textarea#comment {
 }
 
 .text-image{
-    width: 70%;
+    width: 30%
 }
 
-.image-box{
-    width: 30%;
+.text-description{
+    width: 50%
+}
+
+.empty-image-div{
+    width: 10%
+}
+
+.comment{
+    margin: 1px;
+    background-color: white;
+}
+
+.comments-title{
+    margin-bottom: 15px;
+    padding:0%;
 }
