@@ -27,6 +27,20 @@
         <%@ include file="../header/header.jsp" %>
         <% if(searchUser!= null){%>
             <div class="title"><h1><%= recipe.getName() %></h1></div>
+            <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
+                <div class="buttons">
+                    <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
+                    <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
+                </div>
+            <% } %>
+            <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
+                <div class="like">
+                    <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
+                        <span class="heart"></span>
+                    </button>
+                </div>
+            <% } %>
+
             <div class="image-position">
                 <div clas="image-text">
                     <% if(category != null) { %>
@@ -41,10 +55,9 @@
                         <span><%=ingredient.getNameIngredient()%></span> ·
                         <% } %>
                     </div>
-                    <div class="difficulty-duration">
-                        <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
-                        <div class="duration"><h3>Duración: <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3></div>
-                    </div>
+                    <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
+                    <div class="duration"><h3>Duración: <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3></div>
+
                 </div>
                 <div class="image">
                     <div class="image-content">
@@ -63,45 +76,47 @@
              <div class="recipe-date">
                 <span>Fecha de creación: <%= recipe.getCreateTime().substring(0, 10) %> </span>
             </div>
-                <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
-                <div class="buttons">
-                    <a href="/FridChef/recipes-accept?id=<%=recipe.getId()%>&status=ACCEPTED">Aceptar</a>
-                    <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
-                </div>
-                <% } %>
+
                 <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
-                    <div class="like">
-                        <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
-                            <span class="heart"></span>
-                        </button>
-                    </div>
                     <div class="average">
                         <h3>Esta receta está valorada con <%= recipe.getValoration() %> puntos</h3>
                     </div>
                     <div class="valoration">
-                        <h3>Valora esta receta:</h3>
-                        <form action="/FridChef/details-recipe?id=<%=recipe.getId()%>" method="post">
-                            <div>
-                                <label>Puntuación:</label>
-                                <input type="radio" id="1" name="valoration" value="1">
-                                <label for="1">1</label><br>
-                                <input type="radio" id="2" name="valoration" value="2">
-                                <label for="2">2</label><br>
-                                <input type="radio" id="3" name="valoration" value="3">
-                                <label for="3">3</label><br>
-                                <input type="radio" id="4" name="valoration" value="4">
-                                <label for="4">4</label><br>
-                                <input type="radio" id="5" name="valoration" value="5">
-                                <label for="5">5</label>
-                            </div>
-                            <div>
-                                <label for="comment">Comentario: </label><br/>
-                                <textarea type="textarea" id= "comment" name="comment" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
-                            </div>
-                            <div class="buttons">
-                                <input type="submit" value="Enviar">
-                            </div>
-                        </form>
+                         <form action="/FridChef/details-recipe?id=<%=recipe.getId()%>" method="post">
+                             <div style="display:flex">
+                                  <div style="width:25%">
+                                      <h3>Valora esta receta:</h3>
+                                  </div>
+                                 <div style="width:75%">
+                                      <fieldset class="valoration-fieldset">
+                                         <span class="star-cb-group">
+                                             <input type="radio" id="rating-5" name="valoration" value="5" /><label for="rating-5">5</label>
+                                             <input type="radio" id="rating-4" name="valoration" value="4" /><label for="rating-4">4</label>
+                                             <input type="radio" id="rating-3" name="valoration" value="3" /><label for="rating-3">3</label>
+                                             <input type="radio" id="rating-2" name="valoration" value="2" /><label for="rating-2">2</label>
+                                             <input type="radio" id="rating-1" name="valoration" value="1" /><label for="rating-1">1</label>
+                                             <input type="radio" id="rating-0" name="valoration" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                                         </span>
+                                     </fieldset>
+                                 </div>
+                             </div>
+                             <div>
+                                 <label for="comment">Comentario: </label><br/>
+                                 <textarea type="textarea" id= "comment" name="comment" minlength="10" maxlength="500" rows="10" cols="100" placeholder="Escribe los pasos de elaboración..." required></textarea>
+                             </div>
+                             <div class="buttons">
+                                 <input type="submit" value="Enviar">
+                             </div>
+                         </form>
+                        <script>
+                                    var logID = 'log',
+                                        log = $('<div id="'+logID+'"></div>');
+                                    $('body').append(log);
+                                    $('[type*="radio"]').change(function () {
+                                        var me = $(this);
+                                        log.html(me.attr('value'));
+                                    });
+                                </script>
                     </div>
                         <%if (valorationCreated != null) { %>
                             <script>
