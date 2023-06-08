@@ -50,7 +50,12 @@ h1, h2, h3 {
     font-family: Amatic SC, serif;
 }
 
-p, span {
+p {
+    font-family: Jost;
+    font-size: 16px;
+}
+.span-ing,
+.span-cat{
     font-family: Jost;
     font-size: 16px;
 }

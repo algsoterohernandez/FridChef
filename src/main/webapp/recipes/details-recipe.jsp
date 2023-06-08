@@ -49,13 +49,13 @@
                                 <% if(category != null) { %>
                                     <div class="category">
                                         <h2>Categoría</h2>
-                                        <span><%=category.getName()%></span>
+                                        <span class="span-cat"><%=category.getName()%></span>
                                     </div>
                                 <% } %>
                                 <div class="ingredients">
                                     <h3>Ingredientes</h3>
                                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                                    <span><%=ingredient.getNameIngredient()%></span> ·
+                                    <span class="span-ing"><%=ingredient.getNameIngredient()%></span> ·
                                     <% } %>
                                 </div>
                                 <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
