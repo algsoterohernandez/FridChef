@@ -144,7 +144,9 @@
                     <% } %>
                 </div>
             <% } else { %>
-                <span> Recuerde que para visualizar la receta, debe estar registrado como usuario.</span>
+            <div class="principal-container">
+                <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>
+            </div>
             <%}%>
              <%@ include file="../footer/footer.jsp" %>
         </div>

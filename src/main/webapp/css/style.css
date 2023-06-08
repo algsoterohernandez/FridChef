@@ -55,7 +55,7 @@ p {
     font-size: 16px;
 }
 
-ol {
+ol, ul {
     font-family: Jost;
     font-size: 16px;
 }
