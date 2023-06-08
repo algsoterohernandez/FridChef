@@ -19,7 +19,7 @@
     <div class="content">
         <%@ include file="../header/header.jsp" %>
         <div class="contprincipal">
-            <h2>Las recetas mejor valoradas:</h2>
+            <h2>Top 10 recetas mejor valoradas</h2>
             <br/>
             <% if (!recipes.isEmpty()) { %>
                 <%for (RecipeDto recipe : recipes){%>
@@ -27,13 +27,38 @@
                     <div class="recipes-list">
                         <a href="/FridChef/details-recipe?id=<%= recipe.getId() %>">
                             <div class="recipe-content">
-                                <h2><%= recipe.getName() %></h2>
-                                <br/>
+                                <div class="ranking-style">
+                                    <h2><%= recipe.getName() %></h2>
+                                    <p><i class="fa-solid fa-star"></i> <%= recipe.getValoration()%></p>
+                                </div>
                                 <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                                <span><b><%=ingredient.getNameIngredient()%></b></span> ·
+                                <span><b><%=ingredient.getNameIngredient()%> · </b></span>
                                 <% } %>
                                 <p><span><b>Descripción:</b></span> <%= recipe.getDescription().substring(0, Math.min(recipe.getDescription().length(), 200)) %> ...</p>
-                                <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %> · <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                                <p><span><b>Dificultad:</b></span> <%
+                                    int difficulty = recipe.getDifficulty();
+                                    if (difficulty == 1) {
+                                %>
+                                    Muy baja
+                                    <%
+                                    } else if (difficulty == 2) {
+                                    %>
+                                    Baja
+                                    <%
+                                    } else if (difficulty == 3) {
+                                    %>
+                                    Normal
+                                    <%
+                                    } else if (difficulty == 4) {
+                                    %>
+                                    Alta
+                                    <%
+                                    } else if (difficulty == 5) {
+                                    %>
+                                    Muy Alta
+                                    <%
+                                        }
+                                    %> | <b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                             </div>
                             <div class="image-content">
                                 <% if (recipe.getImageBase64() != null) { %>

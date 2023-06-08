@@ -30,7 +30,31 @@
                                     <span><b><%=ingredient.getNameIngredient()%></b></span> ·
                                     <% } %>
                                     <p><span><b>Descripción:</b></span> <%= recipe.getDescription().substring(0, Math.min(recipe.getDescription().length(), 200)) %> ...</p>
-                                    <p><span><b>Dificultad:</b></span> <%= recipe.getDifficulty() %>· <span><b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
+                                    <p><span><b>Dificultad:</b></span> <%
+                                        int difficulty = recipe.getDifficulty();
+                                        if (difficulty == 1) {
+                                    %>
+                                        Muy baja
+                                        <%
+                                        } else if (difficulty == 2) {
+                                        %>
+                                        Baja
+                                        <%
+                                        } else if (difficulty == 3) {
+                                        %>
+                                        Normal
+                                        <%
+                                        } else if (difficulty == 4) {
+                                        %>
+                                        Alta
+                                        <%
+                                        } else if (difficulty == 5) {
+                                        %>
+                                        Muy Alta
+                                        <%
+                                            }
+                                        %> |
+                                        <span><b>Tiempo de preparación:</b></span> <%= recipe.getTime() %> <%= recipe.getUnitTime() %></p>
                                 </div>
                                 <div class="image-content">
                                     <% if (recipe.getImageBase64() != null) { %>
