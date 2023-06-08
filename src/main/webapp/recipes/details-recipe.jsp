@@ -95,7 +95,9 @@
                             </div>
                             <div class="image">
                                     <% if (recipe.getImageBase64() != null) { %>
-                                    <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
+                                        <div class="img" style="background-image: url(data:image/jpeg;base64,<%= recipe.getImageBase64() %>)">
+
+                                        </div>
                                     <% } else { %>
                                     <span>No hay Imagen</span>
                                     <% } %>
