@@ -1,8 +1,10 @@
 package com.fpdual.javaweb.service;
 
 import com.fpdual.javaweb.client.FridChefApiClient;
+import com.fpdual.javaweb.enums.Rol;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.exceptions.AlreadyExistsException;
+import com.fpdual.javaweb.web.servlet.dto.RolUserDto;
 import com.fpdual.javaweb.web.servlet.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +39,15 @@ public class UserServiceTest {
         exampleUserDto.setSurname2("bbbbb");
         exampleUserDto.setPassword("example");
         exampleUserDto.setEmail("example@a.com");
+        exampleUserDto.setAlreadyExists(false);
+
+        RolUserDto rolDto = new  RolUserDto();
+        rolDto.setIdRol(Rol.ADMIN.ordinal());
+        rolDto.setIdUser(1);
+        ArrayList<RolUserDto> rolArray = new ArrayList<>();
+        rolArray.add(rolDto);
+        exampleUserDto.setRolUserDto(rolArray);
+        exampleUserDto.setFavoriteList(null);
 
     }
 

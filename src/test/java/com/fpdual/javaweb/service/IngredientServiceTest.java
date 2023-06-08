@@ -3,6 +3,7 @@ package com.fpdual.javaweb.service;
 import com.fpdual.javaweb.client.FridChefApiClient;
 import com.fpdual.javaweb.exceptions.ExternalErrorException;
 import com.fpdual.javaweb.web.servlet.dto.IngredientDto;
+import com.fpdual.javaweb.web.servlet.dto.ItemDto;
 import com.fpdual.javaweb.web.servlet.dto.RecipeDto;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,8 @@ public class IngredientServiceTest {
         exampleIngredientDto = new IngredientDto();
         exampleIngredientDto.setId(5);
         exampleIngredientDto.setName("Tomate");
-
+        exampleIngredientDto.setAlreadyExists(false);
+        exampleIngredientDto.setAllergens(null);
     }
 
     @Test
@@ -138,4 +140,11 @@ public class IngredientServiceTest {
         assertThrows(ExternalErrorException.class, () -> ingredientService.createIngredient(exampleIngredientDto.getName()));
     }
 
+    @Test
+    public void getAllUnits_validList() throws ExternalErrorException {
+
+        //Asserts
+        List<ItemDto>  items= ingredientService.getAllUnits();
+        assertTrue(items.size() == 9);
+    }
 }

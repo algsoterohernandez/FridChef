@@ -39,6 +39,15 @@ public class RecipeServiceTest {
         exampleRecipeDto = new RecipeDto();
         exampleRecipeDto.setId(8);
         exampleRecipeDto.setStatus(RecipeStatus.PENDING.getStatus());
+        exampleRecipeDto.setName("");
+        exampleRecipeDto.setDifficulty(3);
+        exampleRecipeDto.setDescription("");
+        exampleRecipeDto.setIdCategory(1);
+        exampleRecipeDto.setIngredients(null);
+        exampleRecipeDto.setTime(6);
+        exampleRecipeDto.setImageBase64("");
+        exampleRecipeDto.setUnitTime("");
+        exampleRecipeDto.setCreateTime("");
 
     }
 
@@ -87,9 +96,9 @@ public class RecipeServiceTest {
         //Configuracion del test y simulacion respuesta utilizando Mockito
         int idCategory = 1;
         List<RecipeDto> expectedRecipeList = Arrays.asList(
-                RecipeDto.builder().id(1).name("Arroz frito").build(),
-                RecipeDto.builder().id(2).name("pasta carbonara").build(),
-                RecipeDto.builder().id(3).name("lentejas").build()
+                RecipeDto.builder().id(1).name("Arroz frito").idCategory(3).time(3).description("").build(),
+                RecipeDto.builder().id(2).name("pasta carbonara").ingredients(null).difficulty(5).status("ACCEPTED").build(),
+                RecipeDto.builder().id(3).name("lentejas").imageBase64("").build()
         );
 
         //Configuracion del comportamiento de la respuesta simulada
