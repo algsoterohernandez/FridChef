@@ -121,14 +121,15 @@ input[type="button"] {
 }
 
 .buttons-position {
-    padding: 0% 0% 0% 80%;
-    margin: 0%;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .buttons-request a:link,
 .buttons a:visited {
     text-decoration: none;
-    margin-right: 10px;
+    margin-left: 10px;
     padding: 10px 10px;
     border: none;
     border-radius: 5px;
@@ -718,6 +719,13 @@ div.image {
     text-align: center;
     margin: auto;
 }
+div.image .img {
+    width: 300px;
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
 div.image-content img {
     max-width: 100%;
@@ -782,7 +790,7 @@ div.image-recipe {
 }
 
 div.description-date {
-    padding: 0px 40px;
+    padding: 20px 40px;
     border-bottom: 1px solid darkslategrey;
 }
 
