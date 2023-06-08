@@ -28,7 +28,14 @@
             <% if(searchUser!= null){%>
                 <div class="principal-container">
                     <div class="main-form">
-                        <div class="title"><h1><%= recipe.getName() %></h1></div>
+                        <div class="title">
+                            <h1><%= recipe.getName() %></h1>
+                            <div class="like">
+                                <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
+                                    <span class="heart"></span>
+                                </button>
+                            </div>
+                        </div>
                         <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
                             <div class="buttons-position">
                                 <div class="buttons-request">
@@ -38,38 +45,61 @@
                             </div>
                         <% } %>
                         <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
-                            <div class="like">
-                                <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
-                                    <span class="heart"></span>
-                                </button>
-                            </div>
+
                         <% } %>
-                        <div class="image-position">
+                        <div class="image-description">
                             <div clas="text-description">
                                 <% if(category != null) { %>
                                     <div class="category">
-                                        <h2>Categoría</h2>
-                                        <span class="span-cat"><%=category.getName()%></span>
+                                        <h3>Categoría: <%=category.getName()%></h3>
                                     </div>
                                 <% } %>
                                 <div class="ingredients">
                                     <h3>Ingredientes</h3>
+                                    <h4>
                                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                                    <span class="span-ing"><%=ingredient.getNameIngredient()%></span> ·
+                                    <%=ingredient.getNameIngredient()%> ·
                                     <% } %>
+                                    </h4>
                                 </div>
-                                <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
-                                <div class="duration"><h3>Duración: <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3></div>
+                                <div class="difficulty">
+                                    <h3>Dificultad:
+                                    <%
+                                        int difficulty = recipe.getDifficulty();
+                                        if (difficulty == 1) {
+                                    %>
+                                    Muy baja
+                                    <%
+                                    } else if (difficulty == 2) {
+                                    %>
+                                    Baja
+                                    <%
+                                    } else if (difficulty == 3) {
+                                    %>
+                                    Normal
+                                    <%
+                                    } else if (difficulty == 4) {
+                                    %>
+                                    Alta
+                                    <%
+                                    } else if (difficulty == 5) {
+                                    %>
+                                    Muy Alta
+                                    <%
+                                        }
+                                    %>
+                                    </h3>
+                                </div>
+                                <div class="duration">
+                                    <h3><i class="fa-regular fa-clock"></i> <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3>
+                                </div>
                             </div>
-                            <div class="empty-image-div"></div>
-                            <div class="text-image">
-                                <div class="image-recipe">
+                            <div class="image">
                                     <% if (recipe.getImageBase64() != null) { %>
                                     <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
                                     <% } else { %>
                                     <span>No hay Imagen</span>
                                     <% } %>
-                                </div>
                             </div>
                         </div>
                         <div class="description-date">
@@ -78,7 +108,7 @@
                                 <span><%= recipe.getDescription() %></span>
                             </div>
                              <div class="recipe-date">
-                                <span>Fecha de creación: <%= recipe.getCreateTime().substring(0, 10) %> </span>
+                                <h4>Fecha de creación: <%= recipe.getCreateTime().substring(0, 10) %> </h4>
                             </div>
                         </div>
                         <div class="opinion">
