@@ -32,12 +32,6 @@ public class AllergenServiceTest {
         allergenService = new AllergenService(fridChefApiClient);
     }
 
-    /**
-     * Prueba unitaria para el método findAllAllergens().
-     * Debe devolver una lista de objetos AllergenDto cuando la llamada al cliente FridChefApiClient tiene éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error durante la comunicación externa.
-     */
     @Test
     public void testFindAllAllergens_returnListOfAllergens_whenSuccessful() throws ExternalErrorException {
         // Arrange
