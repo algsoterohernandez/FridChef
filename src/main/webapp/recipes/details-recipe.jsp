@@ -26,35 +26,40 @@
     <div class="content">
         <%@ include file="../header/header.jsp" %>
         <% if(searchUser!= null){%>
-            <div class="title"><%= recipe.getName() %></div>
-            <div class="category">
-                <h2>Categoria</h2>
-                <%=category.getName()%>
-            </div>
-            <div class="difficulty">
-                    <h2>Dificultad</h2>
-                    <p><%= recipe.getDifficulty() %></p>
+            <div class="title"><h1><%= recipe.getName() %></h1></div>
+            <div class="image-position">
+                <div clas="image-text">
+                    <div class="category">
+                        <h2>Categoria</h2>
+                        <span><%=category.getName()%></span>
+                    </div>
+                    <div class="ingredients">
+                        <h3>Ingredientes</h3>
+                        <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
+                        <span><%=ingredient.getNameIngredient()%></span> ·
+                        <% } %>
+                    </div>
+                    <div class="difficulty-duration">
+                        <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
+                        <div class="duration"><h3>Duración: <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3></div>
+                    </div>
                 </div>
-            <div class="ingredients">
-                <h3>Ingredientes</h3>
-                <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                <span><%=ingredient.getNameIngredient()%></span> ·
-                <% } %>
-            </div>
-            <div class="image">
-                <div class="image-content">
-                    <% if (recipe.getImageBase64() != null) { %>
-                    <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
-                    <% } else { %>
-                    <p>No hay Imagen</p>
-                    <% } %>
+                <div class="image">
+                    <div class="image-content">
+                        <% if (recipe.getImageBase64() != null) { %>
+                        <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
+                        <% } else { %>
+                        <span>No hay Imagen</span>
+                        <% } %>
+                    </div>
                 </div>
             </div>
             <div class="description">
-                <p>duración:<%=recipe.getTime()%> <%=recipe.getUnitTime()%></p>
                 <h2>Elaboración</h2>
-                <p><%= recipe.getDescription() %></p>
-                <p>Fecha de creación: <%= recipe.getCreateTime() %> </p>
+                <span><%= recipe.getDescription() %></span>
+            </div>
+             <div class="recipe-date">
+                <span>Fecha de creación: <%= recipe.getCreateTime().substring(0, 10) %> </span>
             </div>
                 <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
                 <div class="buttons">
@@ -111,13 +116,13 @@
             <div class="comment">
                 <span class="user">User: <%= valoration.getNameUser() %></span>
                 <span class="user">Rate: <%= valoration.getValoration() %></span>
-                <p>Comment: <%= valoration.getComment()%></p>
+                <span>Comment: <%= valoration.getComment()%></span>
             </div>
             <% } %>
         </div>
                 <% } %>
         <% } else { %>
-            <p> Recuerde que para visualizar la receta, debe estar registrado como usuario.</p>
+            <span> Recuerde que para visualizar la receta, debe estar registrado como usuario.</span>
         <%}%>
     </div>
     <%@ include file="../footer/footer.jsp" %>

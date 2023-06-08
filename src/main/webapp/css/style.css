@@ -109,6 +109,11 @@ input[type="button"] {
     background-color: #555;
 }
 
+.buttos a:link,
+.buttons a:visited{
+    text-decoration: none;
+}
+
 textarea {
     padding: 5px;
     border: 1px solid #ccc;
@@ -708,10 +713,26 @@ div.description {
     margin-bottom: 20px;
 }
 
-div.difficulty,
+div.difficulty-duration{
+    display: flex;
+}
+
+div.difficulty-duration,
 div.category,
 div.unit-time {
-    margin-bottom: 20px;
+    padding-bottom: 5%;
+}
+
+div.difficulty{
+    padding-right: 20%;
+}
+
+div.image-position{
+    display: flex;
+}
+
+div.image-text{
+    width: 40%;
 }
 
 div.recipe-details h2 {
