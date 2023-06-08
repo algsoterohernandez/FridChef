@@ -656,8 +656,7 @@ div.main-form {
 .favorite-button .heart {
     width: 24px;
     height: 24px;
-    background-image: url('/images/corazon-vacio.png');
-
+    background-image: url('../images/corazon-vacio.png');
     background-repeat: no-repeat;
     background-position: center;
     transition: background-image 0.3s ease-in-out;
@@ -666,7 +665,7 @@ div.main-form {
 }
 
 .favorite-button.is-favorite .heart {
-    background-image: url('/images/corazon-lleno.png');
+    background-image: url('../images/corazon-lleno.png');
 }
 
 /* Estilos para el detalle de la receta */

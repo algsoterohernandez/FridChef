@@ -29,10 +29,12 @@
             <div class="title"><h1><%= recipe.getName() %></h1></div>
             <div class="image-position">
                 <div clas="image-text">
-                    <div class="category">
-                        <h2>Categoria</h2>
-                        <span><%=category.getName()%></span>
-                    </div>
+                    <% if(category != null) { %>
+                        <div class="category">
+                            <h2>Categoría</h2>
+                            <span><%=category.getName()%></span>
+                        </div>
+                    <% } %>
                     <div class="ingredients">
                         <h3>Ingredientes</h3>
                         <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
@@ -74,8 +76,8 @@
                         </button>
                     </div>
                     <div class="average">
-                <h3>Esta receta está valorada con <%= recipe.getValoration() %> puntos</h3>
-            </div>
+                        <h3>Esta receta está valorada con <%= recipe.getValoration() %> puntos</h3>
+                    </div>
                     <div class="valoration">
                         <h3>Valora esta receta:</h3>
                         <form action="/FridChef/details-recipe?id=<%=recipe.getId()%>" method="post">

@@ -84,7 +84,7 @@ public class RecipeDetailsServlet extends ParentServlet {
             }
             List<CategoryDto> categories = categoryService.getAllCategories();
             CategoryDto category = categories.stream()
-                    .filter(cat -> recipe.getId() == cat.getId())
+                    .filter(cat -> recipe.getIdCategory() == cat.getId())
                     .findAny()
                     .orElse(null);
 
