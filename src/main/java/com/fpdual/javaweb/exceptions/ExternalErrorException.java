@@ -13,6 +13,6 @@ public class ExternalErrorException extends FridChefException {
      * @param message El mensaje de error que describe la excepción.
      */
     public ExternalErrorException(String message) {
-        super(message); // Llama al constructor de la clase padre (FridChefException) pasando el mensaje de error
+        super(message);
     }
 }

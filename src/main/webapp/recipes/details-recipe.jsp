@@ -30,11 +30,13 @@
                     <div class="main-form">
                         <div class="title">
                             <h1><%= recipe.getName() %></h1>
+                            <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
                             <div class="like">
                                 <button id="favoriteButton" recipe="<%= recipe.getId() %>" class="favorite-button  <%= isFavorite ? "is-favorite" : "" %>">
                                     <span class="heart"></span>
                                 </button>
                             </div>
+                            <% } %>
                         </div>
                         <%if (searchUser.isAdmin() && recipe.getStatus().equals(RecipeStatus.PENDING.name())) {%>
                             <div class="buttons-position">
@@ -43,9 +45,6 @@
                                     <a href="/FridChef/recipes-reject?id=<%=recipe.getId()%>&status=DECLINED">Declinar</a>
                                 </div>
                             </div>
-                        <% } %>
-                        <%if (recipe.getStatus().equals(RecipeStatus.ACCEPTED.name())){%>
-
                         <% } %>
                         <div class="image-description">
                             <div clas="text-description">
