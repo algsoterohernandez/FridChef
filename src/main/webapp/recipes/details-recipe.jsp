@@ -42,7 +42,7 @@
             <% } %>
 
             <div class="image-position">
-                <div clas="image-text">
+                <div clas="text-image">
                     <% if(category != null) { %>
                         <div class="category">
                             <h2>Categoría</h2>
@@ -57,10 +57,9 @@
                     </div>
                     <div class="difficulty"><h3>Dificultad: <%= recipe.getDifficulty() %></h3></div>
                     <div class="duration"><h3>Duración: <%=recipe.getTime()%> <%=recipe.getUnitTime()%></h3></div>
-
                 </div>
                 <div class="image">
-                    <div class="image-content">
+                    <div class="image-recipe">
                         <% if (recipe.getImageBase64() != null) { %>
                         <img src="data:image/jpeg;base64,<%= recipe.getImageBase64() %>">
                         <% } else { %>

@@ -717,10 +717,12 @@ div.difficulty-duration{
     display: flex;
 }
 
-div.difficulty-duration,
+div.ingredients,
+div.difficulty,
+div.duration,
 div.category,
 div.unit-time {
-    padding-bottom: 5%;
+    padding-bottom: 3%;
 }
 
 div.difficulty{
@@ -731,9 +733,16 @@ div.image-position{
     display: flex;
 }
 
-div.image-text{
-    width: 40%;
+div.text-image{
+    width: 45%;
+    padding: 0%;
+    margin: 0%;
 }
+
+div.image-recipe{
+    width: 80%;
+}
+
 
 div.recipe-details h2 {
     margin-bottom: 10px;
