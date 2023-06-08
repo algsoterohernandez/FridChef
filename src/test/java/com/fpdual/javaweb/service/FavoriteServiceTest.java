@@ -28,12 +28,6 @@ public class FavoriteServiceTest {
         favoriteService = new FavoriteService(fridChefApiClient);
     }
 
-    /**
-     * cuando se intenta agregar una receta a favoritos que aún no está en la lista y se verifica
-     * que la receta se agrega correctamente.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testAddFavorite_recipeNotInList_recipeAddedToFavorites() throws ExternalErrorException {
         // Configuración del test
@@ -52,10 +46,6 @@ public class FavoriteServiceTest {
         assertTrue(result.isFavorite(idRecipe));
     }
 
-    /**
-     * cuando se intenta agregar una receta de favoritos que ya está en la lista y se verifica
-     * que la lista de favoritos no se modifica.
-     */
     @Test
     public void testAddFavorite_recipeInList_favoriteListUnchanged(){
         // Configuración del test
@@ -70,13 +60,6 @@ public class FavoriteServiceTest {
         // Verificación del resultado
         assertEquals(0, result.getFavoriteList().size());
     }
-
-    /**
-     * cuando se intenta eliminar una receta de favoritos que está en la lista y se verifica
-     * que la receta se elimina correctamente.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
 
     @Test
     public void testRemoveFavorite_recipeInList_recipeRemovedFromFavorites() throws ExternalErrorException {
@@ -98,10 +81,6 @@ public class FavoriteServiceTest {
         assertFalse(result.isFavorite(idRecipe));
     }
 
-    /**
-     * cuando se intenta eliminar una receta de favoritos que no está en la lista y se verifica
-     * que la lista de favoritos no se modifica.
-     */
     @Test
     public void testRemoveFavorite_recipeInList_favoriteListUnchanged() {
         // Configuración del test

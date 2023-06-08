@@ -16,9 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-/**
- * Clase de pruebas unitarias para la clase ValorationService
- */
+
 public class ValorationServiceTest {
     @InjectMocks
     private ValorationService valorationService;
@@ -32,11 +30,6 @@ public class ValorationServiceTest {
         valorationService = new ValorationService(fridChefApiClient);
     }
 
-    /**
-     * Prueba unitaria para probar que una valoración válida se crea correctamente.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la creación de la valoración.
-     */
     @Test
     public void testCreateValoration_validValorationDto_returnValorationCreated() throws ExternalErrorException {
         //Configuración del test
@@ -56,11 +49,6 @@ public class ValorationServiceTest {
         verify(fridChefApiClient, times(1)).createValoration(valorationDto);
     }
 
-    /**
-     * Prueba unitaria para probar que una valoración válida no se crea correctamente y se captura la excepción adecuada.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la creación de la valoración.
-     */
     @Test
     public void testCreateValoration_validValorationDto_returnValorationCreatedFailed() throws ExternalErrorException{
         //Configuración del test
@@ -80,11 +68,6 @@ public class ValorationServiceTest {
         verify(fridChefApiClient, times(1)).createValoration(valorationDto);
     }
 
-    /**
-     * Prueba unitaria para probar que se obtiene la lista de valoraciones válida para un id de receta y límite dados.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las valoraciones.
-     */
     @Test
     public void testFindValorations_validIdRecipeAndLimit_returnValorationsList() throws ExternalErrorException{
         // Configuración del test
@@ -105,12 +88,6 @@ public class ValorationServiceTest {
         verify(fridChefApiClient, times(1)).findValorations(idRecipe, limit);
     }
 
-    /**
-     * Prueba unitaria para probar que se captura la excepción adecuada cuando ocurre un error externo
-     * durante la búsqueda de las valoraciones.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las valoraciones.
-     */
     @Test
     public void testFindValorations_externalErrorOccurred() throws ExternalErrorException {
         // Configuración del test

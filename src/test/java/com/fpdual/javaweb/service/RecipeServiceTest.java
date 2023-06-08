@@ -42,12 +42,6 @@ public class RecipeServiceTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método findRecipeSuggestions().
-     * Debe devolver una lista de sugerencias de recetas cuando la llamada al cliente FridChefApiClient tiene éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error durante la comunicación externa.
-     */
     @Test
     public void testFindRecipeSuggestions_returnListOfRecipeSuggestions_whenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -88,11 +82,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findRecipeSuggestions(ingredientList);
     }
 
-    /**
-     * Prueba unitaria para probar que se buscan las recetas por una categoría válida y se retorna una lista de RecipeDto.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindAllRecipesByCategoryId_validIntidCategory_returnRecipeDtoList() throws ExternalErrorException {
         //Configuracion del test y simulacion respuesta utilizando Mockito
@@ -114,11 +103,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findRecipesByCategory(idCategory);
     }
 
-    /**
-     * Prueba unitaria para probar que se busca una categoría que no tiene recetas y se retorna una lista vacía de RecipeDto.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindAllRecipesByCategoryId_emptyList_returnEmptyRecipeDtoList() throws ExternalErrorException {
         //Configuracion del test y simulacion respuesta utilizando Mockito
@@ -136,11 +120,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findRecipesByCategory(idCategory);
     }
 
-    /**
-     * Prueba unitaria para probar que ocurre un error externo al buscar las recetas por una categoría y se captura la excepción.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindAllRecipesByCategoryId_catchesExternalErrorException() throws ExternalErrorException {
         //Configuracion del test y simulacion respuesta utilizando Mockito
@@ -158,11 +137,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findRecipesByCategory(idCategory);
     }
 
-    /**
-     * Prueba unitaria para probar que el registro de la receta se realiza correctamente.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testRegisterRecipe_validRecipeDto_returnRegisteredRecipeDto () throws ExternalErrorException{
         //Configuracion del test y simulacion respuesta utilizando Mockito
@@ -177,11 +151,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).createRecipe(recipeDto);
     }
 
-    /**
-     * Prueba unitaria para probar que ocurre un error externo durante el registro de la receta.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testRegisterRecipe_externalErrorOccurred() throws ExternalErrorException {
         // Configuración del test
@@ -233,11 +202,6 @@ public class RecipeServiceTest {
         assertNull(result);
     }
 
-    /**
-     * Prueba unitaria para probar que se recuperan correctamente las recetas favoritas.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindFavorites_validIntegerIdsList_returnRecipesFoundList() throws ExternalErrorException, BadRequestException {
         // Configuración del test
@@ -257,11 +221,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findFavorites(ids);
     }
 
-    /**
-     * Prueba unitaria para probar que ocurre un error externo al buscar las recetas favoritas y se captura la excepción.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindFavorites_externalErrorOccurred() throws ExternalErrorException, BadRequestException {
         // Configuración del test
@@ -279,11 +238,6 @@ public class RecipeServiceTest {
         assertEquals("Error", throwable.getMessage());
     }
 
-    /**
-     * Prueba unitaria para probar que se buscan las recetas mejor valoradas correctamente.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindMostRated_validLimit_returnRecipesFoundList() throws ExternalErrorException {
         // Configuración del test
@@ -301,11 +255,6 @@ public class RecipeServiceTest {
         verify(apiClient, times(1)).findMostRated(limit);
     }
 
-    /**
-     * Prueba unitaria para probar que ocurre un error externo durante la búsqueda de las recetas mejor valoradas.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindMostRated_externalErrorOccurred() throws ExternalErrorException {
         // Configuración del test
@@ -322,12 +271,6 @@ public class RecipeServiceTest {
         assertEquals("Error", throwable.getMessage());
     }
 
-    /**
-     * Prueba unitaria para el método findByStatusPending().
-     * Debe devolver una lista de RecipeDto no nula cuando la llamada al cliente FridChefApiClient tiene éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error durante la comunicación externa.
-     */
     @Test
     public void testFindByStatusPending_listRecipeDtoNotNull() throws ExternalErrorException {
 
@@ -342,12 +285,6 @@ public class RecipeServiceTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método findByStatusPending().
-     * Debe lanzar ExternalErrorException cuando ocurre un error durante la comunicación externa.
-     *
-     * @throws ExternalErrorException si ocurre un error durante la comunicación externa.
-     */
    @Test
     public void testFindByStatusPending_listRecipeDtoExternalErrorException() throws ExternalErrorException {
 
@@ -359,12 +296,6 @@ public class RecipeServiceTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método updateRecipeStatus().
-     * Debe devolver un RecipeDto no nulo cuando la llamada al cliente FridChefApiClient tiene éxito.
-     *
-     * @throws Exception si ocurre un error durante la actualización del estado de la receta.
-     */
     @Test
     public void testUpdateRecipeStatus_validIdStatus_recipeDtoNotNull() throws Exception {
 
@@ -379,12 +310,6 @@ public class RecipeServiceTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método updateRecipeStatus().
-     * Debe lanzar ExternalErrorException cuando ocurre un error durante la actualización del estado de la receta.
-     *
-     * @throws Exception si ocurre un error durante la actualización del estado de la receta.
-     */
     @Test
     public void testUpdateRecipeStatus_validIdStatus_recipeDtoException() throws Exception {
 

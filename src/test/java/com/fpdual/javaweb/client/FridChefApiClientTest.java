@@ -63,13 +63,6 @@ public class FridChefApiClientTest {
         exampleIngredientDto.setName("Tomate");
     }
 
-    /**
-     * Prueba unitaria para el método createUser.
-     * Verifica que, al proporcionar un UserDto válido, el método devuelve un UserDto no nulo.
-     *
-     * @throws ExternalErrorException si se produce un error externo.
-     * @throws AlreadyExistsException si el usuario ya existe.
-     */
     @Test
     public void testCreateUser_validUserDto_userDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
         //Prepare method dependencies
@@ -86,11 +79,6 @@ public class FridChefApiClientTest {
         assertNotNull(userDtoRs);
     }
 
-    /**
-     * Prueba unitaria para el método createUser.
-     * Verifica que, al proporcionar un UserDto válido y recibir un código de estado "NOT_MODIFIED",
-     * se lance la excepción AlreadyExistsException.
-     */
     @Test
     public void testCreateUser_validUserDto_userAlreadyExistsException() {
 
@@ -105,11 +93,6 @@ public class FridChefApiClientTest {
         assertThrows(AlreadyExistsException.class, () -> fridChefApiClient.createUser(exampleUserDto));
     }
 
-    /**
-     * Prueba unitaria para el método createUser.
-     * Verifica que, al proporcionar un UserDto válido y ocurrir una excepción externa,
-     * se lance la excepción ExternalErrorException.
-     */
     @Test
     public void testCreateUser_validUserDto_ExternalErrorException() {
 
@@ -122,11 +105,6 @@ public class FridChefApiClientTest {
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.createUser(exampleUserDto));
     }
 
-    /**
-     * Prueba unitaria para el método deleteUser.
-     * Verifica que, al proporcionar un email válido y recibir un código de estado "OK",
-     * el método devuelve true, indicando que el usuario fue eliminado correctamente.
-     */
     @Test
     public void testDeleteUser_validEmail_userDeletedTrue(){
 
@@ -145,11 +123,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método deleteUser.
-     * Verifica que, al proporcionar un email válido y recibir un código de estado "INTERNAL_SERVER_ERROR",
-     * el método devuelve false, indicando que no se pudo eliminar el usuario.
-     */
     @Test
     public void testDeleteUser_validEmail_userDeletedFalse(){
 
@@ -166,12 +139,6 @@ public class FridChefApiClientTest {
         assertFalse(deleted);
     }
 
-    /**
-     * Prueba unitaria para el método findUser.
-     * Verifica que, al proporcionar un email y contraseña válidos, se obtiene un objeto UserDto no nulo.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindUser_validEmailPassword_userDtoNotNull() throws ExternalErrorException {
 
@@ -189,12 +156,6 @@ public class FridChefApiClientTest {
         assertNotNull(userDtoRs);
     }
 
-    /**
-     * Prueba unitaria para el método findUser.
-     * Verifica que, al proporcionar un email y contraseña válidos, se obtiene un objeto UserDto nulo debido a un código de estado "NO_CONTENT".
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindUser_validEmailPassword_userDtoNull() throws ExternalErrorException {
 
@@ -211,11 +172,6 @@ public class FridChefApiClientTest {
         assertNull(userDtoRs);
     }
 
-    /**
-     * Prueba unitaria para el método findUser.
-     * Verifica que, al proporcionar un email y contraseña válidos, se lanza la excepción ExternalErrorException.
-     * Esta excepción se espera cuando ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindUser_validEmailPassword_ExternalErrorException() {
 
@@ -228,14 +184,6 @@ public class FridChefApiClientTest {
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findUser(exampleUserDto.getEmail(), exampleUserDto.getPassword()));
     }
 
-    /**
-     * Prueba unitaria para el método findAllIngredients.
-     * Verifica que, al llamar al método para obtener la lista de ingredientes, se devuelva una lista de ingredientes correctamente.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa del servidor.
-     * Se compara la lista de ingredientes esperada con la lista de ingredientes devuelta por el método.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindAllIngredients_ReturnListOfIngredients_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -258,14 +206,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedIngredients, actualIngredients);
     }
 
-    /**
-     * Prueba unitaria para el método findAllAllergens.
-     * Verifica que, al llamar al método para obtener la lista de alérgenos, se devuelva una lista de alérgenos correctamente.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa del servidor.
-     * Se compara la lista de alérgenos esperada con la lista de alérgenos devuelta por el método.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     void testFindAllAllergens_ReturnListOfAllergens_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -290,14 +230,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método findRecipeById.
-     * Verifica que, al llamar al método para buscar una receta por su ID, se devuelva la receta correctamente.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa del servidor.
-     * Se compara la receta esperada con la receta devuelta por el método.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindRecipeById_ReturnRecipeById_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -322,13 +254,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipe, actualRecipe);
     }
 
-    /**
-     * Prueba unitaria para el método findRecipeById en caso de error.
-     * Verifica que, al llamar al método para buscar una receta por su ID y se produce un error en el servidor,
-     * se lance la excepción ExternalErrorException.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta de error del servidor.
-     * Se verifica que se lance la excepción esperada al invocar el método.
-     */
     @Test
     public void testFindRecipeById_Error() {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -356,15 +281,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método findByIngredients en caso de éxito.
-     * Verifica que, al llamar al método para buscar recetas por ingredientes y se obtiene una respuesta exitosa,
-     * se devuelva una lista de recetas esperada.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa del servidor.
-     * Se verifica que la lista de recetas devuelta sea igual a la lista de recetas esperada.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindByIngredients_ReturnListOfRecipesByIngredients_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -391,13 +307,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipes, actualRecipes);
     }
 
-    /**
-     * Prueba unitaria para el método findByIngredients en caso de error.
-     * Verifica que, al llamar al método para buscar recetas por ingredientes y se obtiene una respuesta de error del servidor,
-     * se lance la excepción ExternalErrorException.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta de error del servidor.
-     * Se verifica que al invocar el método se lance la excepción esperada.
-     */
     @Test
     public void testFindByIngredients_Error() {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -420,15 +329,6 @@ public class FridChefApiClientTest {
         });
     }
 
-    /**
-     * Prueba unitaria para el método findRecipeSuggestions en caso de éxito.
-     * Verifica que, al llamar al método para buscar sugerencias de recetas por ingredientes y se obtiene una respuesta exitosa del servidor,
-     * se retornen correctamente las sugerencias de recetas esperadas.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa del servidor.
-     * Se verifica que las recetas retornadas coincidan con las recetas esperadas.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindRecipeSuggestions_ReturnListOfRecipeSuggestions_WhenSuccessful() throws ExternalErrorException {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -455,13 +355,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipes, actualRecipes);
     }
 
-    /**
-     * Prueba unitaria para el método findRecipeSuggestions en caso de error.
-     * Verifica que, al llamar al método para buscar sugerencias de recetas por ingredientes y se obtiene un error del servidor,
-     * se lance la excepción ExternalErrorException.
-     * Se configura el comportamiento esperado del objeto mock para simular un error del servidor.
-     * Se verifica que se lance la excepción esperada al invocar el método.
-     */
     @Test
     public void testFindRecipeSuggestions_Error() {
         // Arrange: Configuración del comportamiento esperado del objeto mock
@@ -484,15 +377,6 @@ public class FridChefApiClientTest {
         });
     }
 
-    /**
-     * Prueba unitaria para el método findByStatusPending cuando no se encuentran recetas pendientes.
-     * Verifica que, al llamar al método para buscar recetas pendientes y no se encuentran recetas,
-     * se devuelve una lista nula.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa sin contenido.
-     * Se ejecuta el método y se verifica que se devuelva una lista nula.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindByStatusPending_listRecipeDtoNull() throws ExternalErrorException {
 
@@ -509,13 +393,6 @@ public class FridChefApiClientTest {
         assertNull(recipeDtoListRs);
     }
 
-    /**
-     * Prueba unitaria para el método findByStatusPending cuando se produce una excepción externa.
-     * Verifica que se lance una excepción del tipo ExternalErrorException al llamar al método
-     * y se produce una excepción externa.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta con error.
-     * Se verifica que se lance una excepción del tipo ExternalErrorException al llamar al método.
-     */
     @Test
     public void testFindByStatusPending_listRecipeDtoExternalErrorException() {
 
@@ -528,15 +405,6 @@ public class FridChefApiClientTest {
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findByStatusPending());
     }
 
-    /**
-     * Prueba unitaria para el método updateRecipeStatus cuando se actualiza correctamente el estado de una receta.
-     * Verifica que se devuelva un objeto RecipeDto no nulo al llamar al método y se actualice correctamente el estado de la receta.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa con un objeto RecipeDto.
-     * Se verifica que se devuelva un objeto RecipeDto no nulo al llamar al método.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     * @throws AlreadyExistsException si ya existe una entidad con el mismo estado que se intenta actualizar.
-     */
     @Test
     public void testUpdateRecipeStatus_validRecipeDto_recipeDtoNotNull() throws ExternalErrorException, AlreadyExistsException {
 
@@ -554,12 +422,6 @@ public class FridChefApiClientTest {
         assertNotNull(recipeDtoRs);
     }
 
-    /**
-     * Prueba unitaria para el método updateRecipeStatus cuando se produce una excepción AlreadyExistsException al actualizar el estado de una receta.
-     * Verifica que se lance una excepción AlreadyExistsException al llamar al método y obtener un código de respuesta NOT_MODIFIED.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta con código NOT_MODIFIED.
-     * Se verifica que se lance una excepción AlreadyExistsException al llamar al método.
-     */
     @Test
     public void testUpdateRecipeStatus_validRecipeDto_recipeDtoAlreadyExistsException() {
 
@@ -574,12 +436,6 @@ public class FridChefApiClientTest {
                 () -> fridChefApiClient.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus()));
     }
 
-    /**
-     * Prueba unitaria para el método updateRecipeStatus cuando se produce una excepción ExternalErrorException al actualizar el estado de una receta.
-     * Verifica que se lance una excepción ExternalErrorException al llamar al método y obtener una respuesta no exitosa.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta no exitosa.
-     * Se verifica que se lance una excepción ExternalErrorException al llamar al método.
-     */
     @Test
     public void testUpdateRecipeStatus_validRecipeDto_recipeDtoExternalErrorException() {
 
@@ -593,12 +449,6 @@ public class FridChefApiClientTest {
                 () -> fridChefApiClient.updateRecipeStatus(exampleRecipeDto.getId(), exampleRecipeDto.getStatus()));
     }
 
-    /**
-     * Prueba unitaria para el método deleteIngredient cuando se elimina correctamente un ingrediente.
-     * Verifica que se devuelva true al llamar al método y obtener una respuesta exitosa con un valor booleano true.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa con un valor booleano true.
-     * Se verifica que se devuelva true al llamar al método.
-     */
     @Test
     public void testDeleteIngredient_validId_ingredientDeletedTrue() {
 
@@ -617,12 +467,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método deleteIngredient cuando no se puede eliminar un ingrediente.
-     * Verifica que se devuelva false al llamar al método y obtener una respuesta no exitosa.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta no exitosa.
-     * Se verifica que se devuelva false al llamar al método.
-     */
     @Test
     public void testDeleteIngredient_validId_ingredientDeletedFalse() {
 
@@ -638,14 +482,6 @@ public class FridChefApiClientTest {
         assertFalse(deleted);
     }
 
-    /**
-     * Prueba unitaria para el método createIngredient cuando se crea un ingrediente válido.
-     * Verifica que se devuelva un objeto IngredientDto no nulo al llamar al método y obtener una respuesta exitosa.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa.
-     * Se verifica que se devuelva un objeto IngredientDto no nulo al llamar al método.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateIngredient_validIngredientDto_userDtoNotNull() throws ExternalErrorException {
         //Prepare method dependencies
@@ -663,12 +499,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba unitaria para el método createIngredient cuando se produce una excepción ExternalErrorException al crear un ingrediente.
-     * Verifica que se lance una excepción ExternalErrorException al llamar al método y obtener una respuesta no exitosa.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta no exitosa.
-     * Se verifica que se lance una excepción ExternalErrorException al llamar al método.
-     */
     @Test
     public void testCreateIngredient_validIngredientDto_userDtoExternalErrorException(){
 
@@ -764,11 +594,6 @@ public class FridChefApiClientTest {
         });
     }
 
-    /**
-     * Verifica que el método createRecipe devuelve un RecipeDto cuando se proporciona un RecipeDto válido.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método
-     */
     @Test
     public void testCreateRecipe_validRecipeDto_returnRecipeDto() throws ExternalErrorException{
         //Configuracion del test
@@ -792,9 +617,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipeDto, result);
     }
 
-    /**
-     * Verifica que el método createRecipe lanza una ExternalErrorException cuando ocurre un error interno en el servidor.
-     */
     @Test
     public void testCreateRecipe_validRecipeDto_returnThrowExternalErrorException() {
         //Configuracion del test
@@ -815,11 +637,6 @@ public class FridChefApiClientTest {
         });
     }
 
-    /**
-     * Verifica que se devuelva una lista de CategoryDto válida cuando la respuesta es exitosa.
-     *
-     * @throws ExternalErrorException si ocurre un error externo.
-     */
     @Test
     public void testFindCategories_validResponse_returnCategoryDtoList() throws ExternalErrorException{
         //Configuracion del test
@@ -843,11 +660,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedCategories, result);
     }
 
-    /**
-     * Verifica que se devuelva una lista vacía de CategoryDto cuando la respuesta es sin contenido.
-     *
-     * @throws ExternalErrorException si ocurre un error externo.
-     */
     @Test
     public void testFindCategories_noContent_returnEmptyCategoryDtoList()throws ExternalErrorException{
         //Configuración y simulacion respuesta utilizando Mockito
@@ -866,9 +678,6 @@ public class FridChefApiClientTest {
         assertTrue(result.isEmpty());
     }
 
-    /**
-     * Verifica que se lance una excepción ExternalErrorException cuando la respuesta es un error interno del servidor.
-     */
     @Test
     public void testFindCategories_internalServerError_returnThrowExternalErrorException() {
         //Configuración y simulación respuesta utilizando Mockito
@@ -885,16 +694,6 @@ public class FridChefApiClientTest {
             fridChefApiClient.findCategories();
         });
     }
-
-    /**
-     * Prueba unitaria para el método findFavorites cuando se especifican ids válidos.
-     * Verifica que se devuelva una lista de RecipeDto esperada.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta exitosa.
-     * Se verifica que la lista devuelta coincida con la lista de RecipeDto esperada.
-     *
-     * @throws ExternalErrorException si se produce un error externo al llamar al servicio.
-     * @throws BadRequestException si se produce una solicitud incorrecta al llamar al servicio.
-     */
 
     @Test
     public void testFindFavorites_validIds_returnRecipeDtoList()throws ExternalErrorException, BadRequestException {
@@ -920,12 +719,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipes, result);
     }
 
-    /**
-     * Prueba unitaria para el método findFavorites cuando se produce un error interno del servidor.
-     * Verifica que se lance una excepción de tipo ExternalErrorException.
-     * Se configura el comportamiento esperado del objeto mock para simular una respuesta con error interno del servidor.
-     * Se verifica que se lance la excepción esperada al llamar al método.
-     */
     @Test
     public void testFindFavorite_internalServerError_returnThrowExternalError(){
         //Configuracion del test
@@ -951,11 +744,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Prueba el método con un límite válido y espera una lista de RecipeDto como resultado.
-     *
-     * @throws ExternalErrorException si ocurre un error externo
-     */
     @Test
     public void testFindMostRated_validLimit_returnRecipeDtoList() throws ExternalErrorException{
         //Configuracion del test
@@ -980,9 +768,6 @@ public class FridChefApiClientTest {
         assertEquals(expectedRecipes, result);
     }
 
-    /**
-     * Prueba el método cuando ocurre un error interno del servidor y espera que se lance una ExternalErrorException.
-     */
     @Test
     public void testFindMostRated_internalServerError_returnThrowExternalErrorException(){
         //Configuracion del test
@@ -1005,12 +790,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Con este método se verifica que el método createValoration(ValorationDto) devuelva true cuando la respuesta del servidor
-     * tiene un estado exitoso.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateValoration_validValorationDto_returnTrue() throws ExternalErrorException{
         //Configuracion del test
@@ -1034,10 +813,6 @@ public class FridChefApiClientTest {
 
     }
 
-    /**
-     * Con este método se verifica que el método createValoration(ValorationDto) lance una ExternalErrorException
-     * cuando la respuesta del servidor indica un error interno.
-     */
     @Test
     public void testCreateValoration_validValorationDto_returnFalse(){
         //Configuracion del test
@@ -1059,12 +834,6 @@ public class FridChefApiClientTest {
         });
     }
 
-    /**
-     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
-     * cuando la respuesta del servidor indica éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindValorations_validIdValidLimit_returnValorationList() throws ExternalErrorException{
         //Configuracion del test
@@ -1098,13 +867,6 @@ public class FridChefApiClientTest {
         assertEquals(2, result.size());
     }
 
-    /**
-     * cuando se espera obtener una lista de valoraciones válida con un límite alto.
-     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
-     * cuando la respuesta del servidor indica éxito y el límite es alto.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindValorations_validIdHighLimit_returnValorationList() throws ExternalErrorException {
         // Configuración del test
@@ -1135,13 +897,6 @@ public class FridChefApiClientTest {
         assertEquals(2, result.size());
     }
 
-    /**
-     * cuando se espera obtener una lista de valoraciones válida con un límite bajo.
-     * Con este método se verifica que el método findValorations(int, int) devuelva una lista de valoraciones correctamente
-     * cuando la respuesta del servidor indica éxito y el límite es bajo.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testFindValorations_validIdLowLimit_returnValorationList() throws ExternalErrorException {
         // Configuración del test
@@ -1171,11 +926,6 @@ public class FridChefApiClientTest {
         assertEquals(1, result.size());
     }
 
-    /**
-     * cuando se recibe una respuesta de error del servidor.
-     * Con este método se verifica que el método findValorations(int, int) lance una ExternalErrorException
-     * cuando la respuesta del servidor indica un error interno.
-     */
     @Test
     public void testFindValorations_errorResponse_throwExternalErrorException() {
         // Configuración del test
@@ -1196,12 +946,6 @@ public class FridChefApiClientTest {
         assertThrows(ExternalErrorException.class, () -> fridChefApiClient.findValorations(idRecipe, limit));
     }
 
-    /**
-     * Con este método se verifica que el método createFavorite(int, int) devuelva true
-     * cuando la respuesta del servidor indica éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateFavorite_validParameter_returnTrue() throws ExternalErrorException {
         // Configuración del test
@@ -1224,12 +968,6 @@ public class FridChefApiClientTest {
         assertTrue(result);
     }
 
-    /**
-     * Con este método se verifica que el método createFavorite(int, int) devuelva false
-     * cuando la respuesta del servidor indica que el ID de la receta no existe.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateFavorite_nonExistingRecipeId_returnFalse() throws ExternalErrorException {
         // Configuración del test
@@ -1252,12 +990,6 @@ public class FridChefApiClientTest {
         assertFalse(result);
     }
 
-    /**
-     * Con este método se verifica que el método createFavorite(int, int) devuelva false
-     * cuando la respuesta del servidor indica que el ID del usuario no existe.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateFavorite_nonExistingUserId_returnFalse() throws ExternalErrorException {
         // Configuración del test
@@ -1280,12 +1012,6 @@ public class FridChefApiClientTest {
         assertFalse(result);
     }
 
-    /**
-     * Con este método se verifica que el método createFavorite(int, int) lance una ExternalErrorException
-     * cuando la respuesta del servidor indica un error interno.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testCreateFavorite_errorResponse_throwExternalErrorException() throws ExternalErrorException {
         // Configuración del test
@@ -1308,12 +1034,6 @@ public class FridChefApiClientTest {
         assertFalse(result);
     }
 
-    /**
-     * Con este método se verifica que el método deleteFavorite(int, int) devuelva true
-     * cuando la respuesta del servidor indica éxito.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testDeleteFavorite_validParameter_returnTrue() throws ExternalErrorException {
         // Configuración del test
@@ -1336,12 +1056,6 @@ public class FridChefApiClientTest {
         assertTrue(result);
     }
 
-    /**
-     * Con este método se verifica que el método deleteFavorite(int, int) devuelva false
-     * cuando la respuesta del servidor indica que el ID de la receta no existe.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testDeleteFavorite_nonExistingRecipeId_returnFalse() throws ExternalErrorException {
         // Configuración del test
@@ -1364,12 +1078,6 @@ public class FridChefApiClientTest {
         assertFalse(result);
     }
 
-    /**
-     * Con este método se verifica que el método deleteFavorite(int, int) devuelva false
-     * cuando la respuesta del servidor indica que el ID del usuario no existe.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testDeleteFavorite_nonExistingUserId_returnFalse() throws ExternalErrorException {
         // Configuración del test
@@ -1392,12 +1100,6 @@ public class FridChefApiClientTest {
         assertFalse(result);
     }
 
-    /**
-     * Con este método se verifica que el método deleteFavorite(int, int) lance una ExternalErrorException
-     * cuando la respuesta del servidor indica un error interno.
-     *
-     * @throws ExternalErrorException si ocurre un error externo durante la ejecución del método.
-     */
     @Test
     public void testDeleteFavorite_errorResponse_throwExternalErrorException() throws ExternalErrorException {
         // Configuración del test
