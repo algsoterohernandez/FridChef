@@ -109,7 +109,7 @@ input[type="button"] {
     background-color: #555;
 }
 
-.buttos a:link,
+.buttos a:link,ronnie
 .buttons a:visited{
     text-decoration: none;
 }
@@ -731,6 +731,7 @@ div.difficulty{
 
 div.image-position{
     display: flex;
+    padding-bottom: 0%;
 }
 
 div.text-image{
@@ -743,7 +744,18 @@ div.image-recipe{
     width: 80%;
 }
 
+div.description-date{
+    padding: 0px 40px;
+}
+div.description{
+    padding-top: 0%;
+    padding-bottom: 0%;
+    margin: 0%;
+}
 
+div.opinion{
+   padding: 0px 40px;
+}
 div.recipe-details h2 {
     margin-bottom: 10px;
 }
@@ -851,4 +863,45 @@ textarea#comment {
     width: 5em;
     text-align: center;
     background: transparent;
+}
+
+.valoration-rate{
+    display: flex;
+    height: 100px;
+}
+.valoration-title{
+    width:25%;
+    padding: 0%;
+    height: 100px;
+}
+.valoration-fieldset{
+    width:60%;
+    height: 100px;
+    margin: 0px;
+    padding: 0%;
+}
+.valoration{
+    padding:0%;
+}
+
+.title-comment{
+    font-family: Amatic SC, serif;
+    font-size: x-large;
+    font-weight: bolder;
+    pading-botton:2%
+}
+
+.content-comment{
+    font-family: Amatic SC, serif;
+    font-size: x-large;
+    padding-right: 5%;
+    pading-botton:2%
+}
+
+.text-image{
+    width: 70%;
+}
+
+.image-box{
+    width: 30%;
 }
