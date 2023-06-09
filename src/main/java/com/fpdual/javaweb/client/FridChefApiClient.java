@@ -321,7 +321,7 @@ public class FridChefApiClient {
      *
      * @param ids Lista de identificadores de las recetas favoritas a buscar.
      * @return Lista de objetos RecipeDto que representan las recetas favoritas encontradas.
-     * @throws ExternalErrorException Si ocurre un error al realizar la búsqueda de las recetas favoritas.
+     * @throws ExternalErrorException Sí ocurre un error al realizar la búsqueda de las recetas favoritas.
      */
     public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException, BadRequestException {
         List<RecipeDto> recipeDtoList = null;
@@ -453,7 +453,7 @@ public class FridChefApiClient {
      *
      * @param name el nombre del ingrediente a crear
      * @return el objeto IngredientDto que representa el ingrediente creado
-     * @throws ExternalErrorException si se produce un error externo durante la operación
+     * @throws ExternalErrorException sí se produce un error externo durante la operación
      */
     public IngredientDto createIngredient(String name) throws ExternalErrorException {
         IngredientDto rs;
@@ -474,15 +474,15 @@ public class FridChefApiClient {
      * Crea una nueva valoración para una receta.
      *
      * @param valorationDto Objeto ValorationDto que contiene los datos de la valoración.
-     * @throws ExternalErrorException Si ocurre un error al añadir la valoración.
+     * @throws ExternalErrorException Sí ocurre un error al añadir la valoración.
      */
     public Boolean createValoration(ValorationDto valorationDto) throws ExternalErrorException {
-        //Se construye url y se llama al servicio web con el id de la receta proporcionada por el ValorationDto
+        //Se construye url y se llama al servicio web con él, id de la receta proporcionada por el ValorationDto
         Response response = webTarget.path("recipes/" + valorationDto.getIdRecipe() + "/rating")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(valorationDto));
 
-        /*Se verifica el estado de la respuesta recibida,si no es OK, se lanzará la excepción
+        /*Se verifica el estado de la respuesta recibida, si no es OK, se lanzará la excepción
           error externo, de lo contrario se devuelve true para indicar que la valoración se creó correctamente*/
         if (response.getStatus() != HttpStatus.OK.getStatusCode()) {
             throw new ExternalErrorException("Ha ocurrido un error al añadir la valoración");
@@ -540,7 +540,7 @@ public class FridChefApiClient {
      * @param idRecipe el ID de la receta a eliminar de la lista de favoritos
      * @param idUser   el ID del usuario
      * @return true si la receta se eliminó de la lista de favoritos correctamente, false en caso contrario
-     * @throws ExternalErrorException si ocurre un error externo al eliminar la receta de la lista de favoritos
+     * @throws ExternalErrorException sí ocurre un error externo al eliminar la receta de la lista de favoritos
      */
     public boolean deleteFavorite(int idRecipe, int idUser) throws ExternalErrorException {
         Response response = webTarget.path("user/" + idUser + "/favorite/" + idRecipe)

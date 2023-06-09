@@ -17,6 +17,9 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servlet que maneja las recetas favoritas.
+ */
 @WebServlet(name = "FavoriteServlet", urlPatterns = {"/favorite"})
 public class FavoriteServlet extends ParentServlet {
 
@@ -24,6 +27,11 @@ public class FavoriteServlet extends ParentServlet {
     private FavoriteService favoriteService;
     private RecipeService recipeService;
 
+    /**
+     * Método de inicialización del servlet.
+     * Crea una instancia de FridChefApiClient, RecipeService y FavoriteService para manejar los usuarios.
+     * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
+     */
     @Override
     public void init() {
         apiClient = new FridChefApiClient();
@@ -32,6 +40,13 @@ public class FavoriteServlet extends ParentServlet {
         super.init(apiClient);
     }
 
+    /**
+     *  Método protegido que maneja una solicitud GET.
+     * @param req la solicitud HttpServletRequest
+     * @param resp la respuesta HttpServletResponse
+     * @throws ServletException si ocurre un error en el servlet
+     * @throws IOException si ocurre un error de entrada/salida
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
         this.fillCategories(req);
@@ -55,6 +70,12 @@ public class FavoriteServlet extends ParentServlet {
         }
     }
 
+    /**
+     * Maneja una solicitud HTTP POST.
+     *
+     * @param req  el objeto HttpServletRequest que representa la solicitud HTTP recibida.
+     * @param resp el objeto HttpServletResponse que se utilizará para enviar la respuesta HTTP.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         // favorite/?id_recipe=2&recipe_favorite=[add|remove]

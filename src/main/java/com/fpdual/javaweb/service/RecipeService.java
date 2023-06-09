@@ -93,9 +93,9 @@ public class RecipeService {
     /**
      * Busca las recetas favoritas correspondientes a los IDs proporcionados.
      *
-     * @param ids los IDs de las recetas favoritas a buscar
+     * @param ids los ID de las recetas favoritas a buscar
      * @return Una lista de objetos RecipeDto que representan las recetas favoritas encontradas
-     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las recetas favoritas
+     * @throws ExternalErrorException sí ocurre un error externo durante la búsqueda de las recetas favoritas
      */
     public List<RecipeDto> findFavorites(List<Integer> ids) throws ExternalErrorException, BadRequestException {
         List<RecipeDto> recipes = apiClient.findFavorites(ids);
@@ -107,7 +107,7 @@ public class RecipeService {
      *
      * @param limit el número máximo de recetas a obtener
      * @return una lista de objetos RecipeDto que representan las recetas más valoradas
-     * @throws ExternalErrorException si ocurre un error externo durante la búsqueda de las recetas más valoradas
+     * @throws ExternalErrorException sí ocurre un error externo durante la búsqueda de las recetas más valoradas
      */
     public List<RecipeDto> findMostRated(int limit) throws ExternalErrorException {
         List<RecipeDto> recipesMostRated = apiClient.findMostRated(limit);
@@ -118,7 +118,7 @@ public class RecipeService {
      * Obtiene todas las recetas pendientes.
      *
      * @return Lista de RecipeDto con las recetas pendientes.
-     * @throws ExternalErrorException Si ocurre un error en la comunicación con la API externa.
+     * @throws ExternalErrorException Sí ocurre un error en la comunicación con la API externa.
      */
     public List<RecipeDto> findByStatusPending() throws ExternalErrorException {
         List<RecipeDto> recipeDtoList;
@@ -141,7 +141,7 @@ public class RecipeService {
      * @param id     ID de la receta a actualizar.
      * @param status Nuevo estado de la receta.
      * @return RecipeDto que representa la receta actualizada.
-     * @throws Exception Si ocurre un error en la comunicación con la API externa.
+     * @throws Exception Sí ocurre un error en la comunicación con la API externa.
      */
     public RecipeDto updateRecipeStatus(int id, String status) throws Exception {
         RecipeDto recipeDto;

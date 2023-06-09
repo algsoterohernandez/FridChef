@@ -38,8 +38,8 @@ public class IndexServlet extends ParentServlet {
      *
      * @param req  el objeto HttpServletRequest que representa la solicitud HTTP.
      * @param resp el objeto HttpServletResponse que representa la respuesta HTTP.
-     * @throws ServletException si ocurre un error durante el procesamiento de la solicitud.
-     * @throws IOException      si ocurre un error de E/S durante el procesamiento de la solicitud.
+     * @throws ServletException sí ocurre un error durante el procesamiento de la solicitud.
+     * @throws IOException      sí ocurre un error de E/S durante el procesamiento de la solicitud.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

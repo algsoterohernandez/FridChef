@@ -39,8 +39,8 @@ public class ContactServlet extends ParentServlet {
      *
      * @param req  la solicitud HttpServletRequest enviada por el cliente
      * @param resp la respuesta HttpServletResponse que se enviará al cliente
-     * @throws ServletException si ocurre algún error durante el procesamiento del servlet
-     * @throws IOException      si ocurre algún error de E/S durante el procesamiento del servlet
+     * @throws ServletException sí ocurre algún error durante el procesamiento del servlet
+     * @throws IOException      sí ocurre algún error de E/S durante el procesamiento del servlet
      */
 
     @Override
@@ -64,7 +64,7 @@ public class ContactServlet extends ParentServlet {
         this.fillCategories(req);
         try
         {
-            //Envio de Email de bienvenida
+            //Email de bienvenida
             String from = req.getParameter("email");
             String to = "fridcheffpdual@gmail.com";
             String subject = req.getParameter("name");

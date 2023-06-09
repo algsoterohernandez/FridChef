@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet que maneja las solicitudes de recetas pendientes de aceptar o rechazar.
+ */
 @WebServlet(name = "RecipeRequestServlet", urlPatterns = {"/recipe-request"})
 public class RecipeRequestServlet extends ParentServlet{
 

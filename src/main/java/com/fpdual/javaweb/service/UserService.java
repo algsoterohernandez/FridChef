@@ -24,8 +24,8 @@ public class UserService {
     /**
      * Registra un nuevo usuario en el sistema.
      * @param userDto el objeto UserDto que contiene la información del usuario a registrar.
-     * @return el objeto UserDto registrado, con la indicación de si el usuario ya existe en el sistema.
-     * @throws ExternalErrorException si ocurre un error durante la comunicación con la API externa.
+     * @return el objeto UserDto registrado, con la indicación de sí el usuario ya existe en el sistema.
+     * @throws ExternalErrorException sí ocurre un error durante la comunicación con la API externa.
      */
     public UserDto registerUser(UserDto userDto) throws ExternalErrorException {
         try {

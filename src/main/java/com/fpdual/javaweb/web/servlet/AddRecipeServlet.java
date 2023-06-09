@@ -51,8 +51,8 @@ public class AddRecipeServlet extends ParentServlet {
      *
      * @param req  la solicitud HTTP recibida por el servlet.
      * @param resp la respuesta HTTP que se enviará al cliente.
-     * @throws ServletException si se produce un error específico del servlet.
-     * @throws IOException      si se produce un error de entrada/salida.
+     * @throws ServletException sí se produce un error específico del servlet.
+     * @throws IOException      sí se produce un error de entrada/salida.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -127,7 +127,7 @@ public class AddRecipeServlet extends ParentServlet {
             throw new RuntimeException(e);
         }
 
-        //Se setean los atributos para la vista
+        //Se asignan los atributos para la vista
         req.setAttribute("categories", categoryService.getAllCategories());
         req.setAttribute("ingredients", ingredientService.findAllIngredients());
         req.setAttribute("units", ingredientService.getAllUnits());

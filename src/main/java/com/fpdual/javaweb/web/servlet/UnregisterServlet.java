@@ -7,7 +7,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
+/**
+ * Servlet que maneja la baja de los usuarios.
+ */
 @WebServlet(name = "UnregisterServlet", urlPatterns = {"/unregister"})
 public class UnregisterServlet extends ParentServlet {
     private UserService userService;

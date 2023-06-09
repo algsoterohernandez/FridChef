@@ -95,4 +95,21 @@ public class FavoriteServiceTest {
         // Verificación del resultado
         assertEquals(0, result.getFavoriteList().size());
     }
+
+    @Test
+    public void testRemoveFavorite_ExceptionThrown_sameUser() throws ExternalErrorException {
+        // Configuración del test
+        int idRecipe = 1;
+        UserDto user = new UserDto();
+        user.setId(51);
+        user.setFavoriteList(new ArrayList<>());
+
+        when(fridChefApiClient.deleteFavorite(idRecipe, user.getId())).thenThrow(ExternalErrorException.class);
+        // Ejecución del método
+        UserDto result = favoriteService.removeFavorite(idRecipe, user);
+
+        // Verificación del resultado
+        assertTrue(result.equals(user));
+    }
+
 }

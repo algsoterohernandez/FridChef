@@ -15,7 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Properties;
 
-
+/**
+ * Servlet que maneja el alta del usuario.
+ */
 @WebServlet(name = "RegisterFormServlet", urlPatterns = {"/register-form"})
 public class RegisterFormServlet extends ParentServlet {
     private UserService userService;

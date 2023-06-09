@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Servlet que maneja la búsqueda de recetas en relación con sus ingredientes.
+ */
 @WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
 public class SearchServlet extends ParentServlet {
     private IngredientService ingredientService;

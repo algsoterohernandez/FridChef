@@ -54,8 +54,8 @@ public class LoginServlet extends ParentServlet {
      *
      * @param req  El objeto HttpServletRequest que contiene la solicitud HTTP.
      * @param resp El objeto HttpServletResponse que se utilizará para enviar la respuesta HTTP.
-     * @throws ServletException Si ocurre un error durante el procesamiento del servlet.
-     * @throws IOException      Si ocurre un error de entrada/salida durante el procesamiento del servlet.
+     * @throws ServletException Sí ocurre un error durante el procesamiento del servlet.
+     * @throws IOException      Sí ocurre un error de entrada/salida durante el procesamiento del servlet.
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
