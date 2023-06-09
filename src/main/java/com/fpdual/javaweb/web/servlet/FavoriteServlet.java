@@ -17,6 +17,9 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servlet que maneja las recetas favoritas.
+ */
 @WebServlet(name = "FavoriteServlet", urlPatterns = {"/favorite"})
 public class FavoriteServlet extends ParentServlet {
 

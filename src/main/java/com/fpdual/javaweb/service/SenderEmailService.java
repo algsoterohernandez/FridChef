@@ -15,12 +15,11 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
-@Setter
-@Getter
-
 /**
  * Clase que proporciona funcionalidad para enviar correos electrónicos.
  */
+@Setter
+@Getter
 public class SenderEmailService {
 
     private Properties mailProp, credentialProp;

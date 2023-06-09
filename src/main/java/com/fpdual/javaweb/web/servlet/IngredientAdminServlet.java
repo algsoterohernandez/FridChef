@@ -21,7 +21,7 @@ public class IngredientAdminServlet extends ParentServlet {
 
     /**
      * Método de inicialización del servlet.
-     * Crea una instancia de FridChefApiClient y IngredientService para manejar los ingredientes.
+     * Crea una instancia de FridChefApiClient e IngredientService para manejar los ingredientes.
      * Llama al método init de la clase padre (HttpServlet) pasando el cliente de la API como parámetro.
      */
     @Override
@@ -65,13 +65,13 @@ public class IngredientAdminServlet extends ParentServlet {
      * Realiza acciones dependiendo del valor del parámetro "method-type" en la solicitud.
      * Si el valor es "add", llama al método AddIngredient() para agregar un ingrediente.
      * Si el valor es "delete", llama al método DeleteIngredient() para eliminar un ingrediente.
-     * Después de realizar la acción, obtiene la lista actualizada de ingredientes y la establece como atributo en la solicitud.
+     * Después de ejecutar la acción, obtiene la lista actualizada de ingredientes y la establece como atributo en la solicitud.
      * Finalmente, redirige la solicitud a la página "/admin/ingredients.jsp".
      *
      * @param req  la solicitud HttpServletRequest enviada al servlet
      * @param resp la respuesta HttpServletResponse que se enviará al cliente
      * @throws ServletException si ocurre un error durante el procesamiento del servlet
-     * @throws IOException      si ocurre un error de entrada/salida durante el procesamiento del servlet
+     * @throws IOException      sí ocurre un error de entrada/salida durante el procesamiento del servlet
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

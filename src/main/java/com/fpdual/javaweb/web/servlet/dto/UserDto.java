@@ -24,7 +24,7 @@ public class UserDto {
 
     /**
      * Este metodo sirve para controlar si el usuario ya existe en nuestra base de datos
-     * @return si exite o no con un booleano
+     * @return si existe o no con un booleano
      */
     public boolean isAdmin() {
 

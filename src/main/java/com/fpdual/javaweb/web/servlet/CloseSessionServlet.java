@@ -34,7 +34,7 @@ public class CloseSessionServlet extends ParentServlet {
      *
      * @param req  el objeto HttpServletRequest que contiene la solicitud del cliente
      * @param resp el objeto HttpServletResponse que se utilizará para enviar la respuesta al cliente
-     * @throws RuntimeException si se produce una excepción de tipo IOException
+     * @throws RuntimeException sí se produce una excepción de tipo IOException
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {

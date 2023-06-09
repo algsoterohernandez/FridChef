@@ -93,7 +93,7 @@ public class RecipeServiceTest {
 
     @Test
     public void testFindAllRecipesByCategoryId_validIntidCategory_returnRecipeDtoList() throws ExternalErrorException {
-        //Configuracion del test y simulacion respuesta utilizando Mockito
+        //Configuración del test y simulación respuesta utilizando Mockito
         int idCategory = 1;
         List<RecipeDto> expectedRecipeList = Arrays.asList(
                 RecipeDto.builder().id(1).name("Arroz frito").idCategory(3).time(3).description("").build(),
@@ -101,13 +101,13 @@ public class RecipeServiceTest {
                 RecipeDto.builder().id(3).name("lentejas").imageBase64("").build()
         );
 
-        //Configuracion del comportamiento de la respuesta simulada
+        //Configuración del comportamiento de la respuesta simulada
         when(apiClient.findRecipesByCategory(idCategory)).thenReturn(expectedRecipeList);
 
-        //Ejecucion del metodo bajo prueba
+        //Ejecución del método en pruebas
         List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
 
-        //Verificacion del resultado
+        //Verificación del resultado
         assertEquals(expectedRecipeList, actualRecipeList);
         verify(apiClient, times(1)).findRecipesByCategory(idCategory);
     }
@@ -121,7 +121,7 @@ public class RecipeServiceTest {
         //Configuracion del comportamiento de la respuesta simulada
         when(apiClient.findRecipesByCategory(idCategory)).thenReturn(expectedRecipeList);
 
-        //Ejecucion del metodo bajo prueba
+        //Ejecucion del metodo
         List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
 
         //Verificacion del resultado
@@ -138,7 +138,7 @@ public class RecipeServiceTest {
         //Configuracion del comportamiento de la respuesta simulada
         when(apiClient.findRecipesByCategory(idCategory)).thenThrow(expectedException);
 
-        // Ejecución del método bajo prueba
+        // Ejecución del método
         List<RecipeDto> actualRecipeList = recipeService.findAllRecipesByCategoryId(idCategory);
 
         // Verificación del resultado
@@ -152,7 +152,7 @@ public class RecipeServiceTest {
         RecipeDto recipeDto = new RecipeDto();
         when(apiClient.createRecipe(recipeDto)).thenReturn(recipeDto);
 
-        //Ejecucion del metodo bajo prueba
+        //Ejecucion del metodo
         RecipeDto result = recipeService.registerRecipe(recipeDto);
 
         //Verificacion del resultado
@@ -256,7 +256,7 @@ public class RecipeServiceTest {
         expectedRecipes.add(new RecipeDto());
         when(apiClient.findMostRated(limit)).thenReturn(expectedRecipes);
 
-        // Ejecución del método bajo prueba
+        // Ejecución del método
         List<RecipeDto> result = recipeService.findMostRated(limit);
 
         // Verificación del resultado
