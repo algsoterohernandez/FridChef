@@ -697,7 +697,6 @@ div.main-form {
 /* Estilos para el detalle de la receta */
 
 div.title {
-    margin: auto;
     width: 100%;
     display: inline-flex;
     text-align: center;

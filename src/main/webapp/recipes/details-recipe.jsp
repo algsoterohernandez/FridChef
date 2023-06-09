@@ -57,9 +57,10 @@
                                     <h3>Ingredientes</h3>
                                     <h4>
                                     <% for (IngredientRecipeDto ingredient : recipe.getIngredients()) { %>
-                                    <%=ingredient.getNameIngredient()%> ·
+                                    <%=ingredient.getNameIngredient()%>  <%= ingredient.getQuantity()%> <%= ingredient.getUnit()%> ·
                                     <% } %>
                                     </h4>
+                                <br/>
                                 </div>
                                 <div class="difficulty">
                                     <h3>Dificultad:
